@@ -12,4 +12,4 @@ FILES TO UPLOAD (需上傳的檔案):
 - index.html
 - 404.html
 - assets/ (folder)
-- vite.svg
+- vite.svg (if present)
