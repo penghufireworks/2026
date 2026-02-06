@@ -6,7 +6,7 @@ import path from 'path'
 export default defineConfig({
   // 將 base 改為 '/' 或 './'
   // 既然你有自定義網域，使用 '/' 是最標準的做法
-  base: '/', 
+  base: '/2026/', 
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,3 +19,4 @@ export default defineConfig({
     strictPort: false, 
   }
 })
+
