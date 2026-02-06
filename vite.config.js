@@ -4,7 +4,9 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/2026/',
+  // 將 base 改為 '/' 或 './'
+  // 既然你有自定義網域，使用 '/' 是最標準的做法
+  base: '/', 
   plugins: [react()],
   resolve: {
     alias: {
@@ -12,8 +14,8 @@ export default defineConfig({
     },
   },
   server: {
-    host: true, // Listen on all addresses
-    port: 5173, // Try 5173 first
-    strictPort: false, // If occupied, try next available port
+    host: true, 
+    port: 5173, 
+    strictPort: false, 
   }
 })
