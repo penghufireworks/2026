@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>沐月民宿 Moonlight Villa | 澎湖旅遊住宿首選</title>
+    <meta name="description" content="澎湖沐月民宿，提供舒適的住宿環境。提供在地旅遊諮詢、行程規劃與代訂服務，讓您享受最放鬆的菊島假期。" />
+    <script type="module" crossorigin src="/assets/index-Di0dUI0i.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DT6jzvln.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // 禁用 translateContent.js 和 jquery 的注入
+      window.stopTranslate = true;
+      // 攔截並移除可能導致錯誤的外部腳本
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.tagName === 'SCRIPT' && (node.src.includes('translateContent.js') || node.src.includes('jquery'))) {
+              node.remove();
+              console.log('Blocked external script:', node.src);
+            }
+          });
+        });
+      });
+      observer.observe(document.head, { childList: true, subtree: true });
+      observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+  </body>
+</html>
