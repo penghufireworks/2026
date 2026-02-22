@@ -1,0 +1,2808 @@
+[
+  {
+    "id": "1",
+    "name": "北新橋牛雜湯",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.568228,
+    "lng": 119.5672072,
+    "mustEat": [
+      "牛雜湯",
+      "餡餅"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "05:40–11:30",
+    "desc": "文康街靈魂，湯頭清甜，肉質扎實。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%96%B0%E6%A9%8B%E7%89%9B%E9%9B%9C%E6%B9%AF",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "2",
+    "name": "鐘記燒餅",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.568407,
+    "lng": 119.5671207,
+    "mustEat": [
+      "干貝蔥蛋燒餅"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "06:30–11:00",
+    "desc": "老麵發酵，口感如歐式麵包般Q彈。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%90%98%E8%A8%98%E7%87%92%E9%A4%85",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "3",
+    "name": "玉冠嫩仙草",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.5660976,
+    "lng": 119.5685944,
+    "mustEat": [
+      "綜合嫩仙草刨冰"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:30–22:00",
+    "desc": "澎湖名氣最大冰品，仙草汁製成的冰磚。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%8E%89%E5%86%A0%E5%AB%A9%E4%BB%99%E8%8D%89",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "4",
+    "name": "馬路益燒肉飯",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5660654,
+    "lng": 119.566436,
+    "mustEat": [
+      "燒肉併炸雞腿飯"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–22:00",
+    "desc": "古早味排骨與雞腿的雙拼組合。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%A6%AC%E8%B7%AF%E7%9B%8A%E7%87%92%E8%82%89%E9%A3%AF",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "5",
+    "name": "阿豹香腸攤",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5655731,
+    "lng": 119.5638062,
+    "mustEat": [
+      "大腸包小腸"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "12:30–19:00",
+    "desc": "炭火香氣十足，自助式關東煮湯頭鮮美。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E8%B1%B9%E9%A6%99%E8%85%B8%E6%94%A4",
+    "rating": 4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "6",
+    "name": "癮餐廳 Addict",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.5741487,
+    "lng": 119.5772374,
+    "mustEat": [
+      "土魠魚塔塔"
+    ],
+    "tags": [
+      "歐陸料理",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:30–22:00",
+    "desc": "高品質 Fine Dining，預約困難店。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%99%AE%E9%A4%90%E5%BB%B3%20Addict",
+    "rating": 4.7,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "7",
+    "name": "雛菊見",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.5770218,
+    "lng": 119.572783,
+    "mustEat": [
+      "熱氣球棉花糖"
+    ],
+    "tags": [
+      "義式料理",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "森林系裝潢，網美餐廳天花板。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%9B%9B%E8%8F%8A%E8%A6%8B",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "8",
+    "name": "郵局口蔥油餅",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5673077,
+    "lng": 119.5647454,
+    "mustEat": [
+      "蔥油餅加蛋"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "14:00–18:30",
+    "desc": "配免費小黃瓜絲，爽口解膩。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%83%B5%E5%B1%80%E5%8F%A3%E8%94%A5%E6%B2%B9%E9%A4%85",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "9",
+    "name": "原味漁村小吃",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5649063,
+    "lng": 119.5652027,
+    "mustEat": [
+      "鮮蚵滷肉飯"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:30–22:00",
+    "desc": "滿滿牡蠣蓋在滷肉飯上，視覺震撼。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8E%9F%E5%91%B3%E6%BC%81%E6%9D%91%E5%B0%8F%E5%90%83",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "10",
+    "name": "三哥酒釀雞排",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5663649,
+    "lng": 118.9581158,
+    "mustEat": [
+      "酒釀雞排"
+    ],
+    "tags": [
+      "炸物",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "15:30–18:30",
+    "desc": "酒釀香氣獨特，每日限量需預訂。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%B8%89%E5%93%A5%E9%85%92%E9%87%80%E9%9B%9E%E6%8E%92",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": true
+    }
+  },
+  {
+    "id": "11",
+    "name": "二信飯糰",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.5673048,
+    "lng": 119.5666794,
+    "mustEat": [
+      "雙色飯糰"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "04:30–11:00",
+    "desc": "紫米與白米混搭，內餡酥脆。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E4%BF%A1%E9%A3%AF%E7%B3%B0",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "12",
+    "name": "香亭土魠魚羹",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.5681538,
+    "lng": 119.5646459,
+    "mustEat": [
+      "土魠魚羹麵"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "05:30–13:00",
+    "desc": "魚塊酥脆，湯頭帶有南部甜味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E4%BA%AD%E5%9C%9F%E9%AD%A0%E9%AD%9A%E7%BE%B9",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "13",
+    "name": "益豐豆漿店",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.5686199,
+    "lng": 119.5672722,
+    "mustEat": [
+      "現炸油條"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "05:30–11:00",
+    "desc": "文康商圈老字號，油條現桿現炸。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%9B%8A%E8%B1%90%E8%B1%86%E6%BC%BF%E5%BA%97",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "14",
+    "name": "城隍廟前燒肉飯",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.566047,
+    "lng": 119.5664319,
+    "mustEat": [
+      "燒肉飯"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:30–22:00",
+    "desc": "在地經營數十年，醬汁鹹甜適中。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%9F%8E%E9%9A%8D%E5%BB%9F%E5%89%8D%E7%87%92%E8%82%89%E9%A3%AF",
+    "rating": 4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "15",
+    "name": "劉正港檸檬汁",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.5662345,
+    "lng": 119.5272324,
+    "mustEat": [
+      "檸檬汁"
+    ],
+    "tags": [
+      "飲料",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–22:00",
+    "desc": "正宗老店，酸甜比例堪稱黃金比例。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8A%89%E6%AD%A3%E6%B8%AF%E6%AA%B8%E6%AA%AC%E6%B1%81",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "16",
+    "name": "福牡蠣屋",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5671199,
+    "lng": 119.5645509,
+    "mustEat": [
+      "乾拌牡蠣麵線"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:30",
+    "desc": "自家養殖牡蠣，新鮮度百分百。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E7%89%A1%E8%A0%A3%E5%B1%8B",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "17",
+    "name": "藍媽媽仙草冰",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.5646324,
+    "lng": 119.5646223,
+    "mustEat": [
+      "仙草冰"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–22:00",
+    "desc": "仙草味濃厚，配料豐富多樣。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%97%8D%E5%AA%BD%E5%AA%BD%E4%BB%99%E8%8D%89%E5%86%B0",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "18",
+    "name": "紫玉仙草",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.5745323,
+    "lng": 119.5785797,
+    "mustEat": [
+      "自選料仙草冰"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "12:00–21:00",
+    "desc": "仙草凍刨成絲狀，口感細膩。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%B4%AB%E7%8E%89%E4%BB%99%E8%8D%89",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "19",
+    "name": "憲作冰淇淋",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.5663649,
+    "lng": 119.567857,
+    "mustEat": [
+      "仙人掌冰淇淋"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "13:00–21:00",
+    "desc": "職人手作義式冰淇淋，結合在地食材。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%86%B2%E4%BD%9C%E5%86%B0%E6%B7%87%E6%B7%8B",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "20",
+    "name": "阿華滷菜",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5654209,
+    "lng": 119.5655394,
+    "mustEat": [
+      "滷味",
+      "排骨意麵"
+    ],
+    "tags": [
+      "宵夜",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:00–00:00",
+    "desc": "澎湖宵夜名店，滷汁入味透徹。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E8%8F%AF%E6%BB%B7%E8%8F%9C",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "21",
+    "name": "吹吹風精品咖啡",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.5677891,
+    "lng": 119.5631442,
+    "mustEat": [
+      "手沖咖啡"
+    ],
+    "tags": [
+      "咖啡",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–21:00",
+    "desc": "碼頭景觀，氛圍悠閒精緻。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%90%B9%E5%90%B9%E9%A2%A8%E7%B2%BE%E5%93%81%E5%92%96%E5%95%A1",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "22",
+    "name": "小島家",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.522238,
+    "lng": 119.6008426,
+    "mustEat": [
+      "小島大拼盤"
+    ],
+    "tags": [
+      "早午餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–16:00",
+    "desc": "老屋改建，寵物友善空間。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E5%B3%B6%E5%AE%B6",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "23",
+    "name": "草根果子",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.569,
+    "lng": 119.57,
+    "mustEat": [
+      "創意調酒",
+      "滷味"
+    ],
+    "tags": [
+      "餐酒館",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:00–23:00",
+    "desc": "文青風結合草本元素，獨具特色。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%8D%89%E6%A0%B9%E6%9E%9C%E5%AD%90",
+    "rating": 4.7,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "24",
+    "name": "nikoni",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.567,
+    "lng": 119.566,
+    "mustEat": [
+      "戚風蛋糕"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–18:00",
+    "desc": "日系簡約風，手工甜點精緻極簡。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=nikoni",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "25",
+    "name": "莫子曬太陽",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.575,
+    "lng": 119.575,
+    "mustEat": [
+      "熱壓吐司"
+    ],
+    "tags": [
+      "早午餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–17:00",
+    "desc": "溫馨小店，食材天然新鮮。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%8E%AB%E5%AD%90%E6%9B%AC%E5%A4%AA%E9%99%BD",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "26",
+    "name": "澎漁宴",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.562,
+    "lng": 119.569,
+    "mustEat": [
+      "避風塘小管"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:30–21:00",
+    "desc": "創意海鮮料理，服務細緻。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BE%8E%E6%BC%81%E5%AE%B4",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "27",
+    "name": "大姊小露開心果",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.569,
+    "mustEat": [
+      "開心果冰淇淋"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "13:00–18:00",
+    "desc": "口味獨特濃郁，巷弄隱藏版。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%A7%8A%E5%B0%8F%E9%9C%B2%E9%96%8B%E5%BF%83%E6%9E%9C",
+    "rating": 4.7,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "28",
+    "name": "魚好刺身",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "西嶼鄉",
+    "lat": 23.606,
+    "lng": 119.518,
+    "mustEat": [
+      "綜合刺身"
+    ],
+    "tags": [
+      "海鮮",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–17:00",
+    "desc": "二崁聚落內，新鮮魚獲當日現切。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%AD%9A%E5%A5%BD%E5%88%BA%E8%BA%AB",
+    "rating": 4.9,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "29",
+    "name": "朝昔廬客棧",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.56,
+    "lng": 119.58,
+    "mustEat": [
+      "石鮔排骨湯"
+    ],
+    "tags": [
+      "熱炒",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "澎湖傳統道地古早味料理。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%9D%E6%98%94%E5%BB%AC%E5%AE%A2%E6%A3%A7",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "30",
+    "name": "花菜干",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.564,
+    "lng": 119.582,
+    "mustEat": [
+      "花菜干炒肉絲"
+    ],
+    "tags": [
+      "熱炒",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "懷舊風格，主打澎湖特色曬乾食材。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E8%8F%9C%E5%B9%B2",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "31",
+    "name": "長進餐廳",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5645,
+    "lng": 119.5661,
+    "mustEat": [
+      "紅蟳粥"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "老字號名店，紅蟳粥鮮甜美味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%95%B7%E9%80%B2%E9%A4%90%E5%BB%B3",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "32",
+    "name": "來福海鮮餐廳",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.572,
+    "mustEat": [
+      "冰卷"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "平價大碗，澎湖在地聚餐首選。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%BE%86%E7%A6%8F%E6%B5%B7%E9%AE%AE%E9%A4%90%E5%BB%B3",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "33",
+    "name": "阿東海鮮餐廳",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.57,
+    "lng": 119.575,
+    "mustEat": [
+      "活龍蝦"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "豪華宴席料理，海產種類極多。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E6%9D%B1%E6%B5%B7%E9%AE%AE%E9%A4%90%E5%BB%B3",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "34",
+    "name": "傻愛莊",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.565,
+    "mustEat": [
+      "珊瑚餅"
+    ],
+    "tags": [
+      "特色料理",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–22:00",
+    "desc": "歷史建築內用餐，菜色充滿創意。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%82%BB%E6%84%9B%E8%8E%8A",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "35",
+    "name": "嘉嘉碳烤",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.565,
+    "lng": 119.566,
+    "mustEat": [
+      "烤雞腿"
+    ],
+    "tags": [
+      "宵夜",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:00–23:30",
+    "desc": "中正路排隊宵夜，醬汁香氣撲鼻。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%98%89%E5%98%89%E7%A2%B3%E7%83%A4",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "36",
+    "name": "文康滷菜",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5682,
+    "lng": 119.567,
+    "mustEat": [
+      "大腸",
+      "牛腱"
+    ],
+    "tags": [
+      "宵夜",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:00–00:00",
+    "desc": "文康街晚間主角，滷味種類極多。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%96%87%E5%BA%B7%E6%BB%B7%E8%8F%9C",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "37",
+    "name": "碼頭刀削麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.565,
+    "lng": 119.568,
+    "mustEat": [
+      "豬腳刀削麵"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:00",
+    "desc": "麵條極具嚼勁，豬腳軟爛入味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%A2%BC%E9%A0%AD%E5%88%80%E5%89%8A%E9%BA%B5",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "38",
+    "name": "案山排骨麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.555,
+    "lng": 119.575,
+    "mustEat": [
+      "排骨麵"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:00",
+    "desc": "隱藏版美味，湯頭濃郁肉質嫩。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%A1%88%E5%B1%B1%E6%8E%92%E9%AA%A8%E9%BA%B5",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "39",
+    "name": "串串炸",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.567,
+    "lng": 119.569,
+    "mustEat": [
+      "炸小管"
+    ],
+    "tags": [
+      "炸物",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "16:00–23:00",
+    "desc": "創意炸物，年輕人喜愛的宵夜。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%B8%B2%E4%B8%B2%E7%82%B8",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "40",
+    "name": "澎湖瘋燒烤",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.57,
+    "lng": 119.58,
+    "mustEat": [
+      "牡蠣吃到飽"
+    ],
+    "tags": [
+      "燒烤",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:00–22:30",
+    "desc": "露天燒烤，海鮮新鮮任你吃。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BE%8E%E6%B9%96%E7%98%8B%E7%87%92%E7%83%A4",
+    "rating": 4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": true
+    }
+  },
+  {
+    "id": "41",
+    "name": "福台排骨麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5675,
+    "lng": 119.5655,
+    "mustEat": [
+      "排骨酥麵"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:30",
+    "desc": "清爽不油膩，在地人私藏店。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%8F%B0%E6%8E%92%E9%AA%A8%E9%BA%B5",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "42",
+    "name": "漁夫才哥手作麵線",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.5814082,
+    "lng": 119.6384539,
+    "mustEat": [
+      "手作麵線"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–18:00",
+    "desc": "手作日光曝曬麵線，口感紮實。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BC%81%E5%A4%AB%E6%89%8D%E5%93%A5%E9%BA%B5%E7%B7%9A",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "43",
+    "name": "及時享樂",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.5665,
+    "lng": 119.5645,
+    "mustEat": [
+      "海味車輪餅"
+    ],
+    "tags": [
+      "甜點",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "13:30–18:30",
+    "desc": "充滿驚喜的創意內餡車輪餅。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8F%8A%E6%99%82%E4%BA%AB%E6%A8%82",
+    "rating": 4.7,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "44",
+    "name": "小島一隅",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.564,
+    "lng": 119.565,
+    "mustEat": [
+      "澎湖風茹草調酒"
+    ],
+    "tags": [
+      "酒吧",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "19:00–01:00",
+    "desc": "安靜、有質感的酒精放鬆空間。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E5%B3%B6%E4%B8%80%E9%9A%85",
+    "rating": 4.9,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "45",
+    "name": "大叔壽司",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.567,
+    "lng": 119.572,
+    "mustEat": [
+      "握壽司組合"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:30–22:00",
+    "desc": "隱密、高品質的日式職人料理。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%8F%94%E5%A3%BD%E5%8F%B8",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "46",
+    "name": "澎湖故事妻",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.565,
+    "lng": 119.563,
+    "mustEat": [
+      "手沖精品"
+    ],
+    "tags": [
+      "咖啡",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–18:00",
+    "desc": "結合藝術與咖啡的靜謐空間。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BE%8E%E6%B9%96%E6%95%85%E4%BA%8B%E5%A6%BB",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "47",
+    "name": "不倒翁蘸醬",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.566,
+    "lng": 119.565,
+    "mustEat": [
+      "雞蛋糕"
+    ],
+    "tags": [
+      "特色小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "15:00–21:00",
+    "desc": "造型可愛，外酥內軟層次豐富。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%B8%8D%E5%80%92%E7%BF%81%E8%98%B8%E9%86%AC",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "48",
+    "name": "老街藝文",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.5645,
+    "lng": 119.564,
+    "mustEat": [
+      "仙人掌汁"
+    ],
+    "tags": [
+      "飲料",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–21:00",
+    "desc": "中央老街內，解渴避暑良伴。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%80%81%E8%A1%97%E8%97%9D%E6%96%87",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "49",
+    "name": "澎島之星",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.563,
+    "lng": 119.568,
+    "mustEat": [
+      "海鮮百匯"
+    ],
+    "tags": [
+      "景觀餐廳",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:30–21:30",
+    "desc": "可俯瞰馬公港夜景的高空餐廳。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BE%8E%E5%B3%B6%E4%B9%8B%E6%98%9F",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "50",
+    "name": "海玩子",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.566,
+    "lng": 119.567,
+    "mustEat": [
+      "海洋生物雞蛋糕"
+    ],
+    "tags": [
+      "雞蛋糕",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "14:00–19:00",
+    "desc": "海龜、魟魚造型，網美必拍。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B5%B7%E7%8E%A9%E5%AD%90",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "51",
+    "name": "小萍的店",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "西嶼鄉",
+    "lat": 23.6534,
+    "lng": 119.5182,
+    "mustEat": [
+      "小管麵線"
+    ],
+    "tags": [
+      "小吃",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–17:00",
+    "desc": "北環必吃，小管鮮甜麵線滑溜。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E8%90%8D%E7%9A%84%E5%BA%97",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "52",
+    "name": "美東芳牛肉麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "白沙鄉",
+    "lat": 23.6565,
+    "lng": 119.5936,
+    "mustEat": [
+      "綜合牛肉麵"
+    ],
+    "tags": [
+      "麵食",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–19:00",
+    "desc": "辣牛油是精髓，生意極好。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%BE%8E%E6%9D%B1%E8%8A%B3%E7%89%9B%E8%82%89%E9%BA%B5",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "53",
+    "name": "二馬豆花",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "西嶼鄉",
+    "lat": 23.6067,
+    "lng": 119.5189,
+    "mustEat": [
+      "花生豆花"
+    ],
+    "tags": [
+      "甜點",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–16:00",
+    "desc": "古厝內品嚐，花生粉香濃。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E9%A6%AC%E8%B1%86%E8%8A%B1",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "54",
+    "name": "回家炸粿",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "白沙鄉",
+    "lat": 23.635,
+    "lng": 119.595,
+    "mustEat": [
+      "雙蝦炸粿"
+    ],
+    "tags": [
+      "小吃",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "13:00–18:30",
+    "desc": "外皮酥脆，蝦肉鮮爽。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%9B%9E%E5%AE%B6%E7%82%B8%E7%B2%BF",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "55",
+    "name": "外垵刈包",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "西嶼鄉",
+    "lat": 23.6023,
+    "lng": 119.4682,
+    "mustEat": [
+      "黑糖饅頭刈包"
+    ],
+    "tags": [
+      "小吃",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "06:00–18:00",
+    "desc": "飽足感十足，登山觀海良伴。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%A4%96%E5%9E%B5%E5%88%88%E5%8C%85",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "56",
+    "name": "二崁杏仁茶",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "西嶼鄉",
+    "lat": 23.606,
+    "lng": 119.518,
+    "mustEat": [
+      "杏仁茶"
+    ],
+    "tags": [
+      "飲料",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–17:00",
+    "desc": "純濃古法製作，無化學味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E5%B4%81%E6%9D%8F%E4%BB%81%E8%8C%B6",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "57",
+    "name": "大池炸粿",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "西嶼鄉",
+    "lat": 23.63,
+    "lng": 119.52,
+    "mustEat": [
+      "鯊魚炸粿"
+    ],
+    "tags": [
+      "小吃",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "14:00–18:00",
+    "desc": "在地人推崇，酥脆不油膩。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%B1%A0%E7%82%B8%E7%B2%BF",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "58",
+    "name": "江巷仔內冰",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "白沙鄉",
+    "lat": 23.66,
+    "lng": 119.6,
+    "mustEat": [
+      "五彩冰"
+    ],
+    "tags": [
+      "甜點",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–18:00",
+    "desc": "隱藏巷弄，多種特色果實冰。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B1%9F%E5%B7%B7%E4%BB%94%E5%85%A7%E5%86%B0",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "59",
+    "name": "易家仙人掌冰",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "白沙鄉",
+    "lat": 23.655,
+    "lng": 119.595,
+    "mustEat": [
+      "仙人掌冰淇淋"
+    ],
+    "tags": [
+      "甜點",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:30–18:00",
+    "desc": "澎湖仙人掌冰始祖，風景優美。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%98%93%E5%AE%B6%E4%BB%99%E4%BA%BA%E6%8E%8C%E5%86%B0",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "60",
+    "name": "清峰海鮮小吃",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "白沙鄉",
+    "lat": 23.655,
+    "lng": 119.59,
+    "mustEat": [
+      "海菜煎餅"
+    ],
+    "tags": [
+      "海鮮",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:00",
+    "desc": "價格透明，口味家常鮮美。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B8%85%E5%B3%B0%E6%B5%B7%E9%AE%AE%E5%B0%8F%E5%90%83",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "61",
+    "name": "阿挺海鮮",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "西嶼鄉",
+    "lat": 23.653,
+    "lng": 119.518,
+    "mustEat": [
+      "活小管"
+    ],
+    "tags": [
+      "海鮮",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–17:00",
+    "desc": "小門名店，海鮮直送新鮮跳動。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E6%8C%BA%E6%B5%B7%E9%AE%AE",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "62",
+    "name": "清心飲食店",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "西嶼鄉",
+    "lat": 23.6,
+    "lng": 119.51,
+    "mustEat": [
+      "炸蝦餅"
+    ],
+    "tags": [
+      "海鮮餐廳",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–18:00",
+    "desc": "蔣經國曾造訪，老牌精緻海味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B8%85%E5%BF%83%E9%A3%B2%E9%A3%9F%E5%BA%97",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "63",
+    "name": "江軍餅",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "西嶼鄉",
+    "lat": 23.605,
+    "lng": 119.517,
+    "mustEat": [
+      "炸魚乾"
+    ],
+    "tags": [
+      "小吃",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–18:00",
+    "desc": "二崁特色，鹹香酥口好下酒。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B1%9F%E8%BB%8D%E9%A4%85",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "64",
+    "name": "赤崁魚羹",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "白沙鄉",
+    "lat": 23.665,
+    "lng": 119.605,
+    "mustEat": [
+      "魚羹"
+    ],
+    "tags": [
+      "小吃",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "07:00–14:00",
+    "desc": "在地早餐，魚漿鮮甜 Q 彈。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%B5%A4%E5%B4%81%E9%AD%9A%E7%BE%B9",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "65",
+    "name": "龍門排骨麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "湖西鄉",
+    "lat": 23.57,
+    "lng": 119.67,
+    "mustEat": [
+      "椒麻皮蛋麵"
+    ],
+    "tags": [
+      "麵食",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–19:30",
+    "desc": "排骨酥軟，皮蛋麵口味驚艷。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%BE%8D%E9%96%80%E6%8E%92%E9%AA%A8%E9%BA%B5",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "66",
+    "name": "及林春咖啡館",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "湖西鄉",
+    "lat": 23.5583,
+    "lng": 119.6414,
+    "mustEat": [
+      "手沖精品"
+    ],
+    "tags": [
+      "咖啡",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–18:30",
+    "desc": "沙灘旁森林咖啡，全澎最美。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8F%8A%E6%9E%97%E6%98%A5%E5%92%96%E5%95%A1%E9%A4%A8",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "67",
+    "name": "白灣景觀餐廳",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "湖西鄉",
+    "lat": 23.556,
+    "lng": 119.638,
+    "mustEat": [
+      "海鮮燉飯"
+    ],
+    "tags": [
+      "西餐",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:30",
+    "desc": "林投沙灘第一排，夕陽絕景。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E7%81%A3%E6%99%AF%E8%A7%80%E9%A4%90%E5%BB%B3",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "68",
+    "name": "隘門陽光燒烤",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "湖西鄉",
+    "lat": 23.558,
+    "lng": 119.635,
+    "mustEat": [
+      "碳烤鮮蚵"
+    ],
+    "tags": [
+      "燒烤",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:30–22:00",
+    "desc": "隘門沙灘旁，吹海風大口吃生蠔。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%9A%98%E9%96%80%E9%99%BD%E5%85%89%E7%87%92%E7%83%A4",
+    "rating": 4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": true
+    }
+  },
+  {
+    "id": "69",
+    "name": "金鎖港飲食店",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.525,
+    "lng": 119.588,
+    "mustEat": [
+      "米糕",
+      "肉羹"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–19:30",
+    "desc": "南環必吃，鎖港漁港老店。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E9%8E%96%E6%B8%AF%E9%A3%B2%E9%A3%9F%E5%BA%97",
+    "rating": 4.1,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "70",
+    "name": "老張燒餅",
+    "category": "breakfast",
+    "icon": "Coffee",
+    "gradient": "from-orange-100 to-yellow-200",
+    "area": "馬公市",
+    "lat": 23.526,
+    "lng": 119.589,
+    "mustEat": [
+      "槓子頭"
+    ],
+    "tags": [
+      "早餐",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "05:00–11:00",
+    "desc": "手工古法烘烤，酥香有層次。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%80%81%E5%BC%B5%E7%87%92%E9%A4%85",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "71",
+    "name": "山水牛肉麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.515,
+    "lng": 119.595,
+    "mustEat": [
+      "紅燒牛肉麵"
+    ],
+    "tags": [
+      "麵食",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–20:00",
+    "desc": "山水沙灘旁，肉質軟嫩大塊。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E6%B0%B4%E7%89%9B%E8%82%89%E9%BA%B5",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "72",
+    "name": "青灣360",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.52,
+    "lng": 119.56,
+    "mustEat": [
+      "創意下午茶"
+    ],
+    "tags": [
+      "景觀餐廳",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "14:00–21:00",
+    "desc": "環景360度俯瞰海灣，風景絕美。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E7%81%A3360",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "73",
+    "name": "南寮浮球秘境小吃",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "湖西鄉",
+    "lat": 23.585,
+    "lng": 119.66,
+    "mustEat": [
+      "草根涼茶"
+    ],
+    "tags": [
+      "特色小吃",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–17:00",
+    "desc": "南寮社區內，充滿在地人情味。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8D%97%E5%AF%AE%E6%B5%AE%E7%90%83%E7%A7%98%E5%A2%83%E5%B0%8F%E5%90%83",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "74",
+    "name": "半日閑",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "白沙鄉",
+    "lat": 23.64,
+    "lng": 119.61,
+    "mustEat": [
+      "英式下午茶"
+    ],
+    "tags": [
+      "甜點/下午茶",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–18:30",
+    "desc": "地中海風格，遠離塵囂的靜謐。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8D%8A%E6%97%A5%E9%96%91",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "75",
+    "name": "赤崁炸粿",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "白沙鄉",
+    "lat": 23.667,
+    "lng": 119.608,
+    "mustEat": [
+      "炸粿"
+    ],
+    "tags": [
+      "小吃",
+      "白沙鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "14:00–18:30",
+    "desc": "赤崁碼頭名店，新鮮蝦子現炸。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%B5%A4%E5%B4%81%E7%82%B8%E7%B2%BF",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "76",
+    "name": "朝昔廬",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.56,
+    "lng": 119.585,
+    "mustEat": [
+      "石鮔滷肉"
+    ],
+    "tags": [
+      "在地菜",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "正宗澎湖古早味，極致手路菜。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%9D%E6%98%94%E5%BB%AC",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "77",
+    "name": "自強小吃部",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5724066,
+    "lng": 119.5634881,
+    "mustEat": [
+      "生烤牡蠣"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "在地人愛用的平價熱炒海鮮店。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%87%AA%E5%BC%B7%E9%A4%90%E5%BB%B3",
+    "rating": 4.2,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "78",
+    "name": "打狗霸",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.57,
+    "lng": 119.575,
+    "mustEat": [
+      "小管痛風鍋"
+    ],
+    "tags": [
+      "火鍋",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:30–22:00",
+    "desc": "大份量海鮮火鍋，視覺衝擊強。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%89%93%E7%8B%97%E9%9C%B8",
+    "rating": 4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "79",
+    "name": "鮮食堂",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.568,
+    "mustEat": [
+      "海鮮蒸氣塔"
+    ],
+    "tags": [
+      "海鮮蒸鍋",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "17:30–22:00",
+    "desc": "原汁原味蒸出海味鮮甜。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%AE%AE%E9%A3%9F%E5%A0%82",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "80",
+    "name": "阿挺海鮮",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "西嶼鄉",
+    "lat": 23.653,
+    "lng": 119.518,
+    "mustEat": [
+      "涼拌河豚皮"
+    ],
+    "tags": [
+      "海鮮",
+      "西嶼鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–18:00",
+    "desc": "小門名店，價格實惠新鮮。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E6%8C%BA%E6%B5%B7%E9%AE%AE",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "81",
+    "name": "長進",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5645,
+    "lng": 119.5661,
+    "mustEat": [
+      "炸蝦餅"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "傳統老店，紅蟳粥必點。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%95%B7%E9%80%B2",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "82",
+    "name": "聚味軒",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.5682315,
+    "lng": 119.573307,
+    "mustEat": [
+      "手卷"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:30–21:00",
+    "desc": "澎澄飯店內，高品質海鮮。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%81%9A%E5%91%B3%E8%BB%92",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "83",
+    "name": "海陽明海鮮",
+    "category": "seafood",
+    "icon": "Fish",
+    "gradient": "from-blue-100 to-cyan-200",
+    "area": "馬公市",
+    "lat": 23.572,
+    "lng": 119.578,
+    "mustEat": [
+      "石斑兩吃"
+    ],
+    "tags": [
+      "海鮮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–21:00",
+    "desc": "適合家庭聚餐，服務到位。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%B5%B7%E9%99%BD%E6%98%8E%E6%B5%B7%E9%AE%AE",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "84",
+    "name": "傻愛莊",
+    "category": "restaurant",
+    "icon": "UtensilsCrossed",
+    "gradient": "from-slate-100 to-slate-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.565,
+    "mustEat": [
+      "珊瑚餅"
+    ],
+    "tags": [
+      "在地菜",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–22:00",
+    "desc": "藝術家經營，充滿故事感。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%82%BB%E6%84%9B%E8%8E%8A",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  },
+  {
+    "id": "85",
+    "name": "憲作",
+    "category": "dessert",
+    "icon": "IceCream",
+    "gradient": "from-pink-100 to-rose-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.564,
+    "mustEat": [
+      "風茹茶冰淇淋"
+    ],
+    "tags": [
+      "冰品",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "13:00–21:00",
+    "desc": "精緻手作，口味極具水準。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%86%B2%E4%BD%9C",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "86",
+    "name": "及林春",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "湖西鄉",
+    "lat": 23.5583,
+    "lng": 119.6414,
+    "mustEat": [
+      "肉桂捲"
+    ],
+    "tags": [
+      "咖啡",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–18:30",
+    "desc": "海邊森林秘境咖啡。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%8F%8A%E6%9E%97%E6%98%A5",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "87",
+    "name": "雛鳥藝文",
+    "category": "drink",
+    "icon": "Coffee",
+    "gradient": "from-emerald-100 to-teal-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.57,
+    "mustEat": [
+      "單品咖啡"
+    ],
+    "tags": [
+      "咖啡",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "11:00–18:00",
+    "desc": "藝文空間結合精品咖啡。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E9%9B%9B%E9%B3%A5%E8%97%9D%E6%96%87",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "88",
+    "name": "不倒翁",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "馬公市",
+    "lat": 23.566,
+    "lng": 119.565,
+    "mustEat": [
+      "蘸醬雞蛋糕"
+    ],
+    "tags": [
+      "小吃",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "15:00–21:00",
+    "desc": "中央老街附近人氣小點。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%B8%8D%E5%80%92%E7%BF%81",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "89",
+    "name": "七美潮州麵",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "七美鄉",
+    "lat": 23.21,
+    "lng": 119.42,
+    "mustEat": [
+      "大滷麵"
+    ],
+    "tags": [
+      "麵食",
+      "七美鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "10:00–14:30",
+    "desc": "七美島上傳奇老店，飽足感強。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%B8%83%E7%BE%8E%E6%BD%AE%E5%B7%9E%E9%BA%B5",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "90",
+    "name": "望安紅龜粿",
+    "category": "snack",
+    "icon": "Utensils",
+    "gradient": "from-yellow-100 to-orange-200",
+    "area": "望安鄉",
+    "lat": 23.36,
+    "lng": 119.495,
+    "mustEat": [
+      "手工紅龜粿"
+    ],
+    "tags": [
+      "小吃",
+      "望安鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–17:00",
+    "desc": "望安特色點心，古法手工。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%9C%9B%E5%AE%89%E7%B4%85%E9%BE%9C%E7%B2%BF",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "91",
+    "name": "春仁黑糖糕",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.5663929,
+    "lng": 119.5667143,
+    "mustEat": [
+      "黑糖糕"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–21:00",
+    "desc": "Q 彈紮實，澎湖代表伴手禮。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%98%A5%E4%BB%81%E9%BB%91%E7%B3%96%E7%B3%95",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "92",
+    "name": "御品家食品",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.564184,
+    "lng": 119.5266005,
+    "mustEat": [
+      "冰心糕"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–21:00",
+    "desc": "紅豆冰心糕口感獨特。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%BE%A1%E5%93%81%E5%AE%B6",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "93",
+    "name": "萬泰食品",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.565,
+    "lng": 119.565,
+    "mustEat": [
+      "花生酥"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:30–21:30",
+    "desc": "老店傳承，花生香氣濃郁。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E8%90%AC%E6%B3%B0%E9%A3%9F%E5%93%81",
+    "rating": 4.3,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "94",
+    "name": "仁品花枝丸",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.5647844,
+    "lng": 119.5681395,
+    "mustEat": [
+      "冷凍花枝丸"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:30–20:00",
+    "desc": "每一口都咬得到花枝塊。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E4%BB%81%E5%93%81%E8%8A%B1%E6%9E%9D%E4%B8%B8",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "95",
+    "name": "正一花生酥",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.566,
+    "mustEat": [
+      "花生酥"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–18:00",
+    "desc": "純手工包裝，伴手禮首選。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%AD%A3%E4%B8%80%E8%8A%B1%E7%94%9F%E9%85%A5",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": false,
+      "reservation": false
+    }
+  },
+  {
+    "id": "96",
+    "name": "盛興鹹餅",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.565,
+    "lng": 119.564,
+    "mustEat": [
+      "冬瓜糕",
+      "鹹餅"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–21:30",
+    "desc": "澎湖第一家鹹餅店，酥香不膩。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E7%9B%9B%E8%88%88%E9%B9%B9%E9%A4%85",
+    "rating": 4.4,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "97",
+    "name": "新臺澎干貝醬",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.564,
+    "lng": 119.565,
+    "mustEat": [
+      "干貝醬"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–22:00",
+    "desc": "料好實在，適合送禮自用。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E8%87%BA%E6%BE%8E%E5%B9%B2%E8%B2%9D%E9%86%AC",
+    "rating": 4.6,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "98",
+    "name": "宏裕行",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.568,
+    "lng": 119.57,
+    "mustEat": [
+      "花枝排"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–19:00",
+    "desc": "高品質海味加工，獲獎無數。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%AE%8F%E8%A3%95%E8%A1%8C",
+    "rating": 4.7,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "99",
+    "name": "大立花枝丸",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "馬公市",
+    "lat": 23.5698626,
+    "lng": 119.5698635,
+    "mustEat": [
+      "海苔花枝丸"
+    ],
+    "tags": [
+      "伴手禮",
+      "馬公市"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "08:00–20:00",
+    "desc": "獨特海苔風味，口感扎實。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E7%AB%8B%E8%8A%B1%E6%9E%9D%E4%B8%B8",
+    "rating": 4.5,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": false
+    }
+  },
+  {
+    "id": "100",
+    "name": "澎福古棗味",
+    "category": "souvenir",
+    "icon": "Gift",
+    "gradient": "from-purple-100 to-violet-200",
+    "area": "湖西鄉",
+    "lat": 23.56,
+    "lng": 119.64,
+    "mustEat": [
+      "炸棗 DIY"
+    ],
+    "tags": [
+      "伴手禮",
+      "湖西鄉"
+    ],
+    "address": "請參閱 Google Maps",
+    "phone": "",
+    "hours": "09:00–18:00",
+    "desc": "體驗傳統炸棗文化，美味又有意義。",
+    "google_maps": "https://www.google.com/maps/search/?api=1&query=%E6%BE%8E%E7%A6%8F%E5%8F%A4%E6%A3%97%E5%91%B3",
+    "rating": 4.8,
+    "price": "$",
+    "service": {
+      "air_con": true,
+      "reservation": true
+    }
+  }
+]

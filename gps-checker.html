@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澎湖美食地圖 GPS 座標檢查工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .instructions h2 {
+            color: #0ea5e9;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        .stat-card h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        .place-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .place-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .place-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        .place-meta {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .coords {
+            font-family: 'Courier New', monospace;
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .map-container {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #059669;
+        }
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #d97706;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status-checked {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-corrected {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .export-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .export-section h2 {
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        #exportData {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            resize: vertical;
+        }
+        .coord-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .coord-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .coord-input input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        .quick-action {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .quick-action h4 {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .batch-update-btn {
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .batch-update-btn:hover {
+            background: #059669;
+        }
+        .batch-update-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+        .filter-bar {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .filter-bar select {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ 澎湖美食地圖 GPS 座標檢查工具</h1>
+        <p style="color: #64748b; margin-bottom: 20px;">逐一檢查每家店的 Google Maps 位置，確認座標是否正確</p>
+        <div class="login-panel" style="background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <div>
+                <span id="loginStatus">🔒 未登入 (唯讀模式)</span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="password" id="githubToken" placeholder="GitHub Token" style="padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 4px; display: none;">
+                <button id="loginBtn" class="btn btn-primary" onclick="toggleLogin()">登入 GitHub</button>
+                <button id="saveToGithubBtn" class="btn btn-success" onclick="saveToGithub()" style="display: none;">💾 儲存到 GitHub</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 使用說明（快速模式）</h2>
+            <ol>
+                <li>點擊「🚀 快速檢查」按鈕，會在新分頁打開 Google Maps</li>
+                <li>在 Google Maps 中找到店家位置，右鍵點擊取得座標</li>
+                <li>座標會自動複製，回到本頁面，點擊「📍 貼上座標」按鈕</li>
+                <li>座標會自動填入，確認後點擊「✓ 確認座標」</li>
+                <li>重複以上步驟檢查所有店家</li>
+                <li>最後點擊「🔄 批次更新全部」按鈕</li>
+            </ol>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>總店家數</h3>
+                <div class="number" id="totalCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>已檢查</h3>
+                <div class="number" id="checkedCount" style="color: #10b981;">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>需修正</h3>
+                <div class="number" id="correctedCount" style="color: #f59e0b;">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>待檢查</h3>
+                <div class="number" id="pendingCount" style="color: #64748b;">0</div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <label>篩選：</label>
+            <select id="filterStatus" onchange="filterPlaces()">
+                <option value="all">全部</option>
+                <option value="pending">待檢查</option>
+                <option value="checked">已確認正確</option>
+                <option value="corrected">需要修正</option>
+            </select>
+            <select id="filterArea" onchange="filterPlaces()">
+                <option value="all">所有地區</option>
+            </select>
+        </div>
+
+        <div id="placesList"></div>
+
+        <div class="export-section">
+            <h2>🔄 批次更新</h2>
+            <p style="color: #64748b; margin-bottom: 10px;">
+                已標記 <strong id="correctionCount">0</strong> 個需要修正的座標
+            </p>
+            <button class="batch-update-btn" id="batchUpdateBtn" onclick="batchUpdate()" disabled>
+                🔄 批次更新全部（生成更新指令）
+            </button>
+            <div style="margin-top: 15px;">
+                <h3 style="font-size: 16px; margin-bottom: 10px;">更新指令：</h3>
+                <textarea id="exportData" readonly></textarea>
+                <button class="btn btn-primary" onclick="copyExport()" style="margin-top: 10px;">📋 複製到剪貼簿</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let foodPlaces = [];
+        let places = [];
+
+
+const foodCategories = [
+  {
+    "id": "all",
+    "name": "全部美食",
+    "icon": "🍽️",
+    "color": "bg-slate-800"
+  },
+  {
+    "id": "breakfast",
+    "name": "早餐/早午餐",
+    "icon": "🍳",
+    "color": "bg-yellow-500"
+  },
+  {
+    "id": "seafood",
+    "name": "海鮮料理",
+    "icon": "🐟",
+    "color": "bg-blue-500"
+  },
+  {
+    "id": "snack",
+    "name": "在地小吃",
+    "icon": "🍡",
+    "color": "bg-orange-500"
+  },
+  {
+    "id": "restaurant",
+    "name": "異國/特色餐廳",
+    "icon": "🍴",
+    "color": "bg-red-500"
+  },
+  {
+    "id": "dessert",
+    "name": "甜點冰品",
+    "icon": "🍧",
+    "color": "bg-pink-500"
+  },
+  {
+    "id": "drink",
+    "name": "咖啡飲品",
+    "icon": "☕",
+    "color": "bg-emerald-500"
+  },
+  {
+    "id": "souvenir",
+    "name": "伴手禮",
+    "icon": "🎁",
+    "color": "bg-purple-500"
+  }
+];
+        
+        
+        function initPlaces() {
+            places = foodPlaces.map(p => ({
+            ...p,
+            status: 'pending',
+            newLat: null,
+            newLng: null
+        }));
+
+        // 載入已儲存的狀態
+        const savedData = localStorage.getItem('gpsCheckData');
+        if (savedData) {
+            const saved = JSON.parse(savedData);
+            places = places.map(p => {
+                const savedPlace = saved.find(s => s.id === p.id);
+                return savedPlace ? { ...p, ...savedPlace } : p;
+            });
+        }
+
+        // 初始化地區篩選
+        const areas = [...new Set(places.map(p => p.area))].sort();
+        const areaSelect = document.getElementById('filterArea');
+        areas.forEach(area => {
+            const option = document.createElement('option');
+            option.value = area;
+            option.textContent = area;
+            areaSelect.appendChild(option);
+        });
+
+        
+            updateStats(); // Ensure stats are updated
+            renderPlaces(); // Ensure list is rendered
+        }
+        
+        function saveData() {
+            localStorage.setItem('gpsCheckData', JSON.stringify(places));
+            updateStats();
+            updateExport();
+        }
+
+        function updateStats() {
+            const checked = places.filter(p => p.status === 'checked').length;
+            const corrected = places.filter(p => p.status === 'corrected').length;
+            const pending = places.filter(p => p.status === 'pending').length;
+
+            document.getElementById('totalCount').textContent = places.length;
+            document.getElementById('checkedCount').textContent = checked;
+            document.getElementById('correctedCount').textContent = corrected;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('correctionCount').textContent = corrected;
+            
+            const btn = document.getElementById('batchUpdateBtn');
+            btn.disabled = corrected === 0;
+            btn.textContent = `🔄 批次更新全部（${corrected} 個修正）`;
+        }
+
+        function markAsChecked(id) {
+            const place = places.find(p => p.id === id);
+            place.status = 'checked';
+            saveData();
+            renderPlaces();
+        }
+
+        function markAsCorrected(id) {
+            const place = places.find(p => p.id === id);
+            const newCoords = prompt(`請輸入 ${place.name} 的正確座標（格式：緯度, 經度）\n例如：23.5701, 119.571`);
+            
+            if (newCoords) {
+                const [lat, lng] = newCoords.split(',').map(s => parseFloat(s.trim()));
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    place.newLat = lat;
+                    place.newLng = lng;
+                    place.status = 'corrected';
+                    saveData();
+                    renderPlaces();
+                } else {
+                    alert('座標格式錯誤，請重試');
+                }
+            }
+        }
+
+        function updateExport() {
+            const corrections = places.filter(p => p.status === 'corrected');
+            
+            // 更新批次更新按鈕
+            const batchBtn = document.getElementById('batchUpdateBtn');
+            const countSpan = document.getElementById('correctionCount');
+            
+            if (corrections.length === 0) {
+                document.getElementById('exportData').value = '目前沒有需要修正的座標';
+                batchBtn.disabled = true;
+                countSpan.textContent = '0';
+                return;
+            }
+
+            countSpan.textContent = corrections.length;
+            batchBtn.disabled = false;
+
+            let output = `發現 ${corrections.length} 個需要修正的座標：\n\n`;
+            corrections.forEach(p => {
+                output += `${p.name}: ${p.newLat}, ${p.newLng}\n`;
+            });
+            
+            output += `\n\n批量更新指令（複製以下所有指令）：\n\n`;
+            corrections.forEach(p => {
+                output += `node scripts/update_single_gps.js "${p.name}" ${p.newLat} ${p.newLng}\n`;
+            });
+
+            document.getElementById('exportData').value = output;
+        }
+
+        function copyExport() {
+            const textarea = document.getElementById('exportData');
+            textarea.select();
+            document.execCommand('copy');
+            alert('已複製到剪貼簿！');
+        }
+
+        window.markAsChecked = markAsChecked;
+        window.markAsCorrected = markAsCorrected;
+        window.copyExport = copyExport;
+
+        let currentFilter = { status: 'all', area: 'all' };
+
+        window.filterPlaces = function() {
+            currentFilter.status = document.getElementById('filterStatus').value;
+            currentFilter.area = document.getElementById('filterArea').value;
+            renderPlaces();
+        };
+
+        function renderPlaces() {
+            let filtered = places;
+            
+            if (currentFilter.status !== 'all') {
+                filtered = filtered.filter(p => p.status === currentFilter.status);
+            }
+            
+            if (currentFilter.area !== 'all') {
+                filtered = filtered.filter(p => p.area === currentFilter.area);
+            }
+
+            const html = filtered.map(place => {
+                const statusClass = `status-${place.status}`;
+                const statusText = {
+                    pending: '⏳ 待檢查',
+                    checked: '✓ 已確認',
+                    corrected: '✏️ 需修正'
+                }[place.status];
+
+                const coords = place.status === 'corrected' 
+                    ? `${place.newLat}, ${place.newLng} (新)`
+                    : `${place.lat}, ${place.lng}`;
+
+                const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + ' 澎湖')}`;
+                const coordsUrl = `https://www.google.com/maps?q=${place.lat},${place.lng}`;
+
+                return `
+                    <div class="place-card">
+                        <div class="place-info">
+                            <div>
+                                <div class="place-name">${place.name}</div>
+                                <div class="place-meta">
+                                    ID: ${place.id} | ${place.category} | ${place.area}
+                                    <span class="status ${statusClass}">${statusText}</span>
+                                </div>
+                            </div>
+                            <div class="coords">
+                                📍 目前座標: ${place.lat}, ${place.lng}
+                            </div>
+                            ${place.status === 'corrected' ? `
+                                <div class="coords" style="background: #dcfce7; border: 1px solid #86efac;">
+                                    ✓ 新座標: ${place.newLat}, ${place.newLng}
+                                </div>
+                            ` : ''}
+                            <div class="quick-action">
+                                <h4>🚀 快速檢查流程：</h4>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button class="btn btn-primary" onclick="openGoogleMaps('${place.id}', '${googleMapsUrl}')">
+                                        1️⃣ 打開 Google Maps
+                                    </button>
+                                    <button class="btn btn-primary" onclick="pasteCoords('${place.id}')">
+                                        2️⃣ 📍 貼上座標
+                                    </button>
+                                    <button class="btn btn-success" onclick="confirmCoords('${place.id}')">
+                                        3️⃣ ✓ 確認座標
+                                    </button>
+                                </div>
+                                <div class="coord-input" id="coordInput-${place.id}" style="display: none;">
+                                    <input 
+                                        type="text" 
+                                        id="latInput-${place.id}" 
+                                        placeholder="緯度 (例如: 23.5745323)"
+                                    />
+                                    <input 
+                                        type="text" 
+                                        id="lngInput-${place.id}" 
+                                        placeholder="經度 (例如: 119.5785797)"
+                                    />
+                                </div>
+                            </div>
+                            <div class="actions" style="margin-top: 10px;">
+                                <button class="btn btn-success" onclick="markAsChecked('${place.id}')">
+                                    ✓ 座標正確（無需修改）
+                                </button>
+                                <a href="${coordsUrl}" target="_blank" class="btn btn-primary">
+                                    🗺️ 查看目前位置
+                                </a>
+                            </div>
+                        </div>
+                        <div class="map-container">
+                            <iframe 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0" 
+                                style="border:0"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${place.lat},${place.lng}&zoom=16"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('placesList').innerHTML = html;
+        }
+
+        window.openGoogleMaps = function(id, url) {
+            window.open(url, '_blank');
+            // 顯示座標輸入框
+            document.getElementById(`coordInput-${id}`).style.display = 'flex';
+        };
+
+        window.pasteCoords = async function(id) {
+            try {
+                const text = await navigator.clipboard.readText();
+                // 嘗試解析座標格式
+                // 支援格式: "23.5745323, 119.5785797" 或 "23.5745323,119.5785797"
+                const match = text.match(/([-+]?\d+\.\d+)[,\s]+([-+]?\d+\.\d+)/);
+                
+                if (match) {
+                    const lat = match[1];
+                    const lng = match[2];
+                    document.getElementById(`latInput-${id}`).value = lat;
+                    document.getElementById(`lngInput-${id}`).value = lng;
+                    document.getElementById(`coordInput-${id}`).style.display = 'flex';
+                    alert('✓ 座標已貼上！請確認後點擊「確認座標」');
+                } else {
+                    alert('剪貼簿中沒有找到座標格式\n請在 Google Maps 中右鍵點擊位置，然後點擊座標數字複製');
+                }
+            } catch (err) {
+                alert('無法讀取剪貼簿\n請手動輸入座標，或確認瀏覽器權限');
+                document.getElementById(`coordInput-${id}`).style.display = 'flex';
+            }
+        };
+
+        window.confirmCoords = function(id) {
+            const lat = parseFloat(document.getElementById(`latInput-${id}`).value);
+            const lng = parseFloat(document.getElementById(`lngInput-${id}`).value);
+            
+            if (isNaN(lat) || isNaN(lng)) {
+                alert('請輸入有效的座標');
+                return;
+            }
+            
+            const place = places.find(p => p.id === id);
+            place.newLat = lat;
+            place.newLng = lng;
+            place.status = 'corrected';
+            saveData();
+            renderPlaces();
+            
+            alert(`✓ ${place.name} 的座標已更新！`);
+        };
+
+        window.batchUpdate = function() {
+            updateExport();
+            alert('更新指令已生成！\n請複製下方的指令給開發者進行批次更新');
+        };
+
+        updateStats();
+        updateExport();
+        renderPlaces();
+    
+        // GitHub API Configuration
+        const GITHUB_OWNER = 'penghufireworks';
+        const GITHUB_REPO = '2026';
+        const GITHUB_PATH = 'places.json';
+        const GITHUB_BRANCH = 'main';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPlaces();
+            checkLogin();
+        });
+
+        async function loadPlaces() {
+            try {
+                const response = await fetch('places.json?v=' + new Date().getTime());
+                if (!response.ok) throw new Error('Failed to load places.json');
+                foodPlaces = await response.json();
+                initPlaces();
+            } catch (error) {
+                console.error('Error loading places:', error);
+                alert('無法載入店家資料 places.json');
+            }
+        }
+
+        function checkLogin() {
+            const token = localStorage.getItem('github_token');
+            if (token) {
+                document.getElementById('loginStatus').textContent = '🔓 已登入 (可寫入模式)';
+                document.getElementById('loginBtn').textContent = '登出';
+                document.getElementById('saveToGithubBtn').style.display = 'block';
+                document.getElementById('githubToken').style.display = 'none';
+            } else {
+                document.getElementById('loginStatus').textContent = '🔒 未登入 (唯讀模式)';
+                document.getElementById('loginBtn').textContent = '登入 GitHub';
+                document.getElementById('saveToGithubBtn').style.display = 'none';
+                document.getElementById('githubToken').style.display = 'none';
+            }
+        }
+
+        function toggleLogin() {
+            const token = localStorage.getItem('github_token');
+            if (token) {
+                // Logout
+                if (confirm('確定要登出嗎？')) {
+                    localStorage.removeItem('github_token');
+                    checkLogin();
+                }
+            } else {
+                // Show input
+                const input = document.getElementById('githubToken');
+                if (input.style.display === 'none') {
+                    input.style.display = 'block';
+                    input.focus();
+                } else {
+                    // Login
+                    const newToken = input.value.trim();
+                    if (newToken) {
+                        localStorage.setItem('github_token', newToken);
+                        checkLogin();
+                    }
+                }
+            }
+        }
+
+        async function saveToGithub() {
+            const token = localStorage.getItem('github_token');
+            if (!token) return alert('請先登入');
+
+            if (!confirm('確定要將變更儲存到 GitHub 嗎？這將會更新網站上的資料。')) return;
+
+            const btn = document.getElementById('saveToGithubBtn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '⏳ 讀取中...';
+
+            try {
+                // 1. Get current SHA
+                const getRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}?ref=${GITHUB_BRANCH}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!getRes.ok) throw new Error('無法讀取 GitHub 檔案資訊 (可能 Token 無效或檔案不存在)');
+                const getData = await getRes.json();
+                const sha = getData.sha;
+
+                // 2. Prepare content
+                // Apply corrections to foodPlaces
+                const updatedPlaces = foodPlaces.map(p => {
+                    const corrected = places.find(cp => cp.id === p.id && cp.status === 'corrected');
+                    if (corrected) {
+                        return { ...p, lat: corrected.newLat, lng: corrected.newLng };
+                    }
+                    return p;
+                });
+
+                // Convert to JSON and handle Unicode
+                const contentStr = JSON.stringify(updatedPlaces, null, 2);
+                
+                // Proper UTF-8 to Base64
+                const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
+
+                btn.textContent = '💾 儲存中...';
+
+                // 3. Update file
+                const putRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'chore: update GPS coordinates via GPS Checker',
+                        content: base64Content,
+                        sha: sha,
+                        branch: GITHUB_BRANCH
+                    })
+                });
+
+                if (!putRes.ok) {
+                    const err = await putRes.json();
+                    throw new Error(err.message || '儲存失敗');
+                }
+
+                alert('✅ 儲存成功！GitHub Pages 將在幾分鐘後更新。');
+                
+                // Clear local corrections as they are now saved
+                places.forEach(p => {
+                    if (p.status === 'corrected') p.status = 'checked';
+                });
+                saveData();
+                renderPlaces();
+
+            } catch (error) {
+                console.error(error);
+                alert('❌ 錯誤: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+</script>
+</body>
+</html>
