@@ -15,9 +15,9 @@ def get_penghu_trends():
         if os.path.exists("googletrend.html"):
             with open("googletrend.html", "r", encoding="utf-8") as f:
                 content = f.read()
-                # 簡單的字串解析來取得前 5 個關鍵字
+                # 簡單的字串解析來取得前 10 個關鍵字
                 lines = content.split('</div>')
-                for line in lines[:5]:
+                for line in lines[:10]:
                     if '<b style="color:' in line and '</b>' in line:
                         keyword = line.split('</b>')[1].split('</span>')[0].strip()
                         if keyword:
@@ -86,8 +86,8 @@ def save_and_format(content, trends):
     topic = content.split('。')[0][:15] if '。' in content else "散步在海邊的時刻"
     topic = topic.replace("\n", "").replace("*", "")
     
-    # 組合 SEO Tags
-    seo_tags = " ".join([f"#{t.replace(' ', '')}" for t in trends[:5]])
+    # 組合 SEO Tags (取前 10 個關鍵字)
+    seo_tags = " ".join([f"#{t.replace(' ', '')}" for t in trends[:10]])
     
     footer = (
         f"\n\n---\n"
