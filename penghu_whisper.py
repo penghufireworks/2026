@@ -98,8 +98,8 @@ def save_and_format(content, trends):
     
     full_post = content + footer
     
-    # 儲存檔案 (檔名以時間命名)
-    filename = f"{now.strftime('%Y-%m-%d-%H')}.md"
+    # 儲存檔案 (檔名以時間到秒命名，確保每次執行都不重複)
+    filename = f"{now.strftime('%Y-%m-%d-%H%M%S')}.md"
     filepath = os.path.join(POSTS_DIR, filename)
     
     with open(filepath, "w", encoding="utf-8") as f:
@@ -115,26 +115,19 @@ def save_and_format(content, trends):
         except:
             pass
     
-    # 檢查是否已存在同一小時的文章，避免重複
-    post_exists = False
-    for p in posts:
-        if p.get("filename") == filename:
-            post_exists = True
-            break
-            
-    if not post_exists:
-        new_post = {
-            "filename": filename,
-            "title": f"島嶼私語：{topic}",
-            "date": now.strftime("%Y-%m-%dT%H:00:00"),
-            "tags": ["島嶼私語", "澎湖散文"]
-        }
-        
-        posts.insert(0, new_post)
-        posts = posts[:100] # 最多保留 100 篇
-        
-        with open(INDEX_FILE, "w", encoding="utf-8") as f:
-            json.dump(posts, f, ensure_ascii=False, indent=2)
+    # 只要執行就新增，不檢查是否重複
+    new_post = {
+        "filename": filename,
+        "title": f"島嶼私語：{topic}",
+        "date": now.strftime("%Y-%m-%dT%H:%M:%S"),
+        "tags": ["島嶼私語", "澎湖散文"]
+    }
+    
+    posts.insert(0, new_post)
+    posts = posts[:100] # 最多保留 100 篇
+    
+    with open(INDEX_FILE, "w", encoding="utf-8") as f:
+        json.dump(posts, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
     current_trends = get_penghu_trends()
