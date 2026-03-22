@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於澎湖 - 澎湖旅遊指南 | 沐月民宿</title>
+    <meta name="description" content="探索澎湖最深度的旅遊資訊與私房景點，跟著沐月民宿一起體驗澎湖之美。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .prose p { margin-bottom: 1em; line-height: 1.8; color: #475569; }
+        .prose h1, .prose h2, .prose h3 { color: #1e293b; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+        .prose a { color: #0ea5e9; text-decoration: underline; }
+        .prose hr { margin: 2em 0; border-color: #e2e8f0; }
+        .loader { border-top-color: #0ea5e9; -webkit-animation: spinner 1.5s linear infinite; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Timeline styling */
+        .timeline-container { position: relative; }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 24px;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+        @media (min-width: 768px) {
+            .timeline-container::before {
+                left: 120px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40 py-4">
+        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="font-bold text-xl tracking-tight text-slate-900 flex items-center gap-2">
+                <span class="bg-ocean-blue p-1.5 rounded-md text-white text-sm">⚓</span>
+                Penghu <span class="text-sky-500">Vibes</span>
+            </a>
+            <nav class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="/" class="text-slate-600 hover:text-sky-500 transition-colors uppercase tracking-wider">首頁</a>
+                <a href="/googletrend.html" class="text-slate-600 hover:text-sky-500 transition-colors uppercase tracking-wider">熱搜趨勢</a>
+            </nav>
+            <a href="/" class="md:hidden text-sm font-medium text-sky-500">回首頁</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-12 md:py-20">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">關於澎湖</h1>
+            <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                發掘澎湖的每一個角落，從熱門景點到私房秘境，為您的海島之旅提供最豐富的靈感與指南。
+            </p>
+        </div>
+
+        <div id="loading" class="flex justify-center py-20">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-200 h-12 w-12"></div>
+        </div>
+
+        <div id="posts-container" class="timeline-container space-y-16 hidden max-w-4xl mx-auto">
+            <!-- Posts will be injected here -->
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="mt-16 flex justify-center gap-2 hidden">
+            <!-- Pagination buttons will be injected here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-12 text-center text-sm text-slate-500">
+        <p>© 2026 沐月民宿 Moonlight Villa. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const POSTS_PER_PAGE = 10;
+        let allPosts = [];
+        let currentPage = 1;
+
+        async function fetchPosts() {
+            try {
+                // 加上時間戳記避免快取
+                const response = await fetch(`/ai_whispers/posts/index.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                allPosts = await response.json();
+                
+                document.getElementById('loading').classList.add('hidden');
+                
+                if (allPosts.length === 0) {
+                    document.getElementById('posts-container').innerHTML = '<p class="text-center text-slate-500">目前還沒有島嶼私語，請稍後再回來看看。</p>';
+                    document.getElementById('posts-container').classList.remove('hidden');
+                    return;
+                }
+
+                renderPage(currentPage);
+            } catch (error) {
+                console.error("無法載入文章列表:", error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('posts-container').innerHTML = `
+                    <div class="text-center bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                        <p class="text-slate-500 mb-2">文章正在準備中...</p>
+                        <p class="text-sm text-slate-400">（如果您剛設定好自動發文，請等待第一篇文章產生）</p>
+                    </div>`;
+                document.getElementById('posts-container').classList.remove('hidden');
+            }
+        }
+
+        async function renderPage(page) {
+            const container = document.getElementById('posts-container');
+            const pagination = document.getElementById('pagination');
+            container.innerHTML = '';
+            
+            const startIndex = (page - 1) * POSTS_PER_PAGE;
+            const endIndex = startIndex + POSTS_PER_PAGE;
+            const pagePosts = allPosts.slice(startIndex, endIndex);
+
+            for (const post of pagePosts) {
+                try {
+                    const mdResponse = await fetch(`/ai_whispers/posts/${post.filename}`);
+                    if (!mdResponse.ok) continue;
+                    const mdContent = await mdResponse.text();
+                    const htmlContent = marked.parse(mdContent);
+
+                    const postEl = document.createElement('article');
+                    postEl.className = 'relative flex flex-col md:flex-row gap-8 items-start group';
+                    
+                    const tagsHtml = post.tags ? post.tags.map(tag => `<span class="inline-block bg-sky-50 text-sky-600 text-xs px-3 py-1 rounded-full font-medium mr-2 mb-2 transition-colors group-hover:bg-sky-100">${tag}</span>`).join('') : '';
+
+                    // Format date nicely
+                    const postDate = new Date(post.date);
+                    const formattedDate = !isNaN(postDate.getTime()) 
+                        ? `${postDate.getFullYear()}.${String(postDate.getMonth()+1).padStart(2, '0')}.${String(postDate.getDate()).padStart(2, '0')}`
+                        : post.date;
+
+                    postEl.innerHTML = `
+                        <div class="hidden md:flex flex-col items-center w-32 shrink-0 pt-2 z-10">
+                            <div class="text-sm font-bold text-slate-400 mb-2">${formattedDate}</div>
+                            <div class="w-4 h-4 rounded-full bg-white border-4 border-sky-400 shadow-sm group-hover:scale-125 group-hover:border-sky-500 transition-transform"></div>
+                        </div>
+                        
+                        <div class="md:hidden absolute left-[18px] top-6 w-3 h-3 rounded-full bg-white border-4 border-sky-400 z-10"></div>
+                        
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 md:p-10 transition-all hover:shadow-lg hover:border-sky-100 flex-grow ml-12 md:ml-0">
+                            <header class="mb-6">
+                                <div class="md:hidden text-sm font-bold text-sky-500 mb-3">${formattedDate}</div>
+                                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-sky-600 transition-colors">${post.title || '島嶼私語'}</h2>
+                            </header>
+                            <div class="prose prose-slate prose-lg max-w-none mb-8 text-justify">
+                                ${htmlContent}
+                            </div>
+                            <footer class="pt-6 border-t border-slate-50">
+                                ${tagsHtml}
+                            </footer>
+                        </div>
+                    `;
+                    container.appendChild(postEl);
+                } catch (e) {
+                    console.error("載入文章失敗:", post.filename, e);
+                }
+            }
+
+            container.classList.remove('hidden');
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.classList.add('hidden');
+                return;
+            }
+
+            pagination.innerHTML = '';
+            
+            // Prev button
+            const prevBtn = document.createElement('button');
+            prevBtn.innerText = '上一頁';
+            prevBtn.className = `px-4 py-2 rounded-lg text-sm font-medium transition-colors ${currentPage === 1 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'}`;
+            prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderPage(currentPage); window.scrollTo(0,0); } };
+            pagination.appendChild(prevBtn);
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.innerText = i;
+                pageBtn.className = `w-10 h-10 rounded-lg text-sm font-medium transition-colors ${currentPage === i ? 'bg-sky-500 text-white shadow-sm' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'}`;
+                pageBtn.onclick = () => { currentPage = i; renderPage(currentPage); window.scrollTo(0,0); };
+                pagination.appendChild(pageBtn);
+            }
+
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.innerText = '下一頁';
+            nextBtn.className = `px-4 py-2 rounded-lg text-sm font-medium transition-colors ${currentPage === totalPages ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'}`;
+            nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderPage(currentPage); window.scrollTo(0,0); } };
+            pagination.appendChild(nextBtn);
+
+            pagination.classList.remove('hidden');
+        }
+
+        // Init
+        fetchPosts();
+    </script>
+</body>
+</html>
