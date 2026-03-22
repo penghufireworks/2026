@@ -1,0 +1,38 @@
+name: Update Penghu Trends 
+ 
+on: 
+  schedule: 
+    - cron: '*/10 * * * *'  # 每 10 分鐘自動執行一次 
+  workflow_dispatch:      # 允許你手動在 GitHub 網頁上點按執行 
+ 
+jobs: 
+  build: 
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write    # 賦予腳本寫入檔案並推送到 Repo 的權限 
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v4 
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+ 
+      - name: Set up Python 
+        uses: actions/setup-python@v5 
+        with: 
+          python-version: '3.9' 
+ 
+      - name: Install dependencies 
+        run: pip install "pytrends==4.9.2" "urllib3<2" pandas requests 
+ 
+      - name: Run script 
+        run: python update_penghu_trends.py 
+ 
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-update trends [skip ci]"
+          file_pattern: "googletrend.html"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
