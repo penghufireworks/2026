@@ -47,6 +47,49 @@ def get_penghu_trends():
         print(f"抓取失敗: {e}")
         return ["澎湖花火節", "島嶼生活", "海風"]
 
+def filter_keywords_with_ai(keywords, api_key):
+    """使用 AI 來判斷並過濾掉含有特定店家名稱或人名的關鍵字"""
+    if not api_key:
+        return keywords
+        
+    keywords_str = "、".join(keywords)
+    
+    system_prompt = (
+        "你是一個關鍵字過濾助手。我會給你一串關於澎湖的搜尋關鍵字。"
+        "你的任務是檢查這些關鍵字中，是否包含『特定的真實店家名稱』（例如：某某飯店、某某海鮮餐廳、某某民宿）或是『特定的真實人名』（例如：政治人物、名人）。"
+        "如果包含這些特定的名字，請將該關鍵字整組移除。"
+        "注意：如果是『通用的名詞』，例如：飯店、民宿、伴手禮、特產、早餐、海鮮、醫院、傳票等，請『保留』它們。"
+        "請直接回傳過濾後剩下的關鍵字，用逗號分隔，不要有任何其他解釋或對話。"
+    )
+    
+    try:
+        client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.deepseek.com"
+        )
+        
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"請過濾以下關鍵字：{keywords_str}"}
+            ],
+            stream=False,
+            temperature=0.1 # 降低溫度以獲得更確定的過濾結果
+        )
+        
+        filtered_str = response.choices[0].message.content.strip()
+        # 將回傳的字串重新轉為列表
+        filtered_list = [k.strip() for k in filtered_str.replace("、", ",").split(",") if k.strip()]
+        
+        if not filtered_list:
+            return ["澎湖花火節", "島嶼生活", "海風", "夕陽", "潮汐"]
+            
+        return filtered_list
+    except Exception as e:
+        print(f"AI 過濾關鍵字失敗: {e}")
+        return keywords # 如果失敗就退回使用原始關鍵字
+
 def generate_infj_article(trends):
     """以內斂、感性的筆觸生成內容"""
     if not API_KEY:
@@ -147,8 +190,13 @@ def save_and_format(content, trends):
         json.dump(posts, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
-    current_trends = get_penghu_trends()
-    print(f"擷取到的關鍵字: {current_trends}")
-    article_content = generate_infj_article(current_trends)
+    raw_trends = get_penghu_trends()
+    print(f"抓取到的原始關鍵字: {raw_trends}")
+    
+    # 先讓 AI 過濾一次關鍵字
+    clean_trends = filter_keywords_with_ai(raw_trends, API_KEY)
+    print(f"AI 過濾後的乾淨關鍵字: {clean_trends}")
+    
+    article_content = generate_infj_article(clean_trends)
     if article_content:
-        save_and_format(article_content, current_trends)
+        save_and_format(article_content, clean_trends)
