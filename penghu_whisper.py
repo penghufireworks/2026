@@ -1,7 +1,7 @@
-import requests
 import json
 import os
 from datetime import datetime
+from openai import OpenAI
 
 # 1. 取得 DeepSeek API Key (從環境變數讀取)
 API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
@@ -49,36 +49,25 @@ def generate_infj_article(trends):
     
     user_prompt = f"目前的島嶼氣息包含了：{keywords_str}。請以此寫下一篇關於澎湖的隨筆。"
 
-    headers = {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://penghu2026.shop", # Optional, for OpenRouter tracking
-        "X-Title": "Penghu Whisper" # Optional, for OpenRouter tracking
-    }
-    
-    data = {
-        "model": "deepseek/deepseek-chat", # 使用 DeepSeek V3 (透過 OpenRouter)
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": 0.7
-    }
-
     try:
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers=headers,
-            json=data,
-            timeout=60
+        client = OpenAI(
+            api_key=API_KEY,
+            base_url="https://api.deepseek.com"
         )
-        response.raise_for_status()
-        result = response.json()
-        return result['choices'][0]['message']['content']
+        
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            stream=False,
+            temperature=0.7
+        )
+        
+        return response.choices[0].message.content
     except Exception as e:
         print(f"API 呼叫失敗: {e}")
-        if 'response' in locals() and hasattr(response, 'text'):
-            print(f"錯誤詳情: {response.text}")
         return None
 
 def save_and_format(content, trends):
