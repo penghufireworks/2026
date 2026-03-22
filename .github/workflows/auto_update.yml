@@ -2,8 +2,8 @@ name: Update Penghu Trends
  
 on: 
   schedule: 
-    - cron: '*/10 * * * *'  # 每 10 分鐘自動執行一次 
-  workflow_dispatch:      # 允許你手動在 GitHub 網頁上點按執行 
+    - cron: '0 * * * *'  # 每小時的第 0 分鐘執行一次
+  workflow_dispatch:      # 允許手動在 GitHub 網頁上點擊執行
  
 jobs: 
   build: 
