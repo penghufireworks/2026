@@ -7,22 +7,39 @@ from openai import OpenAI
 API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 
 def get_penghu_trends():
-    """從你的網頁抓取當前熱搜關鍵字"""
+    """從你的網頁抓取當前熱搜關鍵字，並過濾掉可能的店名或人名"""
     try:
         # 為了避免在 GitHub Actions 中抓不到最新資料，直接讀取本地剛產生的 googletrend.html 
         # (因為它會在同一個 workflow 的上一步產生)
-        trends = []
+        raw_trends = []
         if os.path.exists("googletrend.html"):
             with open("googletrend.html", "r", encoding="utf-8") as f:
                 content = f.read()
-                # 簡單的字串解析來取得前 10 個關鍵字
+                # 簡單的字串解析來取得前 20 個關鍵字 (多抓一些來過濾)
                 lines = content.split('</div>')
-                for line in lines[:10]:
+                for line in lines[:20]:
                     if '<b style="color:' in line and '</b>' in line:
                         keyword = line.split('</b>')[1].split('</span>')[0].strip()
                         if keyword:
-                            trends.append(keyword)
+                            raw_trends.append(keyword)
         
+        # 建立一個簡單的過濾清單，包含常見的飯店、人名特徵、或是明確不要的字眼
+        exclude_keywords = [
+            "飯店", "民宿", "旅店", "住宿", "醫院", "診所", "掛號", "三總", 
+            "早餐", "午餐", "晚餐", "餐廳", "海鮮", "料理", "伴手禮", "特產",
+            "陳光復", "傳票", "喜來登", "澎澄", "和田", "廣林"
+        ]
+        
+        trends = []
+        for kw in raw_trends:
+            # 檢查關鍵字是否包含排除清單中的字眼
+            if not any(ex in kw for ex in exclude_keywords):
+                trends.append(kw)
+            
+            # 只要取前 10 個乾淨的關鍵字即可
+            if len(trends) >= 10:
+                break
+                
         if not trends:
             return ["澎湖花火節", "島嶼生活", "海風", "夕陽", "潮汐"]
             
@@ -44,6 +61,7 @@ def generate_infj_article(trends):
         "你是一位長居澎湖的文字創作者。你的文字溫柔、細膩、帶著一點點孤獨感，對土地充滿觀察。"
         "絕對不要提到『我是AI』、『我是INFJ』或『根據數據顯示』。"
         "請將提供的關鍵字想像成島嶼當下的『情緒』或『呼吸』，自然地融入散文隨筆中。"
+        "重要：如果關鍵字中仍不小心混入了任何『人名』、『政治人物』、『店家名稱』、『飯店名稱』、『餐廳名稱』，請你在寫作時自動忽略它們，只專注於描寫風景、氣候、潮汐、行程等純粹的島嶼元素。"
         "使用第一人稱『我』，描述感官與心靈的共鳴。請以繁體中文回答，篇幅約 400 字。"
     )
     
