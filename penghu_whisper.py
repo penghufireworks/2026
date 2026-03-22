@@ -94,7 +94,6 @@ def save_and_format(content, trends):
         f"📖 2026 澎湖。島嶼私語：\n"
         f"《{topic}》\n"
         f"SEO Tags: {seo_tags}\n"
-        f"網址： [https://penghu2026.shop](https://penghu2026.shop)"
     )
     
     full_post = content + footer
