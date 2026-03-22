@@ -69,5 +69,55 @@ try:
         f.write(html_template) 
     print("✅ googletrend.html 產出成功！") 
 
+    # 4. 自動生成部落格推文 (每小時一篇)
+    import os
+    import json
+
+    POSTS_DIR = "ai_whispers/posts"
+    INDEX_FILE = os.path.join(POSTS_DIR, "index.json")
+    os.makedirs(POSTS_DIR, exist_ok=True)
+
+    # 依據目前的小時產生檔名，確保每小時只會有一篇
+    now = datetime.now()
+    file_time_str = now.strftime("%Y-%m-%d-%H")
+    md_filename = f"{file_time_str}.md"
+    md_filepath = os.path.join(POSTS_DIR, md_filename)
+
+    if not os.path.exists(md_filepath) and final_list:
+        # 擷取前 5 名熱搜作為推文內容
+        top_5 = final_list[:5]
+        md_content = "為您播報最新的澎湖熱搜話題！來看看大家都在關注什麼：\n\n"
+        for idx, item in enumerate(top_5):
+            md_content += f"{idx+1}. **{item['query']}** ({item['value']})\n"
+        md_content += "\n👉 [點我查看完整即時熱搜排行榜](/googletrend.html)\n\n"
+        md_content += "想來一趟說走就走的澎湖之旅嗎？隨時關注最新動態，提早規劃您的完美行程！✈️"
+        
+        with open(md_filepath, "w", encoding="utf-8") as f:
+            f.write(md_content)
+            
+        # 更新 index.json 供 blog.html 讀取
+        posts = []
+        if os.path.exists(INDEX_FILE):
+            try:
+                with open(INDEX_FILE, "r", encoding="utf-8") as f:
+                    posts = json.load(f)
+            except:
+                pass
+        
+        new_post = {
+            "filename": md_filename,
+            "title": f"澎湖熱搜快報 ({now.strftime('%Y.%m.%d %H:00')})",
+            "date": now.strftime("%Y-%m-%dT%H:00:00"),
+            "tags": ["熱搜趨勢", "澎湖旅遊"]
+        }
+        
+        posts.insert(0, new_post)
+        posts = posts[:100] # 最多保留 100 篇
+        
+        with open(INDEX_FILE, "w", encoding="utf-8") as f:
+            json.dump(posts, f, ensure_ascii=False, indent=2)
+            
+        print(f"✅ 部落格推文 {md_filename} 產出成功！")
+
 except Exception as e: 
     print(f"❌ 執行出錯: {e}")
