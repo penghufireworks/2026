@@ -243,7 +243,7 @@
             }
         }
 
-        const POSTS_PER_PAGE = 10;
+        const POSTS_PER_PAGE = 5; // 將每頁文章數改為 5 篇，避免畫面太長
         let allPosts = [];
         let currentPage = 1;
 
@@ -303,6 +303,9 @@
                         ? `${postDate.getFullYear()}.${String(postDate.getMonth()+1).padStart(2, '0')}.${String(postDate.getDate()).padStart(2, '0')}`
                         : post.date;
 
+                    // 產生唯一 ID 以供展開/收合控制
+                    const contentId = `content-${post.filename.replace(/\.md$/, '')}`;
+
                     postEl.innerHTML = `
                         <div class="hidden md:flex flex-col items-center w-32 shrink-0 pt-2 z-10">
                             <div class="text-sm font-bold text-slate-400 mb-2">${formattedDate}</div>
@@ -311,20 +314,48 @@
                         
                         <div class="md:hidden absolute left-[18px] top-6 w-3 h-3 rounded-full bg-white border-4 border-sky-400 z-10"></div>
                         
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 md:p-10 transition-all hover:shadow-lg hover:border-sky-100 flex-grow ml-12 md:ml-0">
-                            <header class="mb-6">
-                                <div class="md:hidden text-sm font-bold text-sky-500 mb-3">${formattedDate}</div>
-                                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-sky-600 transition-colors">${post.title || '島嶼私語'}</h2>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8 transition-all hover:shadow-lg hover:border-sky-100 flex-grow ml-12 md:ml-0 w-full max-w-full overflow-hidden">
+                            <header class="mb-4">
+                                <div class="md:hidden text-xs font-bold text-sky-500 mb-2">${formattedDate}</div>
+                                <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-2 group-hover:text-sky-600 transition-colors">${post.title || '島嶼私語'}</h2>
                             </header>
-                            <div class="prose prose-slate prose-lg max-w-none mb-8 text-justify">
-                                ${htmlContent}
+                            
+                            <!-- 內容區塊：預設顯示部分內容，字體調小 (prose-sm) -->
+                            <div class="relative">
+                                <div id="${contentId}" class="prose prose-slate prose-sm max-w-none text-justify line-clamp-4 overflow-hidden transition-all duration-500">
+                                    ${htmlContent}
+                                </div>
+                                <!-- 漸層遮罩 -->
+                                <div id="mask-${contentId}" class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent"></div>
                             </div>
-                            <footer class="pt-6 border-t border-slate-50">
+                            
+                            <!-- 展開/收合按鈕 -->
+                            <div class="mt-2 text-center relative z-10">
+                                <button onclick="togglePostContent('${contentId}')" id="btn-${contentId}" class="text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors focus:outline-none bg-white px-4 py-1 rounded-full border border-sky-100 shadow-sm hover:shadow">
+                                    閱讀全文 ↓
+                                </button>
+                            </div>
+
+                            <footer class="pt-4 mt-4 border-t border-slate-50">
                                 ${tagsHtml}
                             </footer>
                         </div>
                     `;
                     container.appendChild(postEl);
+                    
+                    // 延遲檢查是否需要顯示展開按鈕 (如果內容太短就不顯示)
+                    setTimeout(() => {
+                        const contentDiv = document.getElementById(contentId);
+                        const maskDiv = document.getElementById(`mask-${contentId}`);
+                        const btn = document.getElementById(`btn-${contentId}`);
+                        
+                        if (contentDiv && contentDiv.scrollHeight <= contentDiv.clientHeight + 10) {
+                            btn.style.display = 'none';
+                            maskDiv.style.display = 'none';
+                            contentDiv.classList.remove('line-clamp-4');
+                        }
+                    }, 100);
+
                 } catch (e) {
                     console.error("載入文章失敗:", post.filename, e);
                 }
@@ -333,6 +364,28 @@
             container.classList.remove('hidden');
             renderPagination();
         }
+
+        // === 切換文章展開/收合狀態 ===
+        window.togglePostContent = function(id) {
+            const content = document.getElementById(id);
+            const mask = document.getElementById(`mask-${id}`);
+            const btn = document.getElementById(`btn-${id}`);
+            
+            if (content.classList.contains('line-clamp-4')) {
+                // 展開
+                content.classList.remove('line-clamp-4');
+                mask.style.display = 'none';
+                btn.innerHTML = '收合內容 ↑';
+            } else {
+                // 收合
+                content.classList.add('line-clamp-4');
+                mask.style.display = 'block';
+                btn.innerHTML = '閱讀全文 ↓';
+                
+                // 滾動回文章頂部
+                content.parentElement.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        };
 
         function renderPagination() {
             const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
