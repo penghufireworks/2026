@@ -101,7 +101,8 @@
             // 中央氣象署 API 授權碼
             const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029'; 
             // F-D0047-047 是澎湖縣鄉鎮天氣預報
-            const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-047?Authorization=${apiKey}&locationName=馬公市&elementName=T,PoP12h,Wx`;
+            const locName = encodeURIComponent('馬公市');
+            const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-047?Authorization=${apiKey}&format=JSON&locationName=${locName}&elementName=T,PoP12h,Wx`;
             
             try {
                 const response = await fetch(url);
