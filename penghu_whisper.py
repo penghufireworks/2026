@@ -135,6 +135,13 @@ def save_and_format(content, trends):
     if not content:
         return
         
+    # 第三重防線：如果在生成的內容中仍然發現這些絕對禁止的字眼，則不儲存
+    absolute_blacklist = ["縣長", "陳光復", "海洋渡假村", "三總", "和田", "喜來登", "廣林"]
+    for bad_word in absolute_blacklist:
+        if bad_word in content:
+            print(f"警告：生成的文章內包含禁止字眼「{bad_word}」，將拒絕寫入檔案。")
+            return
+            
     now = datetime.now()
     
     # 建立目錄
