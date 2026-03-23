@@ -100,23 +100,24 @@
         async function fetchWeather() {
             // 中央氣象署 API 授權碼
             const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029'; 
-            // F-D0047-047 是澎湖縣鄉鎮天氣預報
-            const locName = encodeURIComponent('馬公市');
-            const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-047?Authorization=${apiKey}&format=JSON&locationName=${locName}&elementName=T,PoP12h,Wx`;
+            // 改用最穩定的一般天氣預報 (F-C0032-001)，指定澎湖縣
+            const locName = encodeURIComponent('澎湖縣');
+            const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON&locationName=${locName}`;
             
             try {
                 const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
+                if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
                 
                 const data = await response.json();
-                const forecast = data.records.locations[0].location[0].weatherElement;
                 
-                const currentTemp = forecast.find(el => el.elementName === 'T').time[0].elementValue[0].value;
-                let rainChance = forecast.find(el => el.elementName === 'PoP12h').time[0].elementValue[0].value;
-                const weatherDesc = forecast.find(el => el.elementName === 'Wx').time[0].elementValue[0].value;
+                // 解析 F-C0032-001 的資料結構
+                const elements = data.records.location[0].weatherElement;
+                const weatherDesc = elements.find(el => el.elementName === 'Wx').time[0].parameter.parameterName;
+                const rainChance = elements.find(el => el.elementName === 'PoP').time[0].parameter.parameterName;
+                const minT = elements.find(el => el.elementName === 'MinT').time[0].parameter.parameterName;
+                const maxT = elements.find(el => el.elementName === 'MaxT').time[0].parameter.parameterName;
                 
-                // 處理降雨機率可能為空值的情況
-                rainChance = rainChance.trim() === '' ? '0' : rainChance;
+                const currentTempStr = `${minT}~${maxT}`;
 
                 // 決定天氣圖示
                 let icon = '🌤️';
@@ -127,9 +128,9 @@
                 const weatherWidget = document.getElementById('weather-widget');
                 weatherWidget.innerHTML = `
                     <span class="text-lg">${icon}</span>
-                    <span class="font-medium text-slate-700">澎湖馬公</span>
+                    <span class="font-medium text-slate-700">澎湖</span>
                     <span class="text-slate-300">|</span>
-                    <span class="text-sky-600 font-semibold">${currentTemp}°C</span>
+                    <span class="text-sky-600 font-semibold">${currentTempStr}°C</span>
                     <span class="text-slate-300">|</span>
                     <span>${weatherDesc}</span>
                     <span class="text-slate-300">|</span>
@@ -138,7 +139,7 @@
             } catch (error) {
                 console.error('獲取天氣失敗:', error);
                 document.getElementById('weather-widget').innerHTML = `
-                    <span class="text-slate-400">無法獲取天氣資訊，請稍後再試</span>
+                    <span class="text-slate-400 text-xs">暫時無法獲取天氣資訊，請稍後再試</span>
                 `;
             }
         }
