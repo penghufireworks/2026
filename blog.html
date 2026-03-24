@@ -288,7 +288,11 @@
                 try {
                     const mdResponse = await fetch(`/ai_whispers/posts/${post.filename}`);
                     if (!mdResponse.ok) continue;
-                    const mdContent = await mdResponse.text();
+                    let mdContent = await mdResponse.text();
+                    
+                    // 移除可能存在的 SEO Tags 這一行 (兼容舊文章)
+                    mdContent = mdContent.replace(/SEO Tags:.*$/gm, '');
+                    
                     const htmlContent = marked.parse(mdContent);
 
                     const postEl = document.createElement('article');

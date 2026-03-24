@@ -153,14 +153,13 @@ def save_and_format(content, trends):
     topic = content.split('。')[0][:15] if '。' in content else "散步在海邊的時刻"
     topic = topic.replace("\n", "").replace("*", "")
     
-    # 組合 SEO Tags (取前 10 個關鍵字)
-    seo_tags = " ".join([f"#{t.replace(' ', '')}" for t in trends[:10]])
+    # 取前 10 個關鍵字作為標籤，不再直接寫入文章結尾，而是存入 json
+    # 我們仍然保留這段邏輯，因為底下的 new_post 字典會用到 trends
     
     footer = (
         f"\n\n---\n"
         f"📖 2026 澎湖。島嶼私語：\n"
-        f"《{topic}》\n"
-        f"SEO Tags: {seo_tags}\n"
+        f"《{topic}》"
     )
     
     full_post = content + footer
