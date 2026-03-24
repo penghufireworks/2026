@@ -186,7 +186,7 @@ def save_and_format(content, trends):
         "filename": filename,
         "title": f"島嶼私語：{topic}",
         "date": now.strftime("%Y-%m-%dT%H:%M:%S"),
-        "tags": ["島嶼私語", "澎湖散文"]
+        "tags": trends[:10] # 將抓取到的前 10 個關鍵字存入標籤
     }
     
     posts.insert(0, new_post)
