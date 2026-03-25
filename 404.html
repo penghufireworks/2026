@@ -1,55 +1,20 @@
-<!doctype html>
-<html lang="zh-TW">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>澎湖 2026 | 沐月民宿</title>
-    <!-- GitHub Pages SPA Redirect -->
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
     <script type="text/javascript">
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      }(window.location))
+      // GitHub Pages SPA Redirect Script
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1).join('/') + '/?p=/' +
+        l.pathname.split('/').slice(1).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
     </script>
-    <script type="module" crossorigin src="/assets/index-DDRZAn_Z.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Ba_vUK9X.css">
   </head>
   <body>
-    <div id="root"></div>
-    <script>
-      // 禁用 translateContent.js 和 jquery 的注入
-      window.stopTranslate = true;
-      // 攔截並移除可能導致錯誤的外部腳本
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.tagName === 'SCRIPT' && (node.src.includes('translateContent.js') || node.src.includes('jquery'))) {
-              node.remove();
-              console.log('Blocked external script:', node.src);
-            }
-          });
-        });
-      });
-      observer.observe(document.head, { childList: true, subtree: true });
-      observer.observe(document.body, { childList: true, subtree: true });
-    </script>
-    <!-- Copyright -->
-    <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-400">
-        <p>&copy; 2026 沐月民宿 Moonlight Villa. All rights reserved.</p>
-        <div class="mt-4 flex justify-center items-center gap-2 text-xs text-slate-500">
-            <span>累積訪客:</span>
-            <!-- hitwebcounter Code START -->
-            <a href="https://www.hitwebcounter.com" target="_blank">
-            <img src="https://hitwebcounter.com/counter/counter.php?page=19783512&style=0006&nbdigits=5&type=ip&initCount=0" title="Free Counter" Alt="web counter" border="0" /></a> 
-            <span>(不重複IP)</span>
-        </div>
-    </div>
   </body>
 </html>
