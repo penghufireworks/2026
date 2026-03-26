@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澎湖美食隨身導覽全集</title>
+    <style>
+        :root { --primary: #007AFF; --bg: #f0f2f5; --text: #1c1e21; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: var(--text); line-height: 1.5; }
+        h2 { text-align: center; color: #0056b3; margin-top: 10px; }
+        .category { background: #007AFF; color: white; padding: 12px; border-radius: 8px; font-weight: bold; margin: 20px 0 10px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .food-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .name { font-size: 1.1rem; font-weight: bold; color: #d32f2f; margin-bottom: 6px; }
+        .info { font-size: 0.9rem; margin: 3px 0; display: flex; }
+        .label { min-width: 50px; color: #65676b; font-weight: 500; }
+        .content { flex: 1; }
+        .content a { color: var(--primary); text-decoration: none; word-break: break-all; }
+        .tag { display: inline-block; background: #e7f3ff; color: #1877f2; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px; font-weight: 500; }
+        .footer { text-align: center; padding: 20px; color: #888; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<h2>🌊 澎湖美食地圖全集</h2>
+
+<div class="category">📍 馬公市區 - 精選小吃</div>
+
+<div class="food-card">
+    <div class="name">郵局口蔥油餅</div>
+    <div class="info"><span class="label">時間:</span><span class="content">14:00-賣完為止 [cite: 3]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中興路與惠民一路交叉口">中興路與惠民一路交叉口 [cite: 3]</a></span></div>
+    <div class="tag">特色：料多實在，排隊需有耐心 [cite: 3, 4]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">玉冠嫩仙草</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~22:00 [cite: 5]</span></div>
+    <div class="info"><span class="label">電話:</span><span class="content">06-9260356 [cite: 5]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民福路32號">馬公市民福路32號 [cite: 5]</a></span></div>
+    <div class="tag">特色：底冰為仙草製成，夏季人潮多 [cite: 5]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">福牡蠣屋</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00-14:00, 17:00-21:00 [cite: 6]</span></div>
+    <div class="info"><span class="label">電話:</span><span class="content">06-9262270 [cite: 6]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中興路73號">馬公市中興路73號 [cite: 6]</a></span></div>
+    <div class="tag">特色：牡蠣專賣店 [cite: 6]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">家竹黑砂糖冰</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~23:00 [cite: 7]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文德路2號">馬公市文德路2號 [cite: 7]</a></span></div>
+    <div class="tag">特色：夏日解渴鎮暑聖品 [cite: 7, 8]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">正港檸檬汁</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~22:00 [cite: 9]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路59號">馬公市中正路59號 [cite: 9]</a></span></div>
+    <div class="tag">特色：新鮮檸檬原汁製作 [cite: 9, 10]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">赤崁炸粿</div>
+    <div class="info"><span class="label">時間:</span><span class="content">14:20~19:30 [cite: 11]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民權路與光明路交叉路口">民權路與光明路交叉路口 [cite: 11]</a></span></div>
+    <div class="tag">特色：澎湖特色蚵嗲 [cite: 11, 12]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">文康滷菜</div>
+    <div class="info"><span class="label">時間:</span><span class="content">17:30~23:00 [cite: 13]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市光復路277號">馬公市光復路277號 [cite: 13]</a></span></div>
+    <div class="tag">特色：口味獨特，老闆堅持滷出好味道 [cite: 13]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">仁愛清蒸肉圓</div>
+    <div class="info"><span class="label">時間:</span><span class="content">15:00~19:00 [cite: 14]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市仁愛路73-1號">馬公市仁愛路73-1號 [cite: 14]</a></span></div>
+    <div class="tag">特色：醬汁順口不膩，加辣最對味 [cite: 14, 15]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">乾益堂藥膳蛋</div>
+    <div class="info"><span class="label">時間:</span><span class="content">09:00~17:00 [cite: 16]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中央街42號">馬公市中央街42號 [cite: 16]</a></span></div>
+    <div class="tag">特色：中藥滷包，香氣四溢 [cite: 16]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">三哥酒釀雞排</div>
+    <div class="info"><span class="label">時間:</span><span class="content">16:00~18:00 [cite: 17]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市三多路及林森路的交叉路">三多路及林森路的交叉路 [cite: 17]</a></span></div>
+    <div class="tag">特色：酒釀雞排 & 超有肉汁肉串 [cite: 17]</div>
+</div>
+
+<div class="category">🌅 馬公市區 - 活力早餐</div>
+
+<div class="food-card">
+    <div class="name">香亭土魠魚羹</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~13:00 [cite: 19]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街21號">馬公市文康街21號 [cite: 19]</a></span></div>
+    <div class="tag">特色：十年老店，適合早餐吃粗飽 [cite: 19]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">北新橋牛肉湯</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~12:00 [cite: 20]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街34號">馬公市文康街34號 [cite: 20]</a></span></div>
+    <div class="tag">特色：清淡爽口湯頭，牛肉軟嫩 [cite: 20]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">鐘記燒餅</div>
+    <div class="info"><span class="label">時間:</span><span class="content">05:00~11:30 [cite: 21]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街37-1號">馬公市文康街37-1號 [cite: 21]</a></span></div>
+    <div class="tag">特色：改良西式燒餅，口味創新 [cite: 21]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">二信飯糰</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~09:00 [cite: 22]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民生路二信飯店門口">民生路二信飯店門口 [cite: 22]</a></span></div>
+    <div class="tag">特色：紫米飯糰，飯粒Q彈 [cite: 22]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">小林包子饅頭店</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~21:00 [cite: 23]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中華路28-2號">馬公市中華路28-2號 [cite: 23]</a></span></div>
+    <div class="tag">特色：價廉味美，餡多味好 [cite: 23, 24]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">阿嬤鹹粥(魚粥)</div>
+    <div class="info"><span class="label">時間:</span><span class="content">05:00~21:00 [cite: 25]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市重慶街與仁愛路口">重慶街與仁愛路口 [cite: 25]</a></span></div>
+    <div class="tag">特色：澎湖在地好味道 [cite: 25]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">義豐豆漿店</div>
+    <div class="info"><span class="label">時間:</span><span class="content">05:00~11:00 [cite: 26]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街48號">馬公市文康街48號 [cite: 26]</a></span></div>
+    <div class="tag">特色：懷舊古早店，熱豆漿加蛋 [cite: 26]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">建國魚粥</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:30~12:00 [cite: 27]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公中興路65號">馬公中興路65號 [cite: 27]</a></span></div>
+    <div class="tag">特色：在地人熱愛旗魚肉搭配油蔥酥 [cite: 27]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">漁港米粉麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~13:00 [cite: 28]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市臨海路4-1號">馬公市臨海路4-1號 [cite: 28]</a></span></div>
+    <div class="tag">特色：在地澎湖人從小吃到大的美食 [cite: 28]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">文康街冬粉肉、刈包</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~14:00 [cite: 29]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街7號">馬公市文康街7號 [cite: 29]</a></span></div>
+    <div class="tag">特色：價格親民，冬粉肉湯爽口 [cite: 29]</div>
+</div>
+
+<div class="category">🍱 馬公市區 - 午晚餐推薦</div>
+
+<div class="food-card">
+    <div class="name">甲貳小吃部</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:30~14:00, 17:00~24:00 [cite: 31]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市惠民一路16號">馬公市惠民一路16號 [cite: 31]</a></span></div>
+    <div class="tag">特色：石頭火鍋、快炒，建議預約 [cite: 32]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">碼頭刀削麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">09:30~18:00 [cite: 33]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中山路60號">馬公市中山路60號 [cite: 33]</a></span></div>
+    <div class="tag">特色：炒刀削醬油香、醋香四溢 [cite: 33]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">讚哥麵攤</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~22:00 [cite: 34]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市城隍廟正對面">馬公市城隍廟正對面 [cite: 34]</a></span></div>
+    <div class="tag">特色：菜色多樣，飯麵皆可滿足 [cite: 34, 35]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">阿華滷菜</div>
+    <div class="info"><span class="label">時間:</span><span class="content">15:30~24:00 [cite: 36]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市仁愛路65號">馬公市仁愛路65號 [cite: 36]</a></span></div>
+    <div class="tag">特色：特製獨家辣醬，香辣夠勁 [cite: 36]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">馬路益燒肉飯</div>
+    <div class="info"><span class="label">時間:</span><span class="content">16:00~24:00 [cite: 37]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路北甲宮對面">馬公市中正路北甲宮對面 [cite: 37]</a></span></div>
+    <div class="tag">特色：菜色多樣，填飽肚子的好選擇 [cite: 37]</div>
+</div>
+
+<div class="category">🦞 馬公市區 - 海鮮餐廳</div>
+
+<div class="food-card">
+    <div class="name">來福海鮮餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~21:00 [cite: 39]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市新村路43號">馬公市新村路43號 [cite: 39]</a></span></div>
+    <div class="tag">特色：可請老闆配菜，10人約2-4千 [cite: 39]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">長進餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00-14:00, 16:30-21:00 [cite: 40]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民族路9號">馬公市民族路9號 [cite: 40]</a></span></div>
+    <div class="tag">特色：價位中等，可依預算開菜單 [cite: 41]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">日新餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~22:00 [cite: 42]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市石泉里15號之7">馬公市石泉里15號之7 [cite: 42]</a></span></div>
+    <div class="tag">特色：經濟實惠的合菜餐廳 [cite: 42]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">花菜干飲食堂</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~21:00 [cite: 43]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市東文里4之2號">馬公市東文里4之2號 [cite: 43]</a></span></div>
+    <div class="tag">特色：古早式建築，澎湖家常菜 [cite: 43]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">土銀小吃</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~02:00 [cite: 44]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民福路38巷6號">馬公市民福路38巷6號 [cite: 44]</a></span></div>
+    <div class="tag">特色：口味多變，營業至深夜 [cite: 44]</div>
+</div>
+
+<div class="category">🍹 馬公市區 - PUB 酒吧</div>
+
+<div class="food-card">
+    <div class="name">佛洛伊得</div>
+    <div class="info"><span class="label">時間:</span><span class="content">22:00~02:00 [cite: 46]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市新生路2-1號">馬公市新生路2-1號 [cite: 46]</a></span></div>
+    <div class="tag">特色：美式復古風，酒類點心備齊 [cite: 46]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">16號酒館</div>
+    <div class="info"><span class="label">時間:</span><span class="content">20:00~03:00 [cite: 47]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市重慶街16號">馬公市重慶街16號 [cite: 47]</a></span></div>
+    <div class="tag">特色：不吵雜，適合聊天聚會 [cite: 47]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">KRUMP 野礦酒吧</div>
+    <div class="info"><span class="label">時間:</span><span class="content">20:00~03:00 [cite: 48]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民福路61號">馬公市民福路61號 [cite: 48]</a></span></div>
+    <div class="tag">特色：2F附設KTV，適合愛唱歌的朋友 [cite: 48]</div>
+</div>
+
+<div class="category">🚲 北環美食 - 白沙/西嶼</div>
+
+<div class="food-card">
+    <div class="name">二崁杏仁茶</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:00~21:00 [cite: 51]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村20號">西嶼鄉二崁村20號 [cite: 51]</a></span></div>
+    <div class="tag">特色：二崁早期留存的好味道 [cite: 51, 52]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">二崁土仁粿</div>
+    <div class="info"><span class="label">時間:</span><span class="content">14:00~賣完為止 [cite: 53]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村22-1號">西嶼鄉二崁村22-1號 [cite: 53]</a></span></div>
+    <div class="tag">特色：澎湖人的老記憶之一 [cite: 53, 54]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">二崁金瓜粿</div>
+    <div class="info"><span class="label">時間:</span><span class="content">不定期 [cite: 55]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁聚落裡">西嶼鄉二崁聚落裡 [cite: 55]</a></span></div>
+    <div class="tag">特色：澎湖馬卡龍，皮甜餡鹹 [cite: 55, 56]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">花媽大腸包小腸</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~19:00 [cite: 57]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=東衛7-11往西嶼方向路旁">東衛7-11往西嶼方向路旁 [cite: 57]</a></span></div>
+    <div class="tag">特色：每天新鮮製作的大腸香腸 [cite: 57, 58]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">易家仙人掌冰</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~20:00 [cite: 59]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁村191-2號">白沙鄉通梁村191-2號 [cite: 59]</a></span></div>
+    <div class="tag">特色：建議點綜合口味，酸甜混搭 [cite: 59, 60]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">小門阿虹仙人掌冰</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00 [cite: 61]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=小門地質館正對面">小門地質館正對面 [cite: 61]</a></span></div>
+    <div class="tag">特色：天然好味，另有燒酒螺 [cite: 61, 62]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">小門秀鳳姐仙人掌冰</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00 [cite: 63]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村19之3號">西嶼鄉小門村19之3號 [cite: 63]</a></span></div>
+    <div class="tag">特色：燒酒螺與道地風茹茶 [cite: 63]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">小萍的店(小管麵線)</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~18:30 [cite: 64]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村11-3號">西嶼鄉小門村11-3號 [cite: 64]</a></span></div>
+    <div class="tag">特色：蔥油香四溢，招牌小管麵線 [cite: 64, 65]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">可口冰城(總統冰)</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:30~19:00 [cite: 66]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉大池村130號">西嶼鄉大池村130號 [cite: 66]</a></span></div>
+    <div class="tag">特色：道地食材，大膽創新口味 [cite: 66]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">西台古堡花枝丸</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00 [cite: 67]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西台古堡售票口外">西台古堡售票口外 [cite: 67]</a></span></div>
+    <div class="tag">特色：解饞好幫手，澎湖盛產美食 [cite: 67, 68]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">池東枕頭餅</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:30~17:00 [cite: 69]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉池東村小池角181號">西嶼鄉池東村小池角181號 [cite: 69]</a></span></div>
+    <div class="tag">特色：70年以上技藝傳承 [cite: 69]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">美而香冬瓜糕</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~22:00 (需預約) [cite: 70]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉港子村53-3號">白沙鄉港子村53-3號 [cite: 70]</a></span></div>
+    <div class="tag">特色：傳統味道注入新鮮感 [cite: 70]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">外垵滿拿炸粿</div>
+    <div class="info"><span class="label">時間:</span><span class="content">13:00~18:00 [cite: 71]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=外垵慈航寺附近的馬路旁">外垵慈航寺附近的馬路旁 [cite: 71]</a></span></div>
+    <div class="tag">特色：鯊魚口味，滋味美妙 [cite: 71, 72]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">外垵割包</div>
+    <div class="info"><span class="label">時間:</span><span class="content">01:30~12:00 (凌晨營業) [cite: 73]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村163-1號">西嶼鄉外垵村163-1號 [cite: 73]</a></span></div>
+    <div class="tag">特色：漁夫出海好滋味，大學生夜衝美食 [cite: 74]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">美東芳牛肉麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~21:00 [cite: 76]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉港子村67之2號">白沙鄉港子村67之2號 [cite: 76]</a></span></div>
+    <div class="tag">特色：牛肉帶筋有彈性 [cite: 76]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">明發小吃部(嘉誌魚麵)</div>
+    <div class="info"><span class="label">時間:</span><span class="content">09:30~21:00 [cite: 77]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉赤崁村大赤崁45號">白沙鄉赤崁村大赤崁45號 [cite: 77]</a></span></div>
+    <div class="tag">特色：高級魚種嘉誌魚，魚肉鮮美 [cite: 78]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">講美清峰小吃部</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00-14:00, 17:00-20:00 [cite: 80]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉講美村102-1號">白沙鄉講美村102-1號 [cite: 80]</a></span></div>
+    <div class="tag">特色：老字號，老饕最愛，價位中上 [cite: 81]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">榕園小吃部</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00 [cite: 82]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁村177-2號">白沙鄉通梁村177-2號 [cite: 82]</a></span></div>
+    <div class="tag">特色：用料實在、價格公道的海鮮合菜 [cite: 82]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">漁翁島鄉村美食</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~20:00 [cite: 83]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉竹灣村15之12號">西嶼鄉竹灣村15之12號 [cite: 83]</a></span></div>
+    <div class="tag">特色：必點滷九層，價格透明 [cite: 83]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">清心飲食店</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~19:00 [cite: 84]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉池東村77-2號">西嶼鄉池東村77-2號 [cite: 84]</a></span></div>
+    <div class="tag">特色：名人、藝人愛店，菜色新鮮 [cite: 84]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">海村川味活海鮮</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00-14:00, 17:00-21:00 [cite: 85]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村88-1號">西嶼鄉外垵村88-1號 [cite: 85]</a></span></div>
+    <div class="tag">特色：合菜約3000元，亦可單點 [cite: 86]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">星月灣餐廳民宿</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00-14:00, 16:30-21:00 [cite: 87]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉大池村132號">西嶼鄉大池村132號 [cite: 87]</a></span></div>
+    <div class="tag">特色：豐富性與多元選擇 [cite: 88]</div>
+</div>
+
+<div class="category">⚓ 南環美食 - 鎖港/案山/風櫃</div>
+
+<div class="food-card">
+    <div class="name">金鎖港小吃</div>
+    <div class="info"><span class="label">時間:</span><span class="content">08:00~20:00 [cite: 91]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市鎖港里121-2號">馬公市鎖港里121-2號 [cite: 91]</a></span></div>
+    <div class="tag">特色：肉粽、米糕、海鮮麵等多項小吃 [cite: 91]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">鎖港牛肉麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">09:00~20:00 [cite: 92]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市鎖港里1391號">馬公市鎖港里1391號 [cite: 92]</a></span></div>
+    <div class="tag">特色：牛腩與牛腱搭配熬煮 [cite: 92]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">案山排骨麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~12:00 [cite: 93]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市案山里經國路153號">馬公市案山里經國路153號 [cite: 93]</a></span></div>
+    <div class="tag">特色：老饕都知道的在地美食 [cite: 93, 94]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">風櫃藥膳蛋</div>
+    <div class="info"><span class="label">時間:</span><span class="content">09:00~18:00 [cite: 96]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=風櫃聽濤涼亭對面">風櫃聽濤涼亭對面 [cite: 96]</a></span></div>
+    <div class="tag">特色：中藥味適中，解饞夥伴 [cite: 96]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">山水日式串燒</div>
+    <div class="info"><span class="label">時間:</span><span class="content">15:00~23:00 [cite: 97]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市山水里山水沙灘旁">馬公市山水里山水沙灘旁 [cite: 97]</a></span></div>
+    <div class="tag">特色：喜愛日式串燒的朋友必試 [cite: 97]</div>
+</div>
+
+<div class="category">🌾 湖西區美食 - 龍門/隘門</div>
+
+<div class="food-card">
+    <div class="name">龍門海鮮餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00-14:00, 17:00-22:00 [cite: 100]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉龍門村58之2號">湖西鄉龍門村58之2號 [cite: 100]</a></span></div>
+    <div class="tag">特色：依當日海鮮進貨配菜 [cite: 101]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">馨鱻小館</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00-14:00, 17:00-22:00 [cite: 102]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉隘門村117號">湖西鄉隘門村117號 [cite: 102]</a></span></div>
+    <div class="tag">特色：應有盡有，物美價廉 [cite: 103]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">阿霜小吃部</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00-14:30, 17:00-21:30 [cite: 104]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市烏崁里125之28號">馬公市烏崁里125之28號 [cite: 104]</a></span></div>
+    <div class="tag">特色：料理講求原味，當地人熱愛 [cite: 105]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">白灣景觀餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~20:00 [cite: 106]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉林投村26-9號">湖西鄉林投村26-9號 [cite: 106]</a></span></div>
+    <div class="tag">特色：美味食物搭配沙灘海景 [cite: 106]</div>
+</div>
+
+<div class="category">🏝️ 離島美食 - 吉貝/七美/望安</div>
+
+<div class="food-card">
+    <div class="name">吉貝 - 海邊漁之家</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:30~22:30 [cite: 109]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉吉貝村180號">白沙鄉吉貝村180號 [cite: 109]</a></span></div>
+    <div class="tag">特色：金瓜炒米粉、涼拌鐘螺 [cite: 110]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">吉貝 - 紅毛港小吃部</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00-15:00, 17:00-22:00 [cite: 111]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=吉貝村182號之7">吉貝村182號之7 [cite: 111]</a></span></div>
+    <div class="tag">特色：海鮮快炒、一般飯麵 [cite: 112]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">吉貝 - 鳳嬌姐餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~20:00 [cite: 113]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=吉貝武聖廟廣場前">吉貝武聖廟廣場前 [cite: 113]</a></span></div>
+    <div class="tag">特色：快炒不貴，取材當季 [cite: 113]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">七美 - 金城餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">11:00~22:00 [cite: 116]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南港村26-9號">七美鄉南港村26-9號 [cite: 116]</a></span></div>
+    <div class="tag">特色：菜色豐富多變 [cite: 116, 117]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">七美 - 漁村餐廳</div>
+    <div class="info"><span class="label">時間:</span><span class="content">10:00~20:00 [cite: 118]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南港村18號">七美鄉南港村18號 [cite: 118]</a></span></div>
+    <div class="tag">特色：道地七美海鮮，價格平易近人 [cite: 119]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">七美 - 越南大骨湯麵</div>
+    <div class="info"><span class="label">時間:</span><span class="content">07:00~20:00 [cite: 123]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南港村南滬崎頭4鄰25號">七美南港村南滬崎頭4鄰25號 [cite: 123]</a></span></div>
+    <div class="tag">特色：七美第一家越南異國料理 [cite: 123]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">望安 - 安增軒美食坊</div>
+    <div class="info"><span class="label">時間:</span><span class="content">06:00~14:00 [cite: 133]</span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉東安村2-5號">望安鄉東安村2-5號 [cite: 133]</a></span></div>
+    <div class="tag">特色：夾燒堡遠近馳名 [cite: 133]</div>
+</div>
+
+<div class="food-card">
+    <div class="name">望安 - 爆米花球總店</div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉東安村89號">望安鄉東安村89號 [cite: 138]</a></span></div>
+    <div class="tag">特色：紅爆米花球為望安必買名產 [cite: 138, 139]</div>
+</div>
+
+<div class="footer">
+    <p>— 已整理 130+ 條推薦資訊 —<br>點擊地址自動開啟地圖導航</p>
+</div>
+
+</body>
+</html>
