@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>澎湖美食隨身導覽全集</title>
     <style>
-        :root { --primary: #007AFF; --bg: #f0f2f5; --text: #1c1e21; }
+        :root { --primary: #007AFF; --bg: #f0f2f5; --text: #1c1e21; --sky: #0ea5e9; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: var(--text); line-height: 1.5; }
         h2 { text-align: center; color: #0056b3; margin-top: 10px; }
         .category { background: #007AFF; color: white; padding: 12px; border-radius: 8px; font-weight: bold; margin: 20px 0 10px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -17,11 +17,53 @@
         .content a { color: var(--primary); text-decoration: none; word-break: break-all; }
         .tag { display: inline-block; background: #e7f3ff; color: #1877f2; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 8px; font-weight: 500; }
         .footer { text-align: center; padding: 20px; color: #888; font-size: 0.8rem; }
+        
+        /* Weather & Tide Styles */
+        .widget-container { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 15px; }
+        @media (min-width: 640px) { .widget-container { grid-template-columns: 1fr 1fr; } }
+        .widget-card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .widget-title { font-size: 0.9rem; font-weight: bold; color: #374151; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .weather-main { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .weather-temp { font-size: 1.5rem; font-weight: bold; color: var(--sky); }
+        .forecast-mini { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
+        .forecast-item { min-width: 80px; text-align: center; background: #f8fafc; padding: 8px; border-radius: 8px; font-size: 0.75rem; }
+        .tide-info { background: #eff6ff; border-radius: 8px; padding: 10px; border-left: 4px solid #3b82f6; }
+        .tide-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 4px; }
+        .tide-time { font-weight: bold; color: #1e40af; }
+        .loader { width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid var(--sky); border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <h2>🌊 澎湖美食地圖全集</h2>
+
+<!-- Weather & Tide Widgets -->
+<div class="widget-container">
+    <!-- Weather Widget -->
+    <div class="widget-card">
+        <div class="widget-title">☀️ 澎湖即時天氣</div>
+        <div id="weather-content">
+            <div class="weather-main">
+                <div class="loader"></div>
+                <span style="color: #666; font-size: 0.85rem;">載入中...</span>
+            </div>
+        </div>
+        <div class="forecast-mini" id="forecast-content"></div>
+    </div>
+
+    <!-- Tide Widget -->
+    <div class="widget-card">
+        <div class="widget-title">🌊 摩西分海 (今日潮汐)</div>
+        <div id="tide-content">
+            <div class="tide-info">
+                <div class="loader"></div>
+                <span style="color: #666; font-size: 0.85rem;">計算潮汐中...</span>
+            </div>
+        </div>
+        <div style="font-size: 0.7rem; color: #999; margin-top: 8px; text-align: right;">*僅供參考，請以現場公告為準</div>
+    </div>
+</div>
 
 <div class="category">📍 馬公市區 - 精選小吃</div>
 
@@ -1033,7 +1075,122 @@
 
 <div class="footer">
     <p>— 已整理 130+ 條推薦資訊 —<br>點擊地址自動開啟地圖導航</p>
+    <div class="mt-4 flex justify-center items-center gap-2 text-xs text-slate-500">
+        <span>累積訪客:</span>
+        <img src="https://hitwebcounter.com/counter/counter.php?page=19782500&style=0006&nbdigits=5&type=ip&initCount=0" border="0" />
+    </div>
+    <p style="margin-top: 15px; font-size: 0.75rem; color: #999;">&copy; 2026 澎湖美食隨身導覽 | 沐月民宿 Moonlight Villa</p>
 </div>
+
+<script>
+    // === 天氣功能 (從 blog.html 移植) ===
+    async function fetchWeather() {
+        const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
+        const locName = encodeURIComponent('澎湖縣');
+        const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON&locationName=${locName}`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const elements = data.records.location[0].weatherElement;
+            const wxData = elements.find(el => el.elementName === 'Wx').time;
+            const popData = elements.find(el => el.elementName === 'PoP').time;
+            const minTData = elements.find(el => el.elementName === 'MinT').time;
+            const maxTData = elements.find(el => el.elementName === 'MaxT').time;
+
+            // 即時狀態
+            const currentWx = wxData[0].parameter.parameterName;
+            let icon = '🌤️';
+            if (currentWx.includes('雨')) icon = '🌧️';
+            else if (currentWx.includes('雲') || currentWx.includes('陰')) icon = '☁️';
+            else if (currentWx.includes('晴')) icon = '☀️';
+            
+            document.getElementById('weather-content').innerHTML = `
+                <div class="weather-main">
+                    <span style="font-size: 2rem;">${icon}</span>
+                    <div>
+                        <div class="weather-temp">${minTData[0].parameter.parameterName}~${maxTData[0].parameter.parameterName}°C</div>
+                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${popData[0].parameter.parameterName}%</div>
+                    </div>
+                </div>
+            `;
+
+            // 預報 (明日、後天、大後天)
+            let forecastHTML = '';
+            for(let i=1; i<4; i++) {
+                const dayLabel = i === 1 ? '明日' : (i === 2 ? '後天' : '大後天');
+                const wx = wxData[i].parameter.parameterName;
+                let fIcon = '🌤️';
+                if (wx.includes('雨')) fIcon = '🌧️';
+                else if (wx.includes('雲') || wx.includes('陰')) fIcon = '☁️';
+                
+                forecastHTML += `
+                    <div class="forecast-item">
+                        <div style="color: #666; margin-bottom: 2px;">${dayLabel}</div>
+                        <div style="font-size: 1.2rem;">${fIcon}</div>
+                        <div style="font-weight: bold; color: var(--sky);">${minTData[i].parameter.parameterName}°</div>
+                    </div>
+                `;
+            }
+            document.getElementById('forecast-content').innerHTML = forecastHTML;
+        } catch (e) {
+            console.error('天氣載入失敗:', e);
+            document.getElementById('weather-content').innerHTML = '<div style="font-size: 0.8rem; color: #999; padding: 10px;">暫時無法取得天氣資訊</div>';
+        }
+    }
+
+    // === 潮汐功能 (從 moses-sea 移植，使用 2026 官方同步資料) ===
+    const tideData2026 = {
+        3: {
+            "27": { range: "14:30-17:30", special: "" },
+            "28": { range: "15:00-17:30", special: "" },
+            "29": { range: "15:30-17:30", special: "" },
+            "30": { range: "06:00-08:00", special: "特定日 (延長開放)" },
+            "31": { range: "06:00-08:30", special: "特定日 (延長開放)" }
+        },
+        4: {
+            "01": { range: "14:30-17:30", special: "" },
+            "02": { range: "15:00-17:30", special: "" },
+            "03": { range: "15:30-17:30", special: "" },
+            "04": { range: "06:00-08:30", special: "特定日 (延長開放)" },
+            "05": { range: "06:00-08:30", special: "特定日 (延長開放)" },
+            "20": { range: "08:00-11:00", special: "花火節開幕" },
+            "27": { range: "11:30-17:00", special: "" }
+        }
+        // ... 其他月份資料已在 moses-sea 頁面完整載入，此處為隨身版精簡顯示
+    };
+
+    function updateTide() {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const date = String(now.getDate()).padStart(2, '0');
+        
+        const todayTide = (tideData2026[month] && tideData2026[month][date]) || null;
+        
+        if (todayTide) {
+            document.getElementById('tide-content').innerHTML = `
+                <div class="tide-info">
+                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">📅 ${month}月${date}日 步道開放時間</div>
+                    <div class="tide-row">
+                        <span class="tide-time">🕒 ${todayTide.range}</span>
+                        <span style="color: #ef4444; font-weight: bold; font-size: 0.75rem;">${todayTide.special || '正常開放'}</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            document.getElementById('tide-content').innerHTML = `
+                <div class="tide-info" style="background: #f1f5f9; border-left-color: #94a3b8;">
+                    <div style="font-size: 0.85rem; color: #666; text-align: center;">今日非開放時段或資料更新中</div>
+                    <div style="font-size: 0.7rem; color: #999; text-align: center; margin-top: 4px;">請至 <a href="/moses-sea" style="color: #3b82f6; text-decoration: underline;">摩西分海頁面</a> 查看完整表</div>
+                </div>
+            `;
+        }
+    }
+
+    // 初始化
+    fetchWeather();
+    updateTide();
+</script>
 
 </body>
 </html>
