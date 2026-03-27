@@ -1111,7 +1111,7 @@
 
 <script>
     // === 天氣功能 (優化版) ===
-        async function fetchWeather() {
+    async function fetchWeather() {
         const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
         // Try multiple location names for robustness
         const locNames = ['澎湖縣', '澎湖'];
@@ -1150,71 +1150,6 @@
         
         try {
             if (!data) throw new Error(errorMsg || '無法取得澎湖天氣資料');
-
-            const elements = data.records.location[0].weatherElement;
-            const wxData = elements.find(el => el.elementName === 'Wx').time;
-            const popData = elements.find(el => el.elementName === 'PoP').time;
-            const minTData = elements.find(el => el.elementName === 'MinT').time;
-            const maxTData = elements.find(el => el.elementName === 'MaxT').time;
-
-            const currentWx = wxData[0].parameter.parameterName;
-            const currentPop = popData[0].parameter.parameterName;
-            const currentTemp = `${minTData[0].parameter.parameterName}~${maxTData[0].parameter.parameterName}°C`;
-            
-            let icon = '🌤️';
-            if (currentWx.includes('雨')) icon = '🌧️';
-            else if (currentWx.includes('雲') || currentWx.includes('陰')) icon = '☁️';
-            else if (currentWx.includes('晴')) icon = '☀️';
-            
-            document.getElementById('weather-content').innerHTML = `
-                <div class="weather-main">
-                    <span style="font-size: 2.5rem;">${icon}</span>
-                    <div>
-                        <div class="weather-temp">${currentTemp}</div>
-                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${currentPop}%</div>
-                    </div>
-                </div>
-            `;
-
-            let forecastHTML = '';
-            for(let i=1; i<4; i++) {
-                const wx = wxData[i].parameter.parameterName;
-                const temp = `${minTData[i].parameter.parameterName}°`;
-                const dayLabel = i === 1 ? "明日" : (i === 2 ? "後天" : "大後天");
-                
-                let fIcon = '🌤️';
-                if (wx.includes('雨')) fIcon = '🌧️';
-                else if (wx.includes('雲') || wx.includes('陰')) fIcon = '☁️';
-                
-                forecastHTML += `
-                    <div class="forecast-item">
-                        <div style="color: #666; font-size: 0.7rem;">${dayLabel}</div>
-                        <div style="font-size: 1.2rem; margin: 2px 0;">${fIcon}</div>
-                        <div style="font-weight: bold; color: var(--sky);">${temp}</div>
-                    </div>
-                `;
-            }
-            document.getElementById('forecast-content').innerHTML = forecastHTML;
-        } catch (e) {
-            console.error('天氣載入失敗:', e);
-            document.getElementById('weather-content').innerHTML = `
-                <div style="font-size: 0.8rem; color: #ef4444; padding: 10px;">
-                    ⚠️ 天氣資訊暫時無法取得<br>
-                    <span style="font-size: 0.7rem; color: #999;">${e.message}</span>
-                </div>
-            `;
-        }
-    }&format=JSON&locationName=${locName}`;
-        
-        try {
-            console.log('正在獲取天氣...');
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            
-            if (!data.records || !data.records.location || data.records.location.length === 0) {
-                throw new Error('API 返回資料格式不正確');
-            }
 
             const elements = data.records.location[0].weatherElement;
             const wxData = elements.find(el => el.elementName === 'Wx').time;
