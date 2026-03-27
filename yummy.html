@@ -1111,16 +1111,80 @@
 
 <script>
     // === 天氣功能 (優化版) ===
-    async function fetchWeather() {
+        async function fetchWeather() {
         const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
-        // Try multiple location names for robustness
         const locNames = ['澎湖縣', '澎湖'];
         let data = null;
-        let errorMsg = '';
+        
+        const updateUI = (msg, isError = false) => {
+            const el = document.getElementById('weather-content');
+            if (el) el.innerHTML = `<div style="padding:10px; color:${isError ? '#ef4444' : '#666'}; font-size:0.8rem;">${msg}</div>`;
+        };
 
         for (const loc of locNames) {
             try {
                 const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON&locationName=${encodeURIComponent(loc)}`;
+                const response = await fetch(url);
+                if (!response.ok) continue;
+                const json = await response.json();
+                if (json.records && json.records.location && json.records.location.length > 0) {
+                    data = json;
+                    break;
+                }
+            } catch (e) { console.error(`Fetch ${loc} failed:`, e); }
+        }
+
+        try {
+            if (!data) throw new Error('無法取得天氣資料');
+
+            const locData = data.records.location[0];
+            const getVal = (name, timeIdx = 0) => {
+                const el = locData.weatherElement.find(e => e.elementName === name);
+                return el && el.time[timeIdx] && el.time[timeIdx].parameter ? el.time[timeIdx].parameter.parameterName : 'N/A';
+            };
+
+            const currentWx = getVal('Wx');
+            const currentPop = getVal('PoP');
+            const minT = getVal('MinT');
+            const maxT = getVal('MaxT');
+            
+            let icon = '🌤️';
+            if (currentWx.includes('雨')) icon = '🌧️';
+            else if (currentWx.includes('雲') || currentWx.includes('陰')) icon = '☁️';
+            else if (currentWx.includes('晴')) icon = '☀️';
+            
+            document.getElementById('weather-content').innerHTML = `
+                <div class="weather-main">
+                    <span style="font-size: 2.5rem;">${icon}</span>
+                    <div>
+                        <div class="weather-temp">${minT}~${maxT}°C</div>
+                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${currentPop}%</div>
+                    </div>
+                </div>
+            `;
+
+            let forecastHTML = '';
+            for(let i=1; i<4; i++) {
+                const wx = getVal('Wx', i);
+                const temp = getVal('MinT', i);
+                const dayLabel = i === 1 ? "明日" : (i === 2 ? "後天" : "大後天");
+                let fIcon = '🌤️';
+                if (wx.includes('雨')) fIcon = '🌧️';
+                else if (wx.includes('雲') || wx.includes('陰')) fIcon = '☁️';
+                
+                forecastHTML += `
+                    <div class="forecast-item">
+                        <div style="color: #666; font-size: 0.7rem;">${dayLabel}</div>
+                        <div style="font-size: 1.2rem; margin: 2px 0;">${fIcon}</div>
+                        <div style="font-weight: bold; color: var(--sky);">${temp}°</div>
+                    </div>
+                `;
+            }
+            document.getElementById('forecast-content').innerHTML = forecastHTML;
+        } catch (e) {
+            updateUI(`⚠️ 天氣載入失敗: ${e.message}`, true);
+        }
+    }&format=JSON&locationName=${encodeURIComponent(loc)}`;
                 const response = await fetch(url);
                 if (!response.ok) continue;
                 const json = await response.json();
@@ -1217,19 +1281,48 @@
   10:[{date:"01",day:"四",tides:[{high:"07:32",low:"01:26",range:"08:00-09:30"}],special:null},{date:"02",day:"五",tides:[{high:"08:25",low:"02:05",range:"08:00-10:00"}],special:null},{date:"03",day:"六",tides:[{high:"09:29",low:"02:52",range:"08:00-11:30"}],special:null},{date:"04",day:"日",tides:[{high:"10:46",low:"03:51",range:"08:00-12:30"}],special:null},{date:"05",day:"一",tides:[{high:"12:09",low:"05:13",range:"08:30-14:00"}],special:null},{date:"06",day:"二",tides:[{high:"13:28",low:"06:48",range:"10:00-15:30"}],special:null},{date:"07",day:"三",tides:[{high:"14:36",low:"08:09",range:"11:30-16:30"}],special:null},{date:"08",day:"四",tides:[{high:"15:33",low:"09:14",range:"12:30-17:30"}],special:null},{date:"09",day:"五",tides:[{high:"16:19",low:"10:08",range:"13:30-17:30"}],special:null},{date:"10",day:"六",tides:[{high:"16:57",low:"10:54",range:"14:00-17:30"}],special:null},{date:"11",day:"日",tides:[{high:"17:29",low:"11:37",range:"15:00-17:30"}],special:null},{date:"12",day:"一",tides:[{high:"17:57",low:"12:16",range:"15:30-17:30"}],special:null},{date:"13",day:"二",tides:[{high:"06:24",low:"00:10",range:"08:00-08:30"},{high:"12:53",low:"18:26",range:"16:00-17:30"}],special:null},{date:"14",day:"三",tides:[{high:"06:55",low:"00:38",range:"08:00-09:00"},{high:"13:31",low:"18:59",range:"16:30-17:30"}],special:null},{date:"15",day:"四",tides:[{high:"07:31",low:"01:06",range:"08:00-09:30"}],special:null},{date:"16",day:"五",tides:[{high:"08:12",low:"01:37",range:"08:00-10:00"}],special:null},{date:"17",day:"六",tides:[{high:"09:00",low:"02:13",range:"08:00-11:00"}],special:null},{date:"18",day:"日",tides:[{high:"09:57",low:"02:57",range:"08:00-12:00"}],special:null},{date:"19",day:"一",tides:[{high:"11:01",low:"03:54",range:"08:00-13:00"}],special:null},{date:"20",day:"二",tides:[{high:"12:08",low:"05:13",range:"08:30-14:00"}],special:null},{date:"21",day:"三",tides:[{high:"13:11",low:"06:42",range:"10:00-15:00"}],special:null},{date:"22",day:"四",tides:[{high:"14:05",low:"07:54",range:"11:00-16:00"}],special:null},{date:"23",day:"五",tides:[{high:"14:52",low:"08:52",range:"12:00-16:30"}],special:null},{date:"24",day:"六",tides:[{high:"15:34",low:"09:38",range:"12:30-17:00"}],special:null},{date:"25",day:"日",tides:[{high:"16:11",low:"10:19",range:"13:00-17:30"}],special:null},{date:"26",day:"一",tides:[{high:"16:45",low:"10:55",range:"14:00-17:30"}],special:null},{date:"27",day:"二",tides:[{high:"17:15",low:"11:29",range:"14:30-17:30"}],special:null},{date:"28",day:"三",tides:[{high:"17:44",low:"12:01",range:"15:00-17:30"}],special:null},{date:"29",day:"四",tides:[{high:"06:17",low:"12:33",range:"08:00-08:30"},{high:"18:14",low:"00:03",range:"15:30-17:30"}],special:null},{date:"30",day:"五",tides:[{high:"06:44",low:"13:06",range:"08:00-09:00"},{high:"18:46",low:"00:27",range:"16:00-17:30"}],special:null},{date:"31",day:"六",tides:[{high:"07:13",low:"01:00",range:"08:00-09:30"}],special:null}],special:"01:26"},{date:"02",day:"五",tides:[{high:"08:25",low:"08:00-10:00"}],special:"02:05"},{date:"03",day:"六",tides:[{high:"09:29",low:"08:00-11:30"}],special:"02:52"},{date:"04",day:"日",tides:[{high:"10:46",low:"08:00-12:30"}],special:"03:51"},{date:"05",day:"一",tides:[{high:"12:09",low:"08:30-14:00"}],special:"05:13"},{date:"06",day:"二",tides:[{high:"13:28",low:"10:00-15:30"}],special:"06:48"},{date:"07",day:"三",tides:[{high:"14:36",low:"11:30-16:30"}],special:"08:09"},{date:"08",day:"四",tides:[{high:"15:33",low:"12:30-17:30"}],special:"09:14"},{date:"09",day:"五",tides:[{high:"16:19",low:"13:30-17:30"}],special:"10:08"},{date:"10",day:"六",tides:[{high:"16:57",low:"14:00-17:30"}],special:"10:54"},{date:"11",day:"日",tides:[{high:"17:29",low:"15:00-17:30"}],special:"11:37"},{date:"12",day:"一",tides:[{high:"17:57",low:"15:30-17:30"}],special:"12:16"},{date:"13",day:"二",tides:[{high:"06:24",low:"08:00-08:30"},{high:"12:53",low:"18:26",range:"16:00-17:30"}],special:"00:10"},{date:"14",day:"三",tides:[{high:"06:55",low:"08:00-09:00"},{high:"13:31",low:"18:59",range:"16:30-17:30"}],special:"00:38"},{date:"15",day:"四",tides:[{high:"07:31",low:"08:00-09:30"},{high:"14:10",low:"19:37",range:"夜間非公告開放時間"}],special:"01:06"},{date:"16",day:"五",tides:[{high:"08:12",low:"08:00-10:00"}],special:"01:37"},{date:"17",day:"六",tides:[{high:"09:00",low:"08:00-11:00"}],special:"02:13"},{date:"18",day:"日",tides:[{high:"09:57",low:"08:00-12:00"}],special:"02:57"},{date:"19",day:"一",tides:[{high:"11:01",low:"08:00-13:00"}],special:"03:54"},{date:"20",day:"二",tides:[{high:"12:08",low:"08:30-14:00"}],special:"05:13"},{date:"21",day:"三",tides:[{high:"13:11",low:"10:00-15:00"}],special:"06:42"},{date:"22",day:"四",tides:[{high:"14:05",low:"11:00-16:00"}],special:"07:54"},{date:"23",day:"五",tides:[{high:"14:52",low:"12:00-16:30"}],special:"08:52"},{date:"24",day:"六",tides:[{high:"15:34",low:"13:00-17:30"}],special:"09:42"},{date:"25",day:"日",tides:[{high:"16:13",low:"13:30-17:30"}],special:"10:28"},{date:"26",day:"一",tides:[{high:"16:50",low:"14:30-17:30"}],special:"11:12"},{date:"27",day:"二",tides:[{high:"17:26",low:"15:00-17:30"}],special:"11:55"},{date:"28",day:"三",tides:[{high:"18:03",low:"16:00-17:30"}],special:"12:39"},{date:"29",day:"四",tides:[{high:"06:28",low:"08:00-08:30"},{high:"13:24",low:"18:43",range:"16:30-17:30"}],special:"00:20"},{date:"30",day:"五",tides:[{high:"07:16",low:"08:00-09:00"},{high:"14:14",low:"19:29",range:"夜間非公告開放時間"}],special:"00:59"},{date:"31",day:"六",tides:[{high:"08:12",low:"08:00-10:00"}],special:"01:43"}],
 };
 
-    function updateTide() {
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const date = String(now.getDate()).padStart(2, '0');
-        
-        const todayData = tideData2026[month] || [];
-        const todayTide = todayData.find(d => parseInt(d.date) === parseInt(date));
-        
-        if (todayTide) {
-            const rangeStr = todayTide.tides.map(t => t.range).join(' / ');
-            document.getElementById('tide-content').innerHTML = `
-                <div class="tide-info">
-                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">📅 ${month}月${date}日 步道開放時間</div>
+        function updateTide() {
+        try {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = String(now.getDate()).padStart(2, '0');
+            
+            if (typeof tideData2026 === 'undefined') throw new Error('潮汐資料庫未載入');
+            
+            const todayData = tideData2026[month] || [];
+            const todayTide = todayData.find(d => parseInt(d.date) === parseInt(date));
+            
+            const el = document.getElementById('tide-content');
+            if (!el) return;
+
+            if (todayTide) {
+                const rangeStr = todayTide.tides.map(t => t.range).join(' / ');
+                el.innerHTML = `
+                    <div class="tide-info">
+                        <div style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">📅 ${month}月${date}日 步道開放時間</div>
+                        <div class="tide-row">
+                            <span class="tide-time">🕒 ${rangeStr}</span>
+                            <span style="color: #ef4444; font-weight: bold; font-size: 0.75rem;">${todayTide.special || '正常開放'}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                el.innerHTML = `
+                    <div class="tide-info" style="background: #f1f5f9; border-left-color: #94a3b8;">
+                        <div style="font-size: 0.85rem; color: #666; text-align: center;">今日非 4-10 月公告開放時段</div>
+                        <div style="font-size: 0.7rem; color: #999; text-align: center; margin-top: 4px;">詳細請查看下方全月表</div>
+                    </div>
+                `;
+            }
+            
+            renderMonthSelector();
+            renderTideTable(month >= 4 && month <= 10 ? month : 4);
+        } catch (e) {
+            console.error('潮汐更新失敗:', e);
+            const el = document.getElementById('tide-content');
+            if (el) el.innerHTML = `<div style="color:red; font-size:0.7rem;">⚠️ 潮汐資料錯誤: ${e.message}</div>`;
+        }
+    }月${date}日 步道開放時間</div>
                     <div class="tide-row">
                         <span class="tide-time">🕒 ${rangeStr}</span>
                         <span style="color: #ef4444; font-weight: bold; font-size: 0.75rem;">${todayTide.special || '正常開放'}</span>
@@ -1292,8 +1385,10 @@
     }
 
     // 初始化
-    fetchWeather();
-    updateTide();
+        document.addEventListener('DOMContentLoaded', () => {
+        fetchWeather();
+        updateTide();
+    });
 </script>
 
 </body>
