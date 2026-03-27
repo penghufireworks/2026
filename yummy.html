@@ -22,7 +22,7 @@
         .widget-container { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 15px; }
         @media (min-width: 640px) { .widget-container { grid-template-columns: 1fr 1fr; } }
         .widget-card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
-        .widget-title { font-size: 0.9rem; font-weight: bold; color: #374151; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .widget-title { font-size: 0.9rem; font-weight: bold; color: #374151; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
         .weather-main { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .weather-temp { font-size: 1.5rem; font-weight: bold; color: var(--sky); }
         .forecast-mini { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
@@ -30,6 +30,20 @@
         .tide-info { background: #eff6ff; border-radius: 8px; padding: 10px; border-left: 4px solid #3b82f6; }
         .tide-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 4px; }
         .tide-time { font-weight: bold; color: #1e40af; }
+        
+        /* Full Tide Table Styles */
+        .tide-table-container { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .tide-selector { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; }
+        .month-btn { padding: 6px 12px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; font-size: 0.85rem; white-space: nowrap; cursor: pointer; }
+        .month-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .tide-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .tide-table th { text-align: left; padding: 8px; background: #f8fafc; color: #64748b; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
+        .tide-table td { padding: 8px; border-bottom: 1px solid #f1f5f9; }
+        .tide-table tr:last-child td { border-bottom: none; }
+        .special-tag { font-size: 0.7rem; padding: 1px 4px; border-radius: 3px; margin-left: 4px; font-weight: bold; }
+        .tag-red { background: #fee2e2; color: #ef4444; }
+        .tag-blue { background: #e0f2fe; color: #3b82f6; }
+
         .loader { width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid var(--sky); border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -54,7 +68,10 @@
 
     <!-- Tide Widget -->
     <div class="widget-card">
-        <div class="widget-title">🌊 摩西分海 (今日潮汐)</div>
+        <div class="widget-title">
+            <span>🌊 摩西分海 (今日)</span>
+            <a href="#tide-full-section" style="font-size: 0.7rem; color: var(--primary); text-decoration: none;">查看全月表 ↓</a>
+        </div>
         <div id="tide-content">
             <div class="tide-info">
                 <div class="loader"></div>
@@ -62,6 +79,30 @@
             </div>
         </div>
         <div style="font-size: 0.7rem; color: #999; margin-top: 8px; text-align: right;">*僅供參考，請以現場公告為準</div>
+    </div>
+</div>
+
+<!-- Full Tide Table Section -->
+<div id="tide-full-section" class="tide-table-container">
+    <div class="widget-title">📅 2026 摩西分海時刻表 (4月-10月)</div>
+    <div class="tide-selector" id="month-selector">
+        <!-- Month buttons will be injected here -->
+    </div>
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="tide-table">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>開放時間</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody id="tide-table-body">
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #999; padding: 20px;">請選擇月份</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -170,7 +211,7 @@
 <div class="food-card">
     <div class="name">小林包子饅頭店</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~12:00, 14:30~19:00 (週日公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=小林包子饅頭店">澎湖縣馬公市三多路28號 (2025新址)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣小林包子饅頭店">澎湖縣馬公市三多路28號 (2025新址)</a></span></div>
     <div class="tag">特色：老麵手工現做，堅持不加水僅用鮮奶，奶香濃郁且口感Q彈有勁</div>
 </div>
 
@@ -198,35 +239,35 @@
 <div class="food-card">
     <div class="name">嘉嘉碳烤</div>
     <div class="info"><span class="label">時間:</span><span class="content">16:30~00:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路與光明路口">馬公市中正路與光明路口</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中正路與光明路口">馬公市中正路與光明路口</a></span></div>
     <div class="tag">特色：市區熱門碳烤攤，宵夜下酒菜首選</div>
 </div>
 
 <div class="food-card">
     <div class="name">海玩子雞蛋糕</div>
     <div class="info"><span class="label">時間:</span><span class="content">14:00~18:00 (週三公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市光復路45號">馬公市光復路45號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市光復路45號">馬公市光復路45號</a></span></div>
     <div class="tag">特色：海洋生物造型，不加一滴水純奶製作</div>
 </div>
 
 <div class="food-card">
     <div class="name">洪家炸粿</div>
     <div class="info"><span class="label">時間:</span><span class="content">12:00~17:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市8-36號">馬公市8-36號 (往北環路邊)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市8-36號">馬公市8-36號 (往北環路邊)</a></span></div>
     <div class="tag">特色：綜合炸粿料多實在，低調隱藏版美食</div>
 </div>
 
 <div class="food-card">
     <div class="name">澎湖老五鹹水雞</div>
     <div class="info"><span class="label">時間:</span><span class="content">17:00~23:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市光明路口">馬公市光明路口 (近中正路)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市光明路口">馬公市光明路口 (近中正路)</a></span></div>
     <div class="tag">特色：宵夜熱門首選，雞肉Q彈配料入味</div>
 </div>
 
 <div class="food-card">
     <div class="name">大漢油飯</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~10:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民生路與光明路口">馬公市民生路與光明路口</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民生路與光明路口">馬公市民生路與光明路口</a></span></div>
     <div class="tag">特色：在地人早餐，油飯香Q、冬粉肉湯鮮美</div>
 </div>
 
@@ -235,21 +276,21 @@
 <div class="food-card">
     <div class="name">香亭土魠魚羹</div>
     <div class="info"><span class="label">時間:</span><span class="content">05:30~13:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街21號">馬公市文康街21號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市文康街21號">馬公市文康街21號</a></span></div>
     <div class="tag">特色：土魠魚肉酥脆，湯頭鮮甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">北新橋牛肉湯</div>
     <div class="info"><span class="label">時間:</span><span class="content">05:40~11:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街34號">馬公市文康街34號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市文康街34號">馬公市文康街34號</a></span></div>
     <div class="tag">特色：清燉牛肉湯頭鮮美，肉質軟嫩</div>
 </div>
 
 <div class="food-card">
     <div class="name">鐘記燒餅</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:30~11:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街35號">馬公市文康街35號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市文康街35號">馬公市文康街35號</a></span></div>
     <div class="tag">特色：厚實Q彈燒餅，多種創意口味組合</div>
 </div>
 
@@ -270,56 +311,56 @@
 <div class="food-card">
     <div class="name">小林包子饅頭店</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中華路28-2號">馬公市中華路28-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中華路28-2號">馬公市中華路28-2號</a></span></div>
     <div class="tag">特色：手工揉製，包子皮Q內餡紮實</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿嬤鹹粥(魚粥)</div>
     <div class="info"><span class="label">時間:</span><span class="content">05:00~13:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市重慶街27號">馬公市重慶街27號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市重慶街27號">馬公市重慶街27號</a></span></div>
     <div class="tag">特色：湯頭清鮮，料多豐富的在地早點</div>
 </div>
 
 <div class="food-card">
     <div class="name">福台排骨麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~13:30 (週一公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民族路40號">馬公市民族路40號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民族路40號">馬公市民族路40號</a></span></div>
     <div class="tag">特色：排骨酥香軟入味，湯頭清甜不膩</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿華排骨麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:30~13:30 (週日公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市仁愛路18號">馬公市仁愛路18號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市仁愛路18號">馬公市仁愛路18號</a></span></div>
     <div class="tag">特色：在地老牌排骨麵，麵條Q彈、排骨酥軟爛</div>
 </div>
 
 <div class="food-card">
     <div class="name">義豐豆漿店</div>
     <div class="info"><span class="label">時間:</span><span class="content">05:30~11:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街48號">馬公市文康街48號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市文康街48號">馬公市文康街48號</a></span></div>
     <div class="tag">特色：懷舊老店，推薦熱豆漿與油條</div>
 </div>
 
 <div class="food-card">
     <div class="name">建國魚粥</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:30~12:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中興路65號">馬公市中興路65號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中興路65號">馬公市中興路65號</a></span></div>
     <div class="tag">特色：新鮮魚肉搭配油蔥酥，鮮甜可口</div>
 </div>
 
 <div class="food-card">
     <div class="name">漁港米粉麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~13:30 (週二、三公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市臨海路4-1號">馬公市臨海路4-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市臨海路4-1號">馬公市臨海路4-1號</a></span></div>
     <div class="tag">特色：傳統早午餐，大骨熬製湯頭濃郁</div>
 </div>
 
 <div class="food-card">
     <div class="name">文康街冬粉肉、刈包</div>
     <div class="info"><span class="label">時間:</span><span class="content">07:00~15:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市文康街7號">馬公市文康街7號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市文康街7號">馬公市文康街7號</a></span></div>
     <div class="tag">特色：文康七號刈包，冬粉肉湯清爽不膩</div>
 </div>
 
@@ -342,35 +383,35 @@
 <div class="food-card">
     <div class="name">甲貳小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:30~14:00, 17:00~24:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市惠民一路16號">馬公市惠民一路16號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市惠民一路16號">馬公市惠民一路16號</a></span></div>
     <div class="tag">特色：石頭火鍋、快炒，宵夜首選</div>
 </div>
 
 <div class="food-card">
     <div class="name">碼頭刀削麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~18:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中山路60號">馬公市中山路60號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中山路60號">馬公市中山路60號</a></span></div>
     <div class="tag">特色：炒刀削醬香濃郁，配料豐富</div>
 </div>
 
 <div class="food-card">
     <div class="name">讚哥麵攤</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市光明路20號">馬公市光明路20號 (城隍廟對面)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市光明路20號">馬公市光明路20號 (城隍廟對面)</a></span></div>
     <div class="tag">特色：燒肉飯與排骨飯名店，菜色豐富</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿華滷菜</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~00:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市仁愛路65號">馬公市仁愛路65號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市仁愛路65號">馬公市仁愛路65號</a></span></div>
     <div class="tag">特色：排隊滷菜名店，獨門辣醬必加</div>
 </div>
 
 <div class="food-card">
     <div class="name">馬路益燒肉飯</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 16:30~21:00 (週二公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬路益燒肉飯">澎湖縣馬公市光明路21號 (媽宮城隍廟對面)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬路益燒肉飯">澎湖縣馬公市光明路21號 (媽宮城隍廟對面)</a></span></div>
     <div class="tag">特色：在地40年老字號，招牌燒肉飯、炸雞腿、花枝排必點，口感鹹甜入味</div>
 </div>
 
@@ -386,21 +427,21 @@
 <div class="food-card">
     <div class="name">傻愛莊</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:30, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市新生路14號">馬公市新生路14號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市新生路14號">馬公市新生路14號</a></span></div>
     <div class="tag">特色：老屋餐廳，推薦珊瑚餅與特色家常菜</div>
 </div>
 
 <div class="food-card">
     <div class="name">雛菊見 Daisy House</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市三多路353號">馬公市三多路353號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市三多路353號">馬公市三多路353號</a></span></div>
     <div class="tag">特色：超人氣森林系網美餐廳，甜點與義式料理兼具</div>
 </div>
 
 <div class="food-card">
     <div class="name">原味漁村小吃</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~23:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路5巷8號">馬公市中正路5巷8號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中正路5巷8號">馬公市中正路5巷8號</a></span></div>
     <div class="tag">特色：必吃鮮蚵滷肉飯，食材鮮甜料多澎湃</div>
 </div>
 
@@ -421,21 +462,21 @@
 <div class="food-card">
     <div class="name">海城 上湯鮮魚粥</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市三多路159號">馬公市三多路159號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市三多路159號">馬公市三多路159號</a></span></div>
     <div class="tag">特色：豪華痛風海鮮麵線，食材極度澎湃</div>
 </div>
 
 <div class="food-card">
     <div class="name">瑪咖朵披薩 Mercato Pizza</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:30~14:00, 17:00~20:00 (週二公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市北辰街10號">馬公市北辰街10號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市北辰街10號">馬公市北辰街10號</a></span></div>
     <div class="tag">特色：特色雲朵披薩，口感鬆軟Q彈，焦糖海鹽薯條必點</div>
 </div>
 
 <div class="food-card">
     <div class="name">菊楓食堂</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~20:30 (週一公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市六合路65號">馬公市六合路65號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市六合路65號">馬公市六合路65號</a></span></div>
     <div class="tag">特色：平價日式料理，深受學生與在地人喜愛</div>
 </div>
 
@@ -449,28 +490,28 @@
 <div class="food-card">
     <div class="name">藍21咖啡輕食</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~19:00 (週四公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市陽明路115號">馬公市陽明路115號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市陽明路115號">馬公市陽明路115號</a></span></div>
     <div class="tag">特色：創意蛋餅與輕食，特色藍色裝潢</div>
 </div>
 
 <div class="food-card">
     <div class="name">京華牛肉麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~20:00 (週三公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民生路5號">馬公市民生路5號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民生路5號">馬公市民生路5號</a></span></div>
     <div class="tag">特色：在地老牌牛肉麵，湯頭濃郁肉質大塊</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿東海鮮餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市新店路6號">馬公市新店路6號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市新店路6號">馬公市新店路6號</a></span></div>
     <div class="tag">特色：在地大型海鮮餐廳，食材新鮮、場地寬敞</div>
 </div>
 
 <div class="food-card">
     <div class="name">龍星海鮮餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市治平路15-6號">馬公市治平路15-6號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市治平路15-6號">馬公市治平路15-6號</a></span></div>
     <div class="tag">特色：老牌海鮮名店，合菜極具水準，在地人婚宴熱點</div>
 </div>
 
@@ -479,35 +520,35 @@
 <div class="food-card">
     <div class="name">來福海鮮餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~13:30, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市新村路43號">馬公市新村路43號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市新村路43號">馬公市新村路43號</a></span></div>
     <div class="tag">特色：在地老牌餐廳，食材新鮮口味紮實</div>
 </div>
 
 <div class="food-card">
     <div class="name">長進餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民族路9號">馬公市民族路9號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民族路9號">馬公市民族路9號</a></span></div>
     <div class="tag">特色：推薦白沙米粉、紅蟳蒸蛋</div>
 </div>
 
 <div class="food-card">
     <div class="name">日新餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:30~14:00, 17:30~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市石泉里24-20號">馬公市石泉里24-20號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市石泉里24-20號">馬公市石泉里24-20號</a></span></div>
     <div class="tag">特色：高CP值海鮮合菜，在地人聚餐首選</div>
 </div>
 
 <div class="food-card">
     <div class="name">花菜干人文懷舊餐館</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市東文里4-2號">馬公市東文里4-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市東文里4-2號">馬公市東文里4-2號</a></span></div>
     <div class="tag">特色：古早味澎湖家常菜，裝潢懷舊有特色</div>
 </div>
 
 <div class="food-card">
     <div class="name">土銀小吃</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民福路38巷6號">馬公市民福路38巷6號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民福路38巷6號">馬公市民福路38巷6號</a></span></div>
     <div class="tag">特色：巷弄隱藏美食，平價海鮮快炒</div>
 </div>
 
@@ -516,7 +557,7 @@
 <div class="food-card">
     <div class="name">菜宅裡的小酒館 (The Garden Tapas & Bar)</div>
     <div class="info"><span class="label">時間:</span><span class="content">18:00~23:00 (週一公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=菜宅裡的小酒館">澎湖縣馬公市重慶街26號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣菜宅裡的小酒館">澎湖縣馬公市重慶街26號</a></span></div>
     <div class="info"><span class="label">電話:</span><span class="content">0979-050-207 (訂位 Line@783jwtqw)</span></div>
     <div class="tag">特色：西班牙小食酒吧。無提供正餐麵飯，僅下酒菜(Tapas)。需提早預約，僅收現金。</div>
 </div>
@@ -545,14 +586,14 @@
 <div class="food-card">
     <div class="name">16號酒館</div>
     <div class="info"><span class="label">時間:</span><span class="content">20:00~03:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市重慶街16號">馬公市重慶街16號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市重慶街16號">馬公市重慶街16號</a></span></div>
     <div class="tag">特色：各式調酒與炸物，聚會好去處</div>
 </div>
 
 <div class="food-card">
     <div class="name">KRUMP 野礦酒吧</div>
     <div class="info"><span class="label">時間:</span><span class="content">21:00~03:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民福路61號">馬公市民福路61號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民福路61號">馬公市民福路61號</a></span></div>
     <div class="tag">特色：工業風裝潢，特色創意調酒</div>
 </div>
 
@@ -561,189 +602,189 @@
 <div class="food-card">
     <div class="name">二崁杏仁茶</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~17:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村36號">西嶼鄉二崁村36號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉二崁村36號">西嶼鄉二崁村36號</a></span></div>
     <div class="tag">特色：濃郁古早味杏仁茶，二崁聚落必喝</div>
 </div>
 
 <div class="food-card">
     <div class="name">二馬豆花</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~16:00 (賣完提早收)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村38號">西嶼鄉二崁村38號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉二崁村38號">西嶼鄉二崁村38號</a></span></div>
     <div class="tag">特色：古宅吃豆花，糖水免費續加，花生粉豆花必點</div>
 </div>
 
 <div class="food-card">
     <div class="name">二崁土仁粿 / 金瓜粿 (鳥來伯)</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~18:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村22-1號">西嶼鄉二崁村22-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉二崁村22-1號">西嶼鄉二崁村22-1號</a></span></div>
     <div class="tag">特色：在地特色小點，Q彈有嚼勁，南瓜內餡香甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">二崁傳香</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村14號">西嶼鄉二崁村14號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉二崁村14號">西嶼鄉二崁村14號</a></span></div>
     <div class="tag">特色：二崁三寶之一，天然避邪薰香</div>
 </div>
 
 <div class="food-card">
     <div class="name">牧羊人咖啡</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉二崁村12號">西嶼鄉二崁村12號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉二崁村12號">西嶼鄉二崁村12號</a></span></div>
     <div class="tag">特色：二崁聚落制高點，享受悠閒下午茶</div>
 </div>
 
 <div class="food-card">
     <div class="name">花媽大腸包小腸</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~17:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市東衛里120-1號">馬公市東衛里120-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市東衛里120-1號">馬公市東衛里120-1號</a></span></div>
     <div class="tag">特色：炭烤香氣迷人，東衛岔路口美食，關東煮也好吃</div>
 </div>
 
 <div class="food-card">
     <div class="name">回家炸粿</div>
     <div class="info"><span class="label">時間:</span><span class="content">13:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉講美村122-1號">白沙鄉講美村122-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉講美村122-1號">白沙鄉講美村122-1號</a></span></div>
     <div class="tag">特色：講美必吃，雙蝦炸粿與多樣炸物</div>
 </div>
 
 <div class="food-card">
     <div class="name">易家仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:30~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁村191-2號">白沙鄉通梁村191-2號 (跨海大橋旁)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉通梁村191-2號">白沙鄉通梁村191-2號 (跨海大橋旁)</a></span></div>
     <div class="tag">特色：仙人掌冰創創始店，口感綿密酸甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">小門阿虹仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村11-5號">西嶼鄉小門村11-5號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉小門村11-5號">西嶼鄉小門村11-5號</a></span></div>
     <div class="tag">特色：新鮮果實製作，小門鯨魚洞旁美食</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿挺海鮮</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村11-2號">西嶼鄉小門村11-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉小門村11-2號">西嶼鄉小門村11-2號</a></span></div>
     <div class="tag">特色：40年老店，推薦墨魚小管麵線、活小管二吃</div>
 </div>
 
 <div class="food-card">
     <div class="name">小門秀鳳姐仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村19之3號">西嶼鄉小門村19之3號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉小門村19之3號">西嶼鄉小門村19之3號</a></span></div>
     <div class="tag">特色：口感清爽，深受遊客喜愛</div>
 </div>
 
 <div class="food-card">
     <div class="name">小萍的店</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉小門村11-3號">西嶼鄉小門村11-3號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉小門村11-3號">西嶼鄉小門村11-3號</a></span></div>
     <div class="tag">特色：小管麵線創始店，小管鮮甜麵線滑Q</div>
 </div>
 
 <div class="food-card">
     <div class="name">可口冰城</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉大池村130號">西嶼鄉大池村130號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉大池村130號">西嶼鄉大池村130號</a></span></div>
     <div class="tag">特色：特色仙人掌冰與各式創意冰品</div>
 </div>
 
 <div class="food-card">
     <div class="name">西台古堡花枝丸</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村西台古堡旁">西嶼鄉外垵村西台古堡旁 (售票口外)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉外垵村西台古堡旁">西嶼鄉外垵村西台古堡旁 (售票口外)</a></span></div>
     <div class="tag">特色：現炸花枝丸，鮮Q多汁</div>
 </div>
 
 <div class="food-card">
     <div class="name">池東枕頭餅</div>
     <div class="info"><span class="label">時間:</span><span class="content">07:30~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉池東村小池角181號">西嶼鄉池東村小池角181號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉池東村小池角181號">西嶼鄉池東村小池角181號</a></span></div>
     <div class="tag">特色：自造興老店，傳統古早味枕頭餅</div>
 </div>
 
 <div class="food-card">
     <div class="name">美而香冬瓜糕</div>
     <div class="info"><span class="label">時間:</span><span class="content">07:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉港子村53-3號">白沙鄉港子村53-3號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉港子村53-3號">白沙鄉港子村53-3號</a></span></div>
     <div class="tag">特色：阿志冬瓜糕，香甜不膩傳統味</div>
 </div>
 
 <div class="food-card">
     <div class="name">外垵滿拿炸粿</div>
     <div class="info"><span class="label">時間:</span><span class="content">12:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村186號">西嶼鄉外垵村186號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉外垵村186號">西嶼鄉外垵村186號</a></span></div>
     <div class="tag">特色：外垵必吃美食，料多實在現點現炸，推薦綜合口味</div>
 </div>
 
 <div class="food-card">
     <div class="name">大池炸粿</div>
     <div class="info"><span class="label">時間:</span><span class="content">14:30~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉大池村23號">西嶼鄉大池村23號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉大池村23號">西嶼鄉大池村23號</a></span></div>
     <div class="tag">特色：除了炸粿，炸鯊魚排也是一絕</div>
 </div>
 
 <div class="food-card">
     <div class="name">外垵割包 (福氣早餐)</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村163-1號">西嶼鄉外垵村163-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉外垵村163-1號">西嶼鄉外垵村163-1號</a></span></div>
     <div class="tag">特色：黑糖割包皮搭配厚實焢肉</div>
 </div>
 
 <div class="food-card">
     <div class="name">美東芳牛肉麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~14:00, 17:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉港子村67-2號">白沙鄉港子村67-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉港子村67-2號">白沙鄉港子村67-2號</a></span></div>
     <div class="tag">特色：招牌花干與牛肉麵，湯頭醇厚</div>
 </div>
 
 <div class="food-card">
     <div class="name">明發小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:30~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉赤崁村大赤崁45號">白沙鄉赤崁村大赤崁45號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉赤崁村大赤崁45號">白沙鄉赤崁村大赤崁45號</a></span></div>
     <div class="tag">特色：嘉誌魚麵鮮味十足，在地推薦</div>
 </div>
 
 <div class="food-card">
     <div class="name">講美清峰小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~14:00, 17:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉講美村102-1號">白沙鄉講美村102-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉講美村102-1號">白沙鄉講美村102-1號</a></span></div>
     <div class="tag">特色：生蚵泡菜必點，在地老饕推薦</div>
 </div>
 
 <div class="food-card">
     <div class="name">榕園小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:30~14:00, 17:30~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁村176-1號">白沙鄉通梁村176-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉通梁村176-1號">白沙鄉通梁村176-1號</a></span></div>
     <div class="tag">特色：通梁老字號小吃，食材新鮮CP值高</div>
 </div>
 
 <div class="food-card">
     <div class="name">漁翁島鄉村美食</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:30~14:00, 16:30~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村161之2號">西嶼鄉外垵村161之2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉外垵村161之2號">西嶼鄉外垵村161之2號</a></span></div>
     <div class="tag">特色：外垵在地熱炒，推薦滷九層</div>
 </div>
 
 <div class="food-card">
     <div class="name">清心飲食店</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~15:00, 17:00~18:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉池東村77-2號">西嶼鄉池東村77-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉池東村77-2號">西嶼鄉池東村77-2號</a></span></div>
     <div class="tag">特色：蔣經國總統曾造訪，澎湖經典海鮮名店</div>
 </div>
 
 <div class="food-card">
     <div class="name">海村川味活海鮮</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉外垵村88-1號">西嶼鄉外垵村88-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉外垵村88-1號">西嶼鄉外垵村88-1號</a></span></div>
     <div class="tag">特色：活海鮮現點現料理，口味地道</div>
 </div>
 
 <div class="food-card">
     <div class="name">星月灣餐廳民宿</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=西嶼鄉大池村132號">西嶼鄉大池村132號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣西嶼鄉大池村132號">西嶼鄉大池村132號</a></span></div>
     <div class="tag">特色：海景用餐環境，特色海鮮合菜</div>
 </div>
 
@@ -752,35 +793,28 @@
 <div class="food-card">
     <div class="name">金鎖港小吃</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市鎖港里121-2號">馬公市鎖港里121-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市鎖港里121-2號">馬公市鎖港里121-2號</a></span></div>
     <div class="tag">特色：肉粽、米糕必點，在地平價小吃</div>
 </div>
 
 <div class="food-card">
     <div class="name">鎖港牛肉麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:30~14:30, 16:30~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市鎖港里1391號">馬公市鎖港里1391號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市鎖港里1391號">馬公市鎖港里1391號</a></span></div>
     <div class="tag">特色：湯頭濃郁，牛肉軟爛入味</div>
-</div>
-
-<div class="food-card">
-    <div class="name">案山排骨麵</div>
-    <div class="info"><span class="label">時間:</span><span class="content">10:30~14:30, 16:30~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市經國路64號">馬公市經國路64號</a></span></div>
-    <div class="tag">特色：排骨酥香酥軟嫩，湯頭鮮甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">風櫃藥膳蛋</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市風櫃里溫王廟前">馬公市風櫃里溫王廟前</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市風櫃里溫王廟前">馬公市風櫃里溫王廟前</a></span></div>
     <div class="tag">特色：中藥香氣十足，風櫃聽濤必買小點</div>
 </div>
 
 <div class="food-card">
     <div class="name">山水日式串燒 (山水夏日碳烤)</div>
     <div class="info"><span class="label">時間:</span><span class="content">17:00~24:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市山水里1-15號">馬公市山水里1-15號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市山水里1-15號">馬公市山水里1-15號</a></span></div>
     <div class="tag">特色：山水沙灘旁，BBQ吃到飽首選</div>
 </div>
 
@@ -789,21 +823,21 @@
 <div class="food-card">
     <div class="name">龍門海鮮餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉龍門村58-2號">湖西鄉龍門村58-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣湖西鄉龍門村58-2號">湖西鄉龍門村58-2號</a></span></div>
     <div class="tag">特色：依當日海鮮進貨配菜，食材極鮮</div>
 </div>
 
 <div class="food-card">
     <div class="name">馨鱻小館</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉隘門村16-9號">湖西鄉隘門村16-9號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣湖西鄉隘門村16-9號">湖西鄉隘門村16-9號</a></span></div>
     <div class="tag">特色：隘門沙灘旁海鮮熱炒，平價美味</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿霜小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~14:30, 17:00~21:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市烏崁里125-28號">馬公市烏崁里125-28號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市烏崁里125-28號">馬公市烏崁里125-28號</a></span></div>
     <div class="tag">特色：料理講求原味，當地人聚餐熱點</div>
 </div>
 
@@ -812,7 +846,7 @@
 <div class="food-card">
     <div class="name">及林春咖啡館</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉林投村1-3號">湖西鄉林投村1-3號 (林投公園內)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣湖西鄉林投村1-3號">湖西鄉林投村1-3號 (林投公園內)</a></span></div>
     <div class="tag">特色：森林系海景咖啡館，享受愜意午後時光</div>
 </div>
 
@@ -821,7 +855,7 @@
 <div class="food-card">
     <div class="name">北寮奎壁山仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉北寮村奎壁山旁">湖西鄉北寮村奎壁山旁</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣湖西鄉北寮村奎壁山旁">湖西鄉北寮村奎壁山旁</a></span></div>
     <div class="tag">特色：摩西分海景點旁，消暑必喝仙人掌冰沙</div>
 </div>
 
@@ -830,42 +864,42 @@
 <div class="food-card">
     <div class="name">媽宮食品</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路20號">馬公市中正路20號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中正路20號">馬公市中正路20號</a></span></div>
     <div class="tag">特色：黑糖糕、紅圓、各式海鮮酥餅</div>
 </div>
 
 <div class="food-card">
     <div class="name">春仁黑糖糕</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路7巷1號">馬公市中正路7巷1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中正路7巷1號">馬公市中正路7巷1號</a></span></div>
     <div class="tag">特色：澎湖黑糖糕始祖，口感紮實香甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">御品家</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~21:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市惠安路20號">馬公市惠安路20號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市惠安路20號">馬公市惠安路20號</a></span></div>
     <div class="tag">特色：推薦黑糖糕、冰心糕、仙人掌酥</div>
 </div>
 
 <div class="food-card">
     <div class="name">黑妞黑糖糕</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~17:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中央街21號">馬公市中央街21號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中央街21號">馬公市中央街21號</a></span></div>
     <div class="tag">特色：口感Q彈，包裝精美適合送禮</div>
 </div>
 
 <div class="food-card">
     <div class="name">盛興鹹餅</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~22:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市仁愛路36號">馬公市仁愛路36號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市仁愛路36號">馬公市仁愛路36號</a></span></div>
     <div class="tag">特色：百年老店，招牌鹹餅香脆可口</div>
 </div>
 
 <div class="food-card">
     <div class="name">正一花生酥</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市惠安路6號">馬公市惠安路6號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市惠安路6號">馬公市惠安路6號</a></span></div>
     <div class="tag">特色：香濃酥脆，濃郁花生香氣，在地人也愛</div>
 </div>
 
@@ -874,42 +908,42 @@
 <div class="food-card">
     <div class="name">不倒翁貝殼巧克力</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中央街1弄5號">馬公市中央街1弄5號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中央街1弄5號">馬公市中央街1弄5號</a></span></div>
     <div class="tag">特色：精緻貝殼造型巧克力，送禮精美有特色</div>
 </div>
 
 <div class="food-card">
     <div class="name">麗洋手作伴手禮</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~21:00 (週三公休)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中央街6號">馬公市中央街6號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中央街6號">馬公市中央街6號</a></span></div>
     <div class="tag">特色：招牌仙人掌千層派，口感驚艷必買</div>
 </div>
 
 <div class="food-card">
     <div class="name">瑞師父海菜煎餅</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中央街11號">馬公市中央街11號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中央街11號">馬公市中央街11號</a></span></div>
     <div class="tag">特色：現煎海菜煎餅，香脆帶有海洋鮮味</div>
 </div>
 
 <div class="food-card">
     <div class="name">泉利糕點 (泉利什家餅舖)</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~21:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民權路84號">馬公市民權路84號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民權路84號">馬公市民權路84號</a></span></div>
     <div class="tag">特色：傳統冬瓜糕與各式漢餅，百年技藝傳承</div>
 </div>
 
 <div class="food-card">
     <div class="name">水月堂黑糖糕</div>
     <div class="info"><span class="label">時間:</span><span class="content">07:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民族路144號">馬公市民族路144號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民族路144號">馬公市民族路144號</a></span></div>
     <div class="tag">特色：在地人推薦的黑糖糕，口感軟Q香甜</div>
 </div>
 
 <div class="food-card">
     <div class="name">萬泰食品</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市惠安路20號">馬公市惠安路20號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市惠安路20號">馬公市惠安路20號</a></span></div>
     <div class="tag">特色：各式海鮮乾貨伴手禮，種類齊全</div>
 </div>
 
@@ -918,49 +952,49 @@
 <div class="food-card">
     <div class="name">仙人掌冰城</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~23:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市中正路32-5號">馬公市中正路32-5號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市中正路32-5號">馬公市中正路32-5號</a></span></div>
     <div class="tag">特色：中正路鬧區冰店，仙人掌冰沙大推</div>
 </div>
 
 <div class="food-card">
     <div class="name">掌上明珠 (23.5蔚藍)</div>
     <div class="info"><span class="label">時間:</span><span class="content">12:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市治平路30號">馬公市治平路30號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市治平路30號">馬公市治平路30號</a></span></div>
     <div class="tag">特色：精緻仙人掌義式冰淇淋，口感細緻</div>
 </div>
 
 <div class="food-card">
     <div class="name">江巷仔內仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">07:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁174之1號">白沙鄉通梁174之1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉通梁174之1號">白沙鄉通梁174之1號</a></span></div>
     <div class="tag">特色：通梁巷弄隱藏美食，多種水果口味</div>
 </div>
 
 <div class="food-card">
     <div class="name">阿婆仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁村44-1號">白沙鄉通梁村44-1號 (保安宮旁)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉通梁村44-1號">白沙鄉通梁村44-1號 (保安宮旁)</a></span></div>
     <div class="tag">特色：通梁古榕旁老店，傳統酸甜滋味</div>
 </div>
 
 <div class="food-card">
     <div class="name">自由冰品</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉通梁39-1號">白沙鄉通梁39-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉通梁39-1號">白沙鄉通梁39-1號</a></span></div>
     <div class="tag">特色：通梁地區知名冰店，多種特色水果口味</div>
 </div>
 
 <div class="food-card">
     <div class="name">憲作冰淇淋</div>
     <div class="info"><span class="label">時間:</span><span class="content">13:00~21:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市民權路80號">馬公市民權路80號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市民權路80號">馬公市民權路80號</a></span></div>
     <div class="tag">特色：手作義式冰淇淋，結合在地食材創新口味</div>
 </div>
 
 <div class="food-card">
     <div class="name">旭西餅舖 (炸棗)</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=湖西鄉湖西村125號">湖西鄉湖西村125號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣湖西鄉湖西村125號">湖西鄉湖西村125號</a></span></div>
     <div class="tag">特色：澎湖傳統炸棗名店，外酥內軟Q，節慶喜慶必備</div>
 </div>
 
@@ -969,21 +1003,21 @@
 <div class="food-card">
     <div class="name">山水家竹黑砂糖冰 (山水店)</div>
     <div class="info"><span class="label">時間:</span><span class="content">13:30~22:00 (夏季營業)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=馬公市山水里山水沙灘旁">馬公市山水里山水沙灘旁</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣馬公市山水里山水沙灘旁">馬公市山水里山水沙灘旁</a></span></div>
     <div class="tag">特色：沙灘玩水後的消暑聖品，招牌黑砂糖香氣濃郁</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 望夫石小吃攤</div>
     <div class="info"><span class="label">時間:</span><span class="content">09:00~17:00 (夏季營業)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉望夫石景點旁">七美鄉望夫石景點旁</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉望夫石景點旁">七美鄉望夫石景點旁</a></span></div>
     <div class="tag">特色：景點旁小吃攤，提供風茹茶、烤小卷等在地味</div>
 </div>
 
 <div class="food-card">
     <div class="name">望安 - 仙人掌冷飲店</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉潭門港旁">望安鄉潭門港旁</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣望安鄉潭門港旁">望安鄉潭門港旁</a></span></div>
     <div class="tag">特色：下船後的第一口清涼，純天然仙人掌原汁</div>
 </div>
 
@@ -992,77 +1026,77 @@
 <div class="food-card">
     <div class="name">吉貝 - 海邊漁之家 (錢鰻王)</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~22:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉吉貝村87-2號">白沙鄉吉貝村87-2號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉吉貝村87-2號">白沙鄉吉貝村87-2號</a></span></div>
     <div class="tag">特色：錢鰻料理名店，吉貝必吃</div>
 </div>
 
 <div class="food-card">
     <div class="name">吉貝 - 紅毛港小吃部</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉吉貝村182-7號">白沙鄉吉貝村182-7號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉吉貝村182-7號">白沙鄉吉貝村182-7號</a></span></div>
     <div class="tag">特色：海鮮快炒、各式飯麵，食材新鮮</div>
 </div>
 
 <div class="food-card">
     <div class="name">吉貝 - 鳳嬌姐餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">05:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=白沙鄉吉貝村153-1號">白沙鄉吉貝村153-1號 (武聖廟前)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣白沙鄉吉貝村153-1號">白沙鄉吉貝村153-1號 (武聖廟前)</a></span></div>
     <div class="tag">特色：平價熱炒，取材當季新鮮海產</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 潮州大骨湯麵</div>
     <div class="info"><span class="label">時間:</span><span class="content">12:00~20:30</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南滬23-1號">七美鄉南滬23-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉南滬23-1號">七美鄉南滬23-1號</a></span></div>
     <div class="tag">特色：大骨熬製湯頭濃郁，七美排隊名店</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 越南大骨湯麵 (鄉滋味)</div>
     <div class="info"><span class="label">時間:</span><span class="content">10:00~14:00, 17:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南滬崎頭25號">七美鄉南滬崎頭25號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉南滬崎頭25號">七美鄉南滬崎頭25號</a></span></div>
     <div class="tag">特色：七美特色異國料理，鮮甜大骨湯頭</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 芳子肉粽 (阿婆肉粽)</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~13:00 (售完為止)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南滬崎頭14號">七美鄉南滬崎頭14號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉南滬崎頭14號">七美鄉南滬崎頭14號</a></span></div>
     <div class="tag">特色：七美在地知名肉粽，料多實在早起必吃</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 龍埕海鮮餐廳</div>
     <div class="info"><span class="label">時間:</span><span class="content">11:00~14:00, 17:00~20:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉南滬崎頭">七美鄉南滬崎頭 (港口旁)</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉南滬崎頭">七美鄉南滬崎頭 (港口旁)</a></span></div>
     <div class="tag">特色：七美大型海鮮餐廳，食材新鮮口味地道</div>
 </div>
 
 <div class="food-card">
     <div class="name">七美 - 萬從伯海螺 (魚鱗凍)</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~18:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=七美鄉中和村">七美鄉中和村</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣七美鄉中和村">七美鄉中和村</a></span></div>
     <div class="tag">特色：七美特色海味甜點，口感清爽Q彈</div>
 </div>
 
 <div class="food-card">
     <div class="name">望安 - 安增軒美食坊</div>
     <div class="info"><span class="label">時間:</span><span class="content">06:00~14:00 (5-10月營業)</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉東安村2-5號">望安鄉東安村2-5號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣望安鄉東安村2-5號">望安鄉東安村2-5號</a></span></div>
     <div class="tag">特色：招牌夾燒堡必吃，望安在地早午餐</div>
 </div>
 
 <div class="food-card">
     <div class="name">望安 - 紅雲仙人掌冰</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉東安村44-1號">望安鄉東安村44-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣望安鄉東安村44-1號">望安鄉東安村44-1號</a></span></div>
     <div class="tag">特色：望安必吃仙人掌冰，消暑聖品</div>
 </div>
 
 <div class="food-card">
     <div class="name">望安 - 爆米花球 (花宅如意居)</div>
     <div class="info"><span class="label">時間:</span><span class="content">08:00~19:00</span></div>
-    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=望安鄉花宅96-1號">望安鄉花宅96-1號</a></span></div>
+    <div class="info"><span class="label">地址:</span><span class="content"><a href="https://www.google.com/maps/search/?api=1&query=澎湖縣望安鄉花宅96-1號">望安鄉花宅96-1號</a></span></div>
     <div class="tag">特色：望安特色伴手禮，古法製作爆米花球</div>
 </div>
 
@@ -1076,23 +1110,57 @@
 </div>
 
 <script>
-    // === 天氣功能 (從 blog.html 移植) ===
-    async function fetchWeather() {
+    // === 天氣功能 (優化版) ===
+        async function fetchWeather() {
         const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
-        const locName = encodeURIComponent('澎湖縣');
-        const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON&locationName=${locName}`;
+        // Try multiple location names for robustness
+        const locNames = ['澎湖縣', '澎湖'];
+        let data = null;
+        let errorMsg = '';
+
+        for (const loc of locNames) {
+            try {
+                const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON&locationName=${encodeURIComponent(loc)}`;
+                const response = await fetch(url);
+                if (!response.ok) continue;
+                const json = await response.json();
+                if (json.records && json.records.location && json.records.location.length > 0) {
+                    data = json;
+                    break;
+                }
+            } catch (e) {
+                errorMsg = e.message;
+            }
+        }
+
+        if (!data) {
+            // Fallback: fetch all and find
+            try {
+                const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&format=JSON`;
+                const response = await fetch(url);
+                const json = await response.json();
+                const loc = json.records.location.find(l => l.locationName.includes('澎湖'));
+                if (loc) {
+                    data = { records: { location: [loc] } };
+                }
+            } catch (e) {
+                errorMsg = e.message;
+            }
+        }
         
         try {
-            const response = await fetch(url);
-            const data = await response.json();
+            if (!data) throw new Error(errorMsg || '無法取得澎湖天氣資料');
+
             const elements = data.records.location[0].weatherElement;
             const wxData = elements.find(el => el.elementName === 'Wx').time;
             const popData = elements.find(el => el.elementName === 'PoP').time;
             const minTData = elements.find(el => el.elementName === 'MinT').time;
             const maxTData = elements.find(el => el.elementName === 'MaxT').time;
 
-            // 即時狀態
             const currentWx = wxData[0].parameter.parameterName;
+            const currentPop = popData[0].parameter.parameterName;
+            const currentTemp = `${minTData[0].parameter.parameterName}~${maxTData[0].parameter.parameterName}°C`;
+            
             let icon = '🌤️';
             if (currentWx.includes('雨')) icon = '🌧️';
             else if (currentWx.includes('雲') || currentWx.includes('陰')) icon = '☁️';
@@ -1100,444 +1168,135 @@
             
             document.getElementById('weather-content').innerHTML = `
                 <div class="weather-main">
-                    <span style="font-size: 2rem;">${icon}</span>
+                    <span style="font-size: 2.5rem;">${icon}</span>
                     <div>
-                        <div class="weather-temp">${minTData[0].parameter.parameterName}~${maxTData[0].parameter.parameterName}°C</div>
-                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${popData[0].parameter.parameterName}%</div>
+                        <div class="weather-temp">${currentTemp}</div>
+                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${currentPop}%</div>
                     </div>
                 </div>
             `;
 
-            // 預報 (明日、後天、大後天)
             let forecastHTML = '';
             for(let i=1; i<4; i++) {
-                const dayLabel = i === 1 ? '明日' : (i === 2 ? '後天' : '大後天');
                 const wx = wxData[i].parameter.parameterName;
+                const temp = `${minTData[i].parameter.parameterName}°`;
+                const dayLabel = i === 1 ? "明日" : (i === 2 ? "後天" : "大後天");
+                
                 let fIcon = '🌤️';
                 if (wx.includes('雨')) fIcon = '🌧️';
                 else if (wx.includes('雲') || wx.includes('陰')) fIcon = '☁️';
                 
                 forecastHTML += `
                     <div class="forecast-item">
-                        <div style="color: #666; margin-bottom: 2px;">${dayLabel}</div>
-                        <div style="font-size: 1.2rem;">${fIcon}</div>
-                        <div style="font-weight: bold; color: var(--sky);">${minTData[i].parameter.parameterName}°</div>
+                        <div style="color: #666; font-size: 0.7rem;">${dayLabel}</div>
+                        <div style="font-size: 1.2rem; margin: 2px 0;">${fIcon}</div>
+                        <div style="font-weight: bold; color: var(--sky);">${temp}</div>
                     </div>
                 `;
             }
             document.getElementById('forecast-content').innerHTML = forecastHTML;
         } catch (e) {
             console.error('天氣載入失敗:', e);
-            document.getElementById('weather-content').innerHTML = '<div style="font-size: 0.8rem; color: #999; padding: 10px;">暫時無法取得天氣資訊</div>';
+            document.getElementById('weather-content').innerHTML = `
+                <div style="font-size: 0.8rem; color: #ef4444; padding: 10px;">
+                    ⚠️ 天氣資訊暫時無法取得<br>
+                    <span style="font-size: 0.7rem; color: #999;">${e.message}</span>
+                </div>
+            `;
+        }
+    }&format=JSON&locationName=${locName}`;
+        
+        try {
+            console.log('正在獲取天氣...');
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            
+            if (!data.records || !data.records.location || data.records.location.length === 0) {
+                throw new Error('API 返回資料格式不正確');
+            }
+
+            const elements = data.records.location[0].weatherElement;
+            const wxData = elements.find(el => el.elementName === 'Wx').time;
+            const popData = elements.find(el => el.elementName === 'PoP').time;
+            const minTData = elements.find(el => el.elementName === 'MinT').time;
+            const maxTData = elements.find(el => el.elementName === 'MaxT').time;
+
+            const currentWx = wxData[0].parameter.parameterName;
+            const currentPop = popData[0].parameter.parameterName;
+            const currentTemp = `${minTData[0].parameter.parameterName}~${maxTData[0].parameter.parameterName}°C`;
+            
+            let icon = '🌤️';
+            if (currentWx.includes('雨')) icon = '🌧️';
+            else if (currentWx.includes('雲') || currentWx.includes('陰')) icon = '☁️';
+            else if (currentWx.includes('晴')) icon = '☀️';
+            
+            document.getElementById('weather-content').innerHTML = `
+                <div class="weather-main">
+                    <span style="font-size: 2.5rem;">${icon}</span>
+                    <div>
+                        <div class="weather-temp">${currentTemp}</div>
+                        <div style="font-size: 0.85rem; color: #666;">${currentWx} | 💧 降雨 ${currentPop}%</div>
+                    </div>
+                </div>
+            `;
+
+            let forecastHTML = '';
+            for(let i=1; i<4; i++) {
+                const wx = wxData[i].parameter.parameterName;
+                const temp = `${minTData[i].parameter.parameterName}°`;
+                const dayLabel = i === 1 ? "明日" : (i === 2 ? "後天" : "大後天");
+                
+                let fIcon = '🌤️';
+                if (wx.includes('雨')) fIcon = '🌧️';
+                else if (wx.includes('雲') || wx.includes('陰')) fIcon = '☁️';
+                
+                forecastHTML += `
+                    <div class="forecast-item">
+                        <div style="color: #666; font-size: 0.7rem;">${dayLabel}</div>
+                        <div style="font-size: 1.2rem; margin: 2px 0;">${fIcon}</div>
+                        <div style="font-weight: bold; color: var(--sky);">${temp}</div>
+                    </div>
+                `;
+            }
+            document.getElementById('forecast-content').innerHTML = forecastHTML;
+        } catch (e) {
+            console.error('天氣載入失敗:', e);
+            document.getElementById('weather-content').innerHTML = `
+                <div style="font-size: 0.8rem; color: #ef4444; padding: 10px;">
+                    ⚠️ 天氣資訊暫時無法取得<br>
+                    <span style="font-size: 0.7rem; color: #999;">${e.message}</span>
+                </div>
+            `;
         }
     }
 
-    // === 潮汐功能 (從 moses-sea 移植，使用 2026 官方同步資料) ===
+    // === 潮汐功能 (2026 完整資料 4-10月) ===
     const tideData2026 = {
-        1: {
-            "01": { range: "12:00-18:00", special: "元旦" },
-            "02": { range: "12:30-18:00", special: "" },
-            "03": { range: "13:30-18:00", special: "" },
-            "04": { range: "14:30-18:00", special: "" },
-            "05": { range: "15:30-18:00", special: "" },
-            "06": { range: "06:00-08:00", special: "特定日" },
-            "07": { range: "06:30-09:00", special: "特定日" },
-            "08": { range: "07:30-10:30", special: "" },
-            "09": { range: "08:30-11:30", special: "" },
-            "10": { range: "09:30-12:30", special: "" },
-            "11": { range: "10:30-13:30", special: "" },
-            "12": { range: "11:30-14:30", special: "" },
-            "13": { range: "12:30-15:30", special: "" },
-            "14": { range: "13:30-16:30", special: "" },
-            "15": { range: "14:30-17:30", special: "" },
-            "16": { range: "15:30-17:30", special: "" },
-            "17": { range: "06:00-08:00", special: "特定日" },
-            "18": { range: "06:30-08:30", special: "特定日" },
-            "19": { range: "07:30-10:00", special: "" },
-            "20": { range: "08:30-11:00", special: "" },
-            "21": { range: "09:30-12:30", special: "" },
-            "22": { range: "10:30-13:30", special: "" },
-            "23": { range: "11:30-14:30", special: "" },
-            "24": { range: "12:30-15:30", special: "" },
-            "25": { range: "13:30-16:30", special: "" },
-            "26": { range: "14:30-17:30", special: "" },
-            "27": { range: "15:30-17:30", special: "" },
-            "28": { range: "06:00-08:00", special: "特定日" },
-            "29": { range: "06:30-08:30", special: "特定日" },
-            "30": { range: "07:30-10:00", special: "" },
-            "31": { range: "08:30-11:00", special: "" }
-        },
-        2: {
-            "01": { range: "09:30-12:30", special: "" },
-            "02": { range: "10:30-13:30", special: "" },
-            "03": { range: "11:30-14:30", special: "" },
-            "04": { range: "12:30-15:30", special: "" },
-            "05": { range: "13:30-16:30", special: "" },
-            "06": { range: "14:30-17:30", special: "" },
-            "07": { range: "15:30-17:30", special: "" },
-            "08": { range: "06:00-08:30", special: "特定日" },
-            "09": { range: "07:00-09:30", special: "" },
-            "10": { range: "08:00-11:00", special: "" },
-            "11": { range: "09:00-12:00", special: "" },
-            "12": { range: "10:00-13:00", special: "" },
-            "13": { range: "11:00-14:00", special: "" },
-            "14": { range: "12:00-15:00", special: "" },
-            "15": { range: "13:00-16:00", special: "" },
-            "16": { range: "14:00-17:00", special: "" },
-            "17": { range: "15:00-18:00", special: "" },
-            "18": { range: "06:30-09:00", special: "" },
-            "19": { range: "07:30-10:00", special: "" },
-            "20": { range: "08:30-11:30", special: "" },
-            "21": { range: "09:30-12:30", special: "" },
-            "22": { range: "10:30-13:30", special: "" },
-            "23": { range: "11:30-14:30", special: "" },
-            "24": { range: "12:30-15:30", special: "" },
-            "25": { range: "13:30-16:30", special: "" },
-            "26": { range: "14:30-17:30", special: "" },
-            "27": { range: "15:30-17:30", special: "" },
-            "28": { range: "06:00-08:30", special: "特定日" }
-        },
-        3: {
-            "01": { range: "07:00-09:30", special: "" },
-            "02": { range: "08:00-11:00", special: "" },
-            "03": { range: "09:00-12:00", special: "" },
-            "04": { range: "10:00-13:00", special: "" },
-            "05": { range: "11:00-14:00", special: "" },
-            "06": { range: "12:00-15:00", special: "" },
-            "07": { range: "13:00-16:00", special: "" },
-            "08": { range: "14:00-17:00", special: "" },
-            "09": { range: "15:00-18:00", special: "" },
-            "10": { range: "06:30-09:00", special: "" },
-            "11": { range: "07:30-10:00", special: "" },
-            "12": { range: "08:30-11:30", special: "" },
-            "13": { range: "09:30-12:30", special: "" },
-            "14": { range: "10:30-13:30", special: "" },
-            "15": { range: "11:30-14:30", special: "" },
-            "16": { range: "12:30-15:30", special: "" },
-            "17": { range: "13:30-16:30", special: "" },
-            "18": { range: "14:30-17:30", special: "" },
-            "19": { range: "15:30-17:30", special: "" },
-            "20": { range: "06:00-08:30", special: "特定日" },
-            "21": { range: "07:00-09:30", special: "" },
-            "22": { range: "08:00-11:00", special: "" },
-            "23": { range: "09:00-12:00", special: "" },
-            "24": { range: "10:00-13:00", special: "" },
-            "25": { range: "11:00-14:00", special: "" },
-            "26": { range: "12:00-15:00", special: "" },
-            "27": { range: "14:30-17:30", special: "" },
-            "28": { range: "15:00-17:30", special: "" },
-            "29": { range: "15:30-17:30", special: "" },
-            "30": { range: "06:00-08:00", special: "特定日 (延長開放)" },
-            "31": { range: "06:00-08:30", special: "特定日 (延長開放)" }
-        },
-        4: {
-            "01": { range: "14:30-17:30", special: "" },
-            "02": { range: "15:00-17:30", special: "" },
-            "03": { range: "15:30-17:30", special: "" },
-            "04": { range: "06:00-08:30", special: "特定日 (延長開放)" },
-            "05": { range: "06:00-08:30", special: "特定日 (延長開放)" },
-            "06": { range: "06:00-09:00", special: "特定日 (延長開放)" },
-            "07": { range: "06:00-10:00", special: "特定日 (延長開放)" },
-            "08": { range: "06:30-10:30", special: "特定日 (延長開放)" },
-            "09": { range: "08:00-11:30", special: "" },
-            "10": { range: "08:30-12:30", special: "" },
-            "11": { range: "09:30-13:30", special: "" },
-            "12": { range: "10:30-15:00", special: "" },
-            "13": { range: "11:30-16:00", special: "" },
-            "14": { range: "12:30-17:00", special: "" },
-            "15": { range: "13:00-17:30", special: "" },
-            "16": { range: "13:30-17:30", special: "" },
-            "17": { range: "14:30-17:30", special: "" },
-            "18": { range: "15:00-17:30", special: "" },
-            "19": { range: "15:30-17:30", special: "" },
-            "20": { range: "08:00-11:00", special: "花火節開幕" },
-            "21": { range: "06:30-10:00", special: "" },
-            "22": { range: "07:30-11:00", special: "" },
-            "23": { range: "08:30-12:00", special: "" },
-            "24": { range: "09:30-13:00", special: "" },
-            "25": { range: "10:30-14:00", special: "" },
-            "26": { range: "11:00-15:00", special: "" },
-            "27": { range: "11:30-17:00", special: "" },
-            "28": { range: "12:30-17:30", special: "" },
-            "29": { range: "13:30-17:30", special: "" },
-            "30": { range: "14:30-17:30", special: "" }
-        },
-        5: {
-            "01": { range: "15:00-17:30", special: "勞動節" },
-            "02": { range: "15:30-17:30", special: "" },
-            "03": { range: "06:00-08:30", special: "特定日" },
-            "04": { range: "06:00-09:30", special: "特定日" },
-            "05": { range: "06:00-10:00", special: "特定日" },
-            "06": { range: "07:00-11:00", special: "" },
-            "07": { range: "08:00-12:00", special: "" },
-            "08": { range: "09:00-13:00", special: "" },
-            "09": { range: "10:00-14:00", special: "" },
-            "10": { range: "11:00-15:00", special: "" },
-            "11": { range: "12:00-16:00", special: "" },
-            "12": { range: "13:00-17:00", special: "" },
-            "13": { range: "14:00-17:30", special: "" },
-            "14": { range: "15:00-17:30", special: "" },
-            "15": { range: "15:30-17:30", special: "" },
-            "16": { range: "06:00-08:30", special: "特定日" },
-            "17": { range: "06:30-09:30", special: "" },
-            "18": { range: "07:30-10:30", special: "" },
-            "19": { range: "08:30-11:30", special: "" },
-            "20": { range: "09:30-12:30", special: "" },
-            "21": { range: "10:30-13:30", special: "" },
-            "22": { range: "11:30-14:30", special: "" },
-            "23": { range: "12:30-15:30", special: "" },
-            "24": { range: "13:30-16:30", special: "" },
-            "25": { range: "14:30-17:30", special: "" },
-            "26": { range: "15:30-17:30", special: "" },
-            "27": { range: "06:00-08:30", special: "特定日" },
-            "28": { range: "06:30-09:30", special: "" },
-            "29": { range: "07:30-10:30", special: "" },
-            "30": { range: "08:30-11:30", special: "" },
-            "31": { range: "09:30-12:30", special: "" }
-        },
-        6: {
-            "01": { range: "10:30-13:30", special: "" },
-            "02": { range: "11:30-14:30", special: "" },
-            "03": { range: "12:30-15:30", special: "" },
-            "04": { range: "13:30-16:30", special: "" },
-            "05": { range: "14:30-17:30", special: "" },
-            "06": { range: "15:30-17:30", special: "" },
-            "07": { range: "06:00-08:30", special: "特定日" },
-            "08": { range: "06:30-09:30", special: "" },
-            "09": { range: "07:30-10:30", special: "" },
-            "10": { range: "08:30-11:30", special: "" },
-            "11": { range: "09:30-12:30", special: "" },
-            "12": { range: "10:30-13:30", special: "" },
-            "13": { range: "11:30-14:30", special: "" },
-            "14": { range: "12:30-15:30", special: "" },
-            "15": { range: "13:30-16:30", special: "" },
-            "16": { range: "14:30-17:30", special: "" },
-            "17": { range: "15:30-17:30", special: "" },
-            "18": { range: "06:00-08:30", special: "特定日" },
-            "19": { range: "06:30-09:30", special: "" },
-            "20": { range: "07:30-10:30", special: "端午節" },
-            "21": { range: "08:30-11:30", special: "" },
-            "22": { range: "09:30-12:30", special: "" },
-            "23": { range: "10:30-13:30", special: "" },
-            "24": { range: "11:30-14:30", special: "" },
-            "25": { range: "12:30-15:30", special: "" },
-            "26": { range: "13:30-16:30", special: "" },
-            "27": { range: "14:30-17:30", special: "" },
-            "28": { range: "15:30-17:30", special: "" },
-            "29": { range: "06:00-08:30", special: "特定日" },
-            "30": { range: "06:30-09:30", special: "" }
-        },
-        7: {
-            "01": { range: "07:30-10:30", special: "" },
-            "02": { range: "08:30-11:30", special: "" },
-            "03": { range: "09:30-12:30", special: "" },
-            "04": { range: "10:30-13:30", special: "" },
-            "05": { range: "11:30-14:30", special: "" },
-            "06": { range: "12:30-15:30", special: "" },
-            "07": { range: "13:30-16:30", special: "" },
-            "08": { range: "14:30-17:30", special: "" },
-            "09": { range: "15:30-17:30", special: "" },
-            "10": { range: "06:00-08:30", special: "特定日" },
-            "11": { range: "06:30-09:30", special: "" },
-            "12": { range: "07:30-10:30", special: "" },
-            "13": { range: "08:30-11:30", special: "" },
-            "14": { range: "09:30-12:30", special: "" },
-            "15": { range: "10:30-13:30", special: "" },
-            "16": { range: "11:30-14:30", special: "" },
-            "17": { range: "12:30-15:30", special: "" },
-            "18": { range: "13:30-16:30", special: "" },
-            "19": { range: "14:30-17:30", special: "" },
-            "20": { range: "15:30-17:30", special: "" },
-            "21": { range: "06:00-08:30", special: "特定日" },
-            "22": { range: "06:30-09:30", special: "" },
-            "23": { range: "07:30-10:30", special: "" },
-            "24": { range: "08:30-11:30", special: "" },
-            "25": { range: "09:30-12:30", special: "" },
-            "26": { range: "10:30-13:30", special: "" },
-            "27": { range: "11:30-14:30", special: "" },
-            "28": { range: "12:30-15:30", special: "" },
-            "29": { range: "13:30-16:30", special: "" },
-            "30": { range: "14:30-17:30", special: "" },
-            "31": { range: "15:30-17:30", special: "" }
-        },
-        8: {
-            "01": { range: "06:00-08:30", special: "特定日" },
-            "02": { range: "06:30-09:30", special: "" },
-            "03": { range: "07:30-10:30", special: "" },
-            "04": { range: "08:30-11:30", special: "" },
-            "05": { range: "09:30-12:30", special: "" },
-            "06": { range: "10:30-13:30", special: "" },
-            "07": { range: "11:30-14:30", special: "" },
-            "08": { range: "12:30-15:30", special: "父親節" },
-            "09": { range: "13:30-16:30", special: "" },
-            "10": { range: "14:30-17:30", special: "" },
-            "11": { range: "15:30-17:30", special: "" },
-            "12": { range: "06:00-08:30", special: "特定日" },
-            "13": { range: "06:30-09:30", special: "" },
-            "14": { range: "07:30-10:30", special: "" },
-            "15": { range: "08:30-11:30", special: "" },
-            "16": { range: "09:30-12:30", special: "" },
-            "17": { range: "10:30-13:30", special: "" },
-            "18": { range: "11:30-14:30", special: "" },
-            "19": { range: "12:30-15:30", special: "" },
-            "20": { range: "13:30-16:30", special: "" },
-            "21": { range: "14:30-17:30", special: "" },
-            "22": { range: "15:30-17:30", special: "" },
-            "23": { range: "06:00-08:30", special: "特定日" },
-            "24": { range: "06:30-09:30", special: "" },
-            "25": { range: "07:30-10:30", special: "花火節閉幕" },
-            "26": { range: "08:30-11:30", special: "" },
-            "27": { range: "09:30-12:30", special: "" },
-            "28": { range: "10:30-13:30", special: "" },
-            "29": { range: "11:30-14:30", special: "" },
-            "30": { range: "12:30-15:30", special: "" },
-            "31": { range: "13:30-16:30", special: "" }
-        },
-        9: {
-            "01": { range: "14:30-17:30", special: "" },
-            "02": { range: "15:30-17:30", special: "" },
-            "03": { range: "06:00-08:30", special: "特定日" },
-            "04": { range: "06:30-09:30", special: "" },
-            "05": { range: "07:30-10:30", special: "" },
-            "06": { range: "08:30-11:30", special: "" },
-            "07": { range: "09:30-12:30", special: "" },
-            "08": { range: "10:30-13:30", special: "" },
-            "09": { range: "11:30-14:30", special: "" },
-            "10": { range: "12:30-15:30", special: "" },
-            "11": { range: "13:30-16:30", special: "" },
-            "12": { range: "14:30-17:30", special: "" },
-            "13": { range: "15:30-17:30", special: "" },
-            "14": { range: "06:00-08:30", special: "特定日" },
-            "15": { range: "06:30-09:30", special: "" },
-            "16": { range: "07:30-10:30", special: "" },
-            "17": { range: "08:30-11:30", special: "" },
-            "18": { range: "09:30-12:30", special: "" },
-            "19": { range: "10:30-13:30", special: "" },
-            "20": { range: "11:30-14:30", special: "" },
-            "21": { range: "12:30-15:30", special: "" },
-            "22": { range: "13:30-16:30", special: "" },
-            "23": { range: "14:30-17:30", special: "" },
-            "24": { range: "15:30-17:30", special: "" },
-            "25": { range: "06:00-08:30", special: "特定日" },
-            "26": { range: "06:30-09:30", special: "中秋節" },
-            "27": { range: "07:30-10:30", special: "" },
-            "28": { range: "08:30-11:30", special: "" },
-            "29": { range: "09:30-12:30", special: "" },
-            "30": { range: "10:30-13:30", special: "" }
-        },
-        10: {
-            "01": { range: "11:30-14:30", special: "" },
-            "02": { range: "12:30-15:30", special: "" },
-            "03": { range: "13:30-16:30", special: "" },
-            "04": { range: "14:30-17:30", special: "" },
-            "05": { range: "15:30-17:30", special: "" },
-            "06": { range: "06:00-08:30", special: "特定日" },
-            "07": { range: "06:30-09:30", special: "" },
-            "08": { range: "07:30-10:30", special: "" },
-            "09": { range: "08:30-11:30", special: "" },
-            "10": { range: "09:30-12:30", special: "國慶日" },
-            "11": { range: "10:30-13:30", special: "" },
-            "12": { range: "11:30-14:30", special: "" },
-            "13": { range: "12:30-15:30", special: "" },
-            "14": { range: "13:30-16:30", special: "" },
-            "15": { range: "14:30-17:30", special: "" },
-            "16": { range: "15:30-17:30", special: "" },
-            "17": { range: "06:00-08:30", special: "特定日" },
-            "18": { range: "06:30-09:30", special: "" },
-            "19": { range: "07:30-10:30", special: "" },
-            "20": { range: "08:30-11:30", special: "" },
-            "21": { range: "09:30-12:30", special: "" },
-            "22": { range: "10:30-13:30", special: "" },
-            "23": { range: "11:30-14:30", special: "" },
-            "24": { range: "12:30-15:30", special: "" },
-            "25": { range: "13:30-16:30", special: "" },
-            "26": { range: "14:30-17:30", special: "" },
-            "27": { range: "15:30-17:30", special: "" },
-            "28": { range: "06:00-08:30", special: "特定日" },
-            "29": { range: "06:30-09:30", special: "" },
-            "30": { range: "07:30-10:30", special: "" },
-            "31": { range: "08:30-11:30", special: "" }
-        },
-        11: {
-            "01": { range: "09:30-12:30", special: "" },
-            "02": { range: "10:30-13:30", special: "" },
-            "03": { range: "11:30-14:30", special: "" },
-            "04": { range: "12:30-15:30", special: "" },
-            "05": { range: "13:30-16:30", special: "" },
-            "06": { range: "14:30-17:30", special: "" },
-            "07": { range: "15:30-17:30", special: "" },
-            "08": { range: "06:00-08:30", special: "特定日" },
-            "09": { range: "06:30-09:30", special: "" },
-            "10": { range: "07:30-10:30", special: "" },
-            "11": { range: "08:30-11:30", special: "" },
-            "12": { range: "09:30-12:30", special: "" },
-            "13": { range: "10:30-13:30", special: "" },
-            "14": { range: "11:30-14:30", special: "" },
-            "15": { range: "12:30-15:30", special: "" },
-            "16": { range: "13:30-16:30", special: "" },
-            "17": { range: "14:30-17:30", special: "" },
-            "18": { range: "15:30-17:30", special: "" },
-            "19": { range: "06:00-08:30", special: "特定日" },
-            "20": { range: "06:30-09:30", special: "" },
-            "21": { range: "07:30-10:30", special: "" },
-            "22": { range: "08:30-11:30", special: "" },
-            "23": { range: "09:30-12:30", special: "" },
-            "24": { range: "10:30-13:30", special: "" },
-            "25": { range: "11:30-14:30", special: "" },
-            "26": { range: "12:30-15:30", special: "" },
-            "27": { range: "13:30-16:30", special: "" },
-            "28": { range: "14:30-17:30", special: "" },
-            "29": { range: "15:30-17:30", special: "" },
-            "30": { range: "06:00-08:30", special: "特定日" }
-        },
-        12: {
-            "01": { range: "06:30-09:30", special: "" },
-            "02": { range: "07:30-10:30", special: "" },
-            "03": { range: "08:30-11:30", special: "" },
-            "04": { range: "09:30-12:30", special: "" },
-            "05": { range: "10:30-13:30", special: "" },
-            "06": { range: "11:30-14:30", special: "" },
-            "07": { range: "12:30-15:30", special: "" },
-            "08": { range: "13:30-16:30", special: "" },
-            "09": { range: "14:30-17:30", special: "" },
-            "10": { range: "15:30-17:30", special: "" },
-            "11": { range: "06:00-08:30", special: "特定日" },
-            "12": { range: "06:30-09:30", special: "" },
-            "13": { range: "07:30-10:30", special: "" },
-            "14": { range: "08:30-11:30", special: "" },
-            "15": { range: "09:30-12:30", special: "" },
-            "16": { range: "10:30-13:30", special: "" },
-            "17": { range: "11:30-14:30", special: "" },
-            "18": { range: "12:30-15:30", special: "" },
-            "19": { range: "13:30-16:30", special: "" },
-            "20": { range: "14:30-17:30", special: "" },
-            "21": { range: "15:30-17:30", special: "" },
-            "22": { range: "06:00-08:30", special: "特定日" },
-            "23": { range: "06:30-09:30", special: "" },
-            "24": { range: "07:30-10:30", special: "" },
-            "25": { range: "08:30-11:30", special: "聖誕節" },
-            "26": { range: "09:30-12:30", special: "" },
-            "27": { range: "10:30-13:30", special: "" },
-            "28": { range: "11:30-14:30", special: "" },
-            "29": { range: "12:30-15:30", special: "" },
-            "30": { range: "13:30-16:30", special: "" },
-            "31": { range: "14:30-17:30", special: "跨年夜" }
-        }
-    };
+  4:[{date:"01",day:"三",tides:[{high:"11:06",low:"17:19",range:"14:30-17:30"}],special:null},{date:"02",day:"四",tides:[{high:"11:38",low:"17:52",range:"15:00-17:30"}],special:null},{date:"03",day:"五",tides:[{high:"12:06",low:"18:22",range:"15:30-17:30"}],special:null},{date:"04",day:"六",tides:[{high:"00:36",low:"06:24",range:"06:00-08:30"},{high:"12:33",low:"18:50",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"05",day:"日",tides:[{high:"01:12",low:"06:51",range:"06:00-08:30"},{high:"12:59",low:"19:20",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"06",day:"一",tides:[{high:"01:48",low:"07:23",range:"06:00-09:00"},{high:"13:25",low:"19:53",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"07",day:"二",tides:[{high:"02:26",low:"08:00",range:"06:00-10:00"},{high:"13:55",low:"20:33",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"08",day:"三",tides:[{high:"03:09",low:"08:43",range:"06:30-10:30"},{high:"14:30",low:"21:20",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"09",day:"四",tides:[{high:"04:01",low:"09:34",range:"08:00-11:30"}],special:null},{date:"10",day:"五",tides:[{high:"05:05",low:"10:37",range:"08:30-12:30"}],special:null},{date:"11",day:"六",tides:[{high:"06:17",low:"11:52",range:"09:30-13:30"}],special:null},{date:"12",day:"日",tides:[{high:"07:26",low:"13:04",range:"10:30-15:00"}],special:null},{date:"13",day:"一",tides:[{high:"08:23",low:"14:05",range:"11:30-16:00"}],special:null},{date:"14",day:"二",tides:[{high:"09:10",low:"14:56",range:"12:30-17:00"}],special:null},{date:"15",day:"三",tides:[{high:"09:50",low:"15:40",range:"13:00-17:30"}],special:null},{date:"16",day:"四",tides:[{high:"10:28",low:"16:21",range:"13:30-17:30"}],special:null},{date:"17",day:"五",tides:[{high:"11:03",low:"17:00",range:"14:30-17:30"}],special:null},{date:"18",day:"六",tides:[{high:"11:38",low:"17:40",range:"15:00-17:30"}],special:null},{date:"19",day:"日",tides:[{high:"00:22",low:"05:59",range:"06:00-08:00"},{high:"12:13",low:"18:23",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"20",day:"一",tides:[{high:"01:07",low:"06:39",range:"06:00-08:30"},{high:"12:50",low:"19:09",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"21",day:"二",tides:[{high:"01:55",low:"07:22",range:"06:00-09:00"},{high:"13:29",low:"20:01",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"22",day:"三",tides:[{high:"02:48",low:"08:11",range:"06:00-10:00"},{high:"14:15",low:"21:00",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"23",day:"四",tides:[{high:"03:47",low:"09:12",range:"08:00-11:00"}],special:null},{date:"24",day:"五",tides:[{high:"04:55",low:"10:31",range:"08:00-12:30"}],special:null},{date:"25",day:"六",tides:[{high:"06:08",low:"11:59",range:"09:30-14:00"}],special:null},{date:"26",day:"日",tides:[{high:"07:19",low:"13:22",range:"10:30-15:00"}],special:null},{date:"27",day:"一",tides:[{high:"08:21",low:"14:35",range:"11:30-16:30"}],special:null},{date:"28",day:"二",tides:[{high:"09:12",low:"15:35",range:"12:30-17:30"}],special:null},{date:"29",day:"三",tides:[{high:"09:55",low:"16:24",range:"13:00-17:30"}],special:null},{date:"30",day:"四",tides:[{high:"10:32",low:"17:07",range:"14:00-17:30"}],special:null}],
+  5:[{date:"01",day:"五",tides:[{high:"11:05",low:"17:42",range:"14:30-17:30"}],special:null},{date:"02",day:"六",tides:[{high:"11:35",low:"18:13",range:"15:00-17:30"}],special:null},{date:"03",day:"日",tides:[{high:"00:26",low:"06:13",range:"06:00-08:00"},{high:"12:03",low:"18:42",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"04",day:"一",tides:[{high:"01:02",low:"06:43",range:"06:00-08:30"},{high:"12:30",low:"19:11",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"05",day:"二",tides:[{high:"01:39",low:"07:14",range:"06:00-09:00"},{high:"12:59",low:"19:42",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"06",day:"三",tides:[{high:"02:17",low:"07:50",range:"06:00-09:30"},{high:"13:31",low:"20:18",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"07",day:"四",tides:[{high:"02:59",low:"08:30",range:"06:00-10:30"},{high:"14:08",low:"20:59",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"08",day:"五",tides:[{high:"03:45",low:"09:16",range:"08:00-11:00"}],special:null},{date:"09",day:"六",tides:[{high:"04:36",low:"10:10",range:"08:00-12:00"}],special:null},{date:"10",day:"日",tides:[{high:"05:32",low:"11:11",range:"09:00-13:00"}],special:null},{date:"11",day:"一",tides:[{high:"06:29",low:"12:15",range:"09:30-14:00"}],special:null},{date:"12",day:"二",tides:[{high:"07:24",low:"13:16",range:"10:30-15:00"}],special:null},{date:"13",day:"三",tides:[{high:"08:15",low:"14:11",range:"11:30-16:00"}],special:null},{date:"14",day:"四",tides:[{high:"09:01",low:"15:02",range:"12:00-17:00"}],special:null},{date:"15",day:"五",tides:[{high:"09:45",low:"15:52",range:"13:00-17:30"}],special:null},{date:"16",day:"六",tides:[{high:"10:27",low:"16:40",range:"13:30-17:30"}],special:null},{date:"17",day:"日",tides:[{high:"11:08",low:"17:30",range:"14:30-17:30"}],special:null},{date:"18",day:"一",tides:[{high:"00:16",low:"05:49",range:"06:00-07:30"},{high:"11:50",low:"18:21",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"19",day:"二",tides:[{high:"01:05",low:"06:37",range:"06:00-08:30"},{high:"12:33",low:"19:15",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"20",day:"三",tides:[{high:"01:56",low:"07:26",range:"06:00-09:30"},{high:"13:19",low:"20:10",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"21",day:"四",tides:[{high:"02:48",low:"08:20",range:"06:00-10:00"},{high:"14:10",low:"21:07",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"22",day:"五",tides:[{high:"03:42",low:"09:23",range:"08:00-11:00"}],special:null},{date:"23",day:"六",tides:[{high:"04:39",low:"10:34",range:"08:00-12:30"}],special:null},{date:"24",day:"日",tides:[{high:"05:38",low:"11:48",range:"09:00-13:30"}],special:null},{date:"25",day:"一",tides:[{high:"06:37",low:"12:59",range:"10:00-15:00"}],special:null},{date:"26",day:"二",tides:[{high:"07:35",low:"14:06",range:"11:00-16:00"}],special:null},{date:"27",day:"三",tides:[{high:"08:28",low:"15:06",range:"11:30-17:00"}],special:null},{date:"28",day:"四",tides:[{high:"09:15",low:"15:59",range:"12:30-17:30"}],special:null},{date:"29",day:"五",tides:[{high:"09:56",low:"16:45",range:"13:00-17:30"}],special:null},{date:"30",day:"六",tides:[{high:"10:34",low:"17:26",range:"13:30-17:30"}],special:null},{date:"31",day:"日",tides:[{high:"11:08",low:"18:01",range:"14:30-17:30"}],special:null}],
+  6:[{date:"01",day:"一",tides:[{high:"00:18",low:"06:03",range:"06:00-08:00"},{high:"11:40",low:"18:33",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"02",day:"二",tides:[{high:"00:55",low:"06:35",range:"06:00-08:30"},{high:"12:12",low:"19:04",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"03",day:"三",tides:[{high:"01:31",low:"07:08",range:"06:00-09:00"},{high:"12:44",low:"19:35",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"04",day:"四",tides:[{high:"02:07",low:"07:41",range:"06:00-09:30"},{high:"13:19",low:"20:06",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"05",day:"五",tides:[{high:"02:44",low:"08:16",range:"06:00-10:00"},{high:"13:58",low:"20:40",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"06",day:"六",tides:[{high:"03:22",low:"08:55",range:"06:30-11:00"}],special:null},{date:"07",day:"日",tides:[{high:"04:02",low:"09:39",range:"08:00-11:30"}],special:null},{date:"08",day:"一",tides:[{high:"04:46",low:"10:31",range:"08:00-12:30"}],special:null},{date:"09",day:"二",tides:[{high:"05:34",low:"11:28",range:"08:30-13:30"}],special:null},{date:"10",day:"三",tides:[{high:"06:26",low:"12:28",range:"09:30-14:30"}],special:null},{date:"11",day:"四",tides:[{high:"07:20",low:"13:29",range:"10:30-15:30"}],special:null},{date:"12",day:"五",tides:[{high:"08:14",low:"14:29",range:"11:30-16:30"}],special:null},{date:"13",day:"六",tides:[{high:"09:06",low:"15:28",range:"12:30-17:30"}],special:null},{date:"14",day:"日",tides:[{high:"09:57",low:"16:27",range:"13:00-17:30"}],special:null},{date:"15",day:"一",tides:[{high:"10:47",low:"17:26",range:"14:00-17:30"}],special:null},{date:"16",day:"二",tides:[{high:"00:12",low:"05:45",range:"06:00-07:30"},{high:"11:37",low:"18:24",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"17",day:"三",tides:[{high:"01:02",low:"06:36",range:"06:00-08:30"},{high:"12:26",low:"19:18",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"18",day:"四",tides:[{high:"01:49",low:"07:27",range:"06:00-09:30"},{high:"13:16",low:"20:09",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"19",day:"五",tides:[{high:"02:34",low:"08:19",range:"06:00-10:00"},{high:"14:07",low:"20:57",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"20",day:"六",tides:[{high:"03:20",low:"09:15",range:"08:00-11:00"}],special:null},{date:"21",day:"日",tides:[{high:"04:07",low:"10:16",range:"08:00-12:00"}],special:null},{date:"22",day:"一",tides:[{high:"04:56",low:"11:19",range:"08:00-13:00"}],special:null},{date:"23",day:"二",tides:[{high:"05:48",low:"12:22",range:"09:00-14:00"}],special:null},{date:"24",day:"三",tides:[{high:"06:43",low:"13:26",range:"10:00-15:30"}],special:null},{date:"25",day:"四",tides:[{high:"07:39",low:"14:28",range:"11:00-16:30"}],special:null},{date:"26",day:"五",tides:[{high:"08:32",low:"15:25",range:"11:30-17:00"}],special:null},{date:"27",day:"六",tides:[{high:"09:21",low:"16:16",range:"12:30-17:30"}],special:null},{date:"28",day:"日",tides:[{high:"10:06",low:"17:01",range:"13:30-17:30"}],special:null},{date:"29",day:"一",tides:[{high:"10:46",low:"17:41",range:"14:00-17:30"}],special:null},{date:"30",day:"二",tides:[{high:"00:06",low:"05:45",range:"06:00-07:30"},{high:"11:24",low:"18:16",range:"14:30-18:30"}],special:"特 定 日 (延長開放)"}],
+  7:[{date:"01",day:"三",tides:[{high:"00:41",low:"06:19",range:"06:00-08:00"},{high:"12:00",low:"18:49",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"02",day:"四",tides:[{high:"01:14",low:"06:51",range:"06:00-08:30"},{high:"12:35",low:"19:19",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"03",day:"五",tides:[{high:"01:46",low:"07:22",range:"06:00-09:00"},{high:"13:10",low:"19:46",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"04",day:"六",tides:[{high:"02:17",low:"07:52",range:"06:00-09:30"},{high:"13:47",low:"20:12",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"05",day:"日",tides:[{high:"02:49",low:"08:25",range:"06:00-10:30"},{high:"14:27",low:"20:43",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"06",day:"一",tides:[{high:"03:23",low:"09:05",range:"08:00-11:00"}],special:null},{date:"07",day:"二",tides:[{high:"04:00",low:"09:52",range:"08:00-11:30"}],special:null},{date:"08",day:"三",tides:[{high:"04:44",low:"10:47",range:"08:00-12:30"}],special:null},{date:"09",day:"四",tides:[{high:"05:34",low:"11:49",range:"09:00-13:30"}],special:null},{date:"10",day:"五",tides:[{high:"06:31",low:"12:55",range:"09:30-14:30"}],special:null},{date:"11",day:"六",tides:[{high:"07:33",low:"14:05",range:"10:30-16:00"}],special:null},{date:"12",day:"日",tides:[{high:"08:37",low:"15:14",range:"12:00-17:00"}],special:null},{date:"13",day:"一",tides:[{high:"09:39",low:"16:19",range:"13:00-17:30"}],special:null},{date:"14",day:"二",tides:[{high:"10:37",low:"17:21",range:"14:00-17:30"}],special:null},{date:"15",day:"三",tides:[{high:"00:03",low:"05:36",range:"06:00-07:30"},{high:"11:30",low:"18:17",range:"14:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"16",day:"四",tides:[{high:"00:47",low:"06:26",range:"06:00-08:30"},{high:"12:20",low:"19:06",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"17",day:"五",tides:[{high:"01:28",low:"07:12",range:"06:00-09:00"},{high:"13:08",low:"19:48",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"18",day:"六",tides:[{high:"02:06",low:"08:00",range:"06:00-10:00"},{high:"13:55",low:"20:27",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"19",day:"日",tides:[{high:"02:44",low:"08:49",range:"08:00-10:30"}],special:null},{date:"20",day:"一",tides:[{high:"03:24",low:"09:42",range:"08:00-11:30"}],special:null},{date:"21",day:"二",tides:[{high:"04:06",low:"10:38",range:"08:00-12:30"}],special:null},{date:"22",day:"三",tides:[{high:"04:53",low:"11:37",range:"08:00-13:30"}],special:null},{date:"23",day:"四",tides:[{high:"05:46",low:"12:39",range:"09:00-14:30"}],special:null},{date:"24",day:"五",tides:[{high:"06:45",low:"13:43",range:"10:00-15:30"}],special:null},{date:"25",day:"六",tides:[{high:"07:47",low:"14:45",range:"11:00-16:30"}],special:null},{date:"26",day:"日",tides:[{high:"08:47",low:"15:41",range:"12:00-17:30"}],special:null},{date:"27",day:"一",tides:[{high:"09:40",low:"16:29",range:"13:00-17:30"}],special:null},{date:"28",day:"二",tides:[{high:"10:26",low:"17:10",range:"13:30-17:30"}],special:null},{date:"29",day:"三",tides:[{high:"11:06",low:"17:47",range:"14:30-17:30"}],special:null},{date:"30",day:"四",tides:[{high:"00:14",low:"05:52",range:"06:00-07:30"},{high:"11:44",low:"18:20",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"31",day:"五",tides:[{high:"00:44",low:"06:24",range:"06:00-08:30"},{high:"12:19",low:"18:49",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"}],
+  8:[{date:"01",day:"六",tides:[{high:"01:13",low:"06:52",range:"06:00-08:30"},{high:"12:54",low:"19:13",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"02",day:"日",tides:[{high:"01:41",low:"07:20",range:"06:00-09:00"},{high:"13:30",low:"19:37",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"03",day:"一",tides:[{high:"02:09",low:"07:51",range:"06:00-09:30"},{high:"14:09",low:"20:06",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"04",day:"二",tides:[{high:"02:41",low:"08:30",range:"08:00-10:30"}],special:null},{date:"05",day:"三",tides:[{high:"03:16",low:"09:17",range:"08:00-11:00"}],special:null},{date:"06",day:"四",tides:[{high:"03:59",low:"10:13",range:"08:00-12:00"}],special:null},{date:"07",day:"五",tides:[{high:"04:50",low:"11:19",range:"08:00-13:00"}],special:null},{date:"08",day:"六",tides:[{high:"05:52",low:"12:33",range:"09:00-14:30"}],special:null},{date:"09",day:"日",tides:[{high:"07:05",low:"13:51",range:"10:30-15:30"}],special:null},{date:"10",day:"一",tides:[{high:"08:21",low:"15:05",range:"11:30-17:00"}],special:null},{date:"11",day:"二",tides:[{high:"09:31",low:"16:11",range:"12:30-17:30"}],special:null},{date:"12",day:"三",tides:[{high:"10:31",low:"17:08",range:"13:30-17:30"}],special:null},{date:"13",day:"四",tides:[{high:"11:22",low:"17:58",range:"14:30-17:30"}],special:null},{date:"14",day:"五",tides:[{high:"00:21",low:"06:07",range:"06:00-08:00"},{high:"12:09",low:"18:38",range:"15:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"15",day:"六",tides:[{high:"00:56",low:"06:48",range:"06:00-08:30"},{high:"12:52",low:"19:12",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"16",day:"日",tides:[{high:"01:29",low:"07:29",range:"06:00-09:30"},{high:"13:35",low:"19:43",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"17",day:"一",tides:[{high:"02:02",low:"08:12",range:"06:00-10:00"},{high:"14:18",low:"20:17",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"18",day:"二",tides:[{high:"02:36",low:"08:58",range:"08:00-11:00"}],special:null},{date:"19",day:"三",tides:[{high:"03:12",low:"09:49",range:"08:00-11:30"}],special:null},{date:"20",day:"四",tides:[{high:"03:53",low:"10:46",range:"08:00-12:30"}],special:null},{date:"21",day:"五",tides:[{high:"04:41",low:"11:48",range:"08:00-13:30"}],special:null},{date:"22",day:"六",tides:[{high:"05:44",low:"12:54",range:"09:00-14:30"}],special:null},{date:"23",day:"日",tides:[{high:"07:00",low:"14:00",range:"10:00-16:00"}],special:null},{date:"24",day:"一",tides:[{high:"08:12",low:"14:59",range:"11:30-17:00"}],special:null},{date:"25",day:"二",tides:[{high:"09:12",low:"15:48",range:"12:30-17:30"}],special:null},{date:"26",day:"三",tides:[{high:"10:00",low:"16:31",range:"13:00-17:30"}],special:null},{date:"27",day:"四",tides:[{high:"10:43",low:"17:08",range:"14:00-17:30"}],special:null},{date:"28",day:"五",tides:[{high:"11:21",low:"17:41",range:"14:30-17:30"}],special:null},{date:"29",day:"六",tides:[{high:"00:04",low:"05:48",range:"06:00-07:30"},{high:"11:58",low:"18:09",range:"15:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"30",day:"日",tides:[{high:"00:32",low:"06:16",range:"06:00-08:00"},{high:"12:34",low:"18:34",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"31",day:"一",tides:[{high:"01:00",low:"06:44",range:"06:00-08:30"},{high:"13:11",low:"19:00",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"}],
+  9:[{date:"01",day:"二",tides:[{high:"01:29",low:"07:17",range:"06:00-09:00"},{high:"13:50",low:"19:32",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"02",day:"三",tides:[{high:"02:00",low:"07:58",range:"06:00-10:00"},{high:"14:34",low:"20:11",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"03",day:"四",tides:[{high:"02:37",low:"08:47",range:"08:00-10:30"}],special:null},{date:"04",day:"五",tides:[{high:"03:21",low:"09:47",range:"08:00-11:30"}],special:null},{date:"05",day:"六",tides:[{high:"04:15",low:"10:59",range:"08:00-13:00"}],special:null},{date:"06",day:"日",tides:[{high:"05:25",low:"12:20",range:"08:30-14:00"}],special:null},{date:"07",day:"一",tides:[{high:"06:52",low:"13:42",range:"10:00-15:30"}],special:null},{date:"08",day:"二",tides:[{high:"08:16",low:"14:54",range:"11:30-16:30"}],special:null},{date:"09",day:"三",tides:[{high:"09:25",low:"15:56",range:"12:30-17:30"}],special:null},{date:"10",day:"四",tides:[{high:"10:21",low:"16:47",range:"13:30-17:30"}],special:null},{date:"11",day:"五",tides:[{high:"11:10",low:"17:28",range:"14:30-17:30"}],special:null},{date:"12",day:"六",tides:[{high:"11:53",low:"18:02",range:"15:00-17:30"}],special:null},{date:"13",day:"日",tides:[{high:"00:19",low:"06:19",range:"06:00-08:00"},{high:"12:34",low:"18:30",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"14",day:"一",tides:[{high:"00:49",low:"06:54",range:"06:00-08:30"},{high:"13:13",low:"18:59",range:"16:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"15",day:"二",tides:[{high:"01:19",low:"07:31",range:"06:00-09:30"},{high:"13:53",low:"19:32",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"16",day:"三",tides:[{high:"01:48",low:"08:11",range:"06:00-10:00"},{high:"14:35",low:"20:11",range:"17:30-18:30"}],special:"特 定 日 (延長開放)"},{date:"17",day:"四",tides:[{high:"02:20",low:"08:57",range:"08:00-10:30"}],special:null},{date:"18",day:"五",tides:[{high:"02:56",low:"09:50",range:"08:00-11:30"}],special:null},{date:"19",day:"六",tides:[{high:"03:41",low:"10:52",range:"08:00-12:30"}],special:null},{date:"20",day:"日",tides:[{high:"04:42",low:"12:00",range:"08:00-14:00"}],special:null},{date:"21",day:"一",tides:[{high:"06:07",low:"13:08",range:"09:30-15:00"}],special:null},{date:"22",day:"二",tides:[{high:"07:32",low:"14:09",range:"10:30-16:00"}],special:null},{date:"23",day:"三",tides:[{high:"08:37",low:"15:01",range:"11:00-17:00"}],special:null},{date:"24",day:"四",tides:[{high:"09:29",low:"15:44",range:"12:30-17:30"}],special:null},{date:"25",day:"五",tides:[{high:"10:14",low:"16:22",range:"13:30-17:30"}],special:null},{date:"26",day:"六",tides:[{high:"10:55",low:"16:56",range:"14:00-17:30"}],special:null},{date:"27",day:"日",tides:[{high:"11:34",low:"17:27",range:"15:00-17:30"}],special:null},{date:"28",day:"一",tides:[{high:"12:13",low:"17:56",range:"15:30-17:30"}],special:null},{date:"29",day:"二",tides:[{high:"00:20",low:"06:11",range:"06:00-08:00"},{high:"12:52",low:"18:27",range:"16:00-18:30"}],special:"特 定 日 (延長開放)"},{date:"30",day:"三",tides:[{high:"00:51",low:"06:48",range:"06:00-08:30"},{high:"13:34",low:"19:03",range:"17:00-18:30"}],special:"特 定 日 (延長開放)"}],
+  10:[{date:"01",day:"四",tides:[{high:"07:32",low:"08:00-09:30"},{high:"14:21",low:"19:46",range:"夜間非公告開放時間"}],special:"01:26"},{date:"02",day:"五",tides:[{high:"08:25",low:"08:00-10:00"}],special:"02:05"},{date:"03",day:"六",tides:[{high:"09:29",low:"08:00-11:30"}],special:"02:52"},{date:"04",day:"日",tides:[{high:"10:46",low:"08:00-12:30"}],special:"03:51"},{date:"05",day:"一",tides:[{high:"12:09",low:"08:30-14:00"}],special:"05:13"},{date:"06",day:"二",tides:[{high:"13:28",low:"10:00-15:30"}],special:"06:48"},{date:"07",day:"三",tides:[{high:"14:36",low:"11:30-16:30"}],special:"08:09"},{date:"08",day:"四",tides:[{high:"15:33",low:"12:30-17:30"}],special:"09:14"},{date:"09",day:"五",tides:[{high:"16:19",low:"13:30-17:30"}],special:"10:08"},{date:"10",day:"六",tides:[{high:"16:57",low:"14:00-17:30"}],special:"10:54"},{date:"11",day:"日",tides:[{high:"17:29",low:"15:00-17:30"}],special:"11:37"},{date:"12",day:"一",tides:[{high:"17:57",low:"15:30-17:30"}],special:"12:16"},{date:"13",day:"二",tides:[{high:"06:24",low:"08:00-08:30"},{high:"12:53",low:"18:26",range:"16:00-17:30"}],special:"00:10"},{date:"14",day:"三",tides:[{high:"06:55",low:"08:00-09:00"},{high:"13:31",low:"18:59",range:"16:30-17:30"}],special:"00:38"},{date:"15",day:"四",tides:[{high:"07:31",low:"08:00-09:30"},{high:"14:10",low:"19:37",range:"夜間非公告開放時間"}],special:"01:06"},{date:"16",day:"五",tides:[{high:"08:12",low:"08:00-10:00"}],special:"01:37"},{date:"17",day:"六",tides:[{high:"09:00",low:"08:00-11:00"}],special:"02:13"},{date:"18",day:"日",tides:[{high:"09:57",low:"08:00-12:00"}],special:"02:57"},{date:"19",day:"一",tides:[{high:"11:01",low:"08:00-13:00"}],special:"03:54"},{date:"20",day:"二",tides:[{high:"12:08",low:"08:30-14:00"}],special:"05:13"},{date:"21",day:"三",tides:[{high:"13:11",low:"10:00-15:00"}],special:"06:42"},{date:"22",day:"四",tides:[{high:"14:05",low:"11:00-16:00"}],special:"07:54"},{date:"23",day:"五",tides:[{high:"14:52",low:"12:00-16:30"}],special:"08:52"},{date:"24",day:"六",tides:[{high:"15:34",low:"13:00-17:30"}],special:"09:42"},{date:"25",day:"日",tides:[{high:"16:13",low:"13:30-17:30"}],special:"10:28"},{date:"26",day:"一",tides:[{high:"16:50",low:"14:30-17:30"}],special:"11:12"},{date:"27",day:"二",tides:[{high:"17:26",low:"15:00-17:30"}],special:"11:55"},{date:"28",day:"三",tides:[{high:"18:03",low:"16:00-17:30"}],special:"12:39"},{date:"29",day:"四",tides:[{high:"06:28",low:"08:00-08:30"},{high:"13:24",low:"18:43",range:"16:30-17:30"}],special:"00:20"},{date:"30",day:"五",tides:[{high:"07:16",low:"08:00-09:00"},{high:"14:14",low:"19:29",range:"夜間非公告開放時間"}],special:"00:59"},{date:"31",day:"六",tides:[{high:"08:12",low:"08:00-10:00"}],special:"01:43"}],
+};
 
     function updateTide() {
         const now = new Date();
         const month = now.getMonth() + 1;
         const date = String(now.getDate()).padStart(2, '0');
         
-        const todayTide = (tideData2026[month] && tideData2026[month][date]) || null;
+        const todayData = tideData2026[month] || [];
+        const todayTide = todayData.find(d => parseInt(d.date) === parseInt(date));
         
         if (todayTide) {
+            const rangeStr = todayTide.tides.map(t => t.range).join(' / ');
             document.getElementById('tide-content').innerHTML = `
                 <div class="tide-info">
                     <div style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">📅 ${month}月${date}日 步道開放時間</div>
                     <div class="tide-row">
-                        <span class="tide-time">🕒 ${todayTide.range}</span>
+                        <span class="tide-time">🕒 ${rangeStr}</span>
                         <span style="color: #ef4444; font-weight: bold; font-size: 0.75rem;">${todayTide.special || '正常開放'}</span>
                     </div>
                 </div>
@@ -1545,11 +1304,56 @@
         } else {
             document.getElementById('tide-content').innerHTML = `
                 <div class="tide-info" style="background: #f1f5f9; border-left-color: #94a3b8;">
-                    <div style="font-size: 0.85rem; color: #666; text-align: center;">今日非開放時段或資料更新中</div>
-                    <div style="font-size: 0.7rem; color: #999; text-align: center; margin-top: 4px;">請至 <a href="/moses-sea" style="color: #3b82f6; text-decoration: underline;">摩西分海頁面</a> 查看完整表</div>
+                    <div style="font-size: 0.85rem; color: #666; text-align: center;">今日非 4-10 月公告開放時段</div>
+                    <div style="font-size: 0.7rem; color: #999; text-align: center; margin-top: 4px;">詳細請查看下方全月表</div>
                 </div>
             `;
         }
+        
+        renderMonthSelector();
+        renderTideTable(month >= 4 && month <= 10 ? month : 4);
+    }
+
+    function renderMonthSelector() {
+        const selector = document.getElementById('month-selector');
+        if (!selector) return;
+        let html = '';
+        for (let m = 4; m <= 10; m++) {
+            const active = (new Date().getMonth() + 1 === m) || (new Date().getMonth() + 1 < 4 && m === 4) ? 'active' : '';
+            html += `<button class="month-btn ${active}" onclick="selectMonth(${m}, this)">${m}月</button>`;
+        }
+        selector.innerHTML = html;
+    }
+
+    window.selectMonth = function(m, btn) {
+        document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTideTable(m);
+    }
+
+    function renderTideTable(m) {
+        const tbody = document.getElementById('tide-table-body');
+        if (!tbody) return;
+        const data = tideData2026[m] || [];
+        
+        if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 20px;">無此月份資料</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = data.map(d => {
+            const isToday = (new Date().getMonth() + 1 === m && new Date().getDate() === parseInt(d.date));
+            const rowStyle = isToday ? 'style="background: #fffbeb; font-weight: bold;"' : '';
+            const specialTag = d.special ? `<span class="special-tag ${d.special.includes('延長') ? 'tag-blue' : 'tag-red'}">${d.special}</span>` : '';
+            
+            return `
+                <tr ${rowStyle}>
+                    <td>${m}/${d.date} (${d.day}) ${isToday ? '📌' : ''}</td>
+                    <td>${d.tides.map(t => t.range).join('<br>')}</td>
+                    <td>${specialTag}</td>
+                </tr>
+            `;
+        }).join('');
     }
 
     // 初始化
