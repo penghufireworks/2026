@@ -28,10 +28,10 @@ jobs:
       - name: Run trends script
         run: python update_penghu_trends.py
 
-      - name: Run whisper script (generate AI blog post)
-        run: python penghu_whisper.py
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #- name: Run whisper script (generate AI blog post)
+      #  run: python penghu_whisper.py
+      #  env:
+      #    DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
