@@ -9,7 +9,7 @@
     <style>
         .map-container {
             position: relative;
-            padding-bottom: 60%;
+            padding-bottom: 65%;
             height: 0;
             overflow: hidden;
             border-radius: 1.5rem;
@@ -26,53 +26,50 @@
 
     <div class="max-w-5xl mx-auto px-4 py-8">
         <header class="mb-6 text-center">
-            <h1 class="text-2xl font-extrabold text-blue-900 mb-2">澎湖航線即時動態</h1>
-            <p class="text-xs text-slate-500">已過濾雜船，僅顯示：澎湖輪、太吉、滿天星、凱旋、百麗</p>
+            <h1 class="text-2xl font-extrabold text-blue-900 mb-2">澎湖港口即時動態</h1>
+            <p class="text-xs text-slate-500">監測範圍：馬公港、西嶼海域 (僅顯示客運船舶)</p>
         </header>
 
         <div class="bg-white rounded-3xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-8">
             <div class="map-container">
                 <iframe 
                     id="marinetraffic" 
-                    src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:23.58/centerx:120.1/maptype:4/shownames:false/mmsi:416000287,416000109,416000072,416000271,416000263/vtypes:6,7/show_menu:false/remember:false" 
+                    src="https://www.marinetraffic.com/en/ais/embed/zoom:12/centery:23.56/centerx:119.58/maptype:4/shownames:false/mmsi:416000287,416000109,416000072,416000271,416000263/vtypes:6,7/show_menu:false/remember:false" 
                     frameborder="0"
                     allowfullscreen>
                 </iframe>
             </div>
-            <div class="px-4 py-2 bg-slate-50 flex justify-between items-center text-[10px] text-slate-400 font-medium">
-                <span class="flex items-center gap-1">📍 畫面已自動過濾無關漁船與貨輪</span>
-                <span>點擊三角形圖示查看詳細船名 👆</span>
+            <div class="px-4 py-3 bg-amber-50 border-t border-amber-100 flex items-start gap-2">
+                <span class="text-lg">⚠️</span>
+                <p class="text-[11px] text-amber-800 leading-normal font-medium">
+                    <strong>重要說明：</strong> 船隻在海峽中段時受限於衛星收訊，位置會有較長延遲。<br>
+                    當船隻靠近 <strong>澎湖沿岸 15 浬</strong> 時，地圖將會恢復即時更新。
+                </p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                <h3 class="text-xs font-bold text-blue-600 uppercase mb-3 tracking-widest">藍色圖示 🟦 客輪</h3>
-                <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
-                    <span class="text-sm font-bold">澎湖輪 (高雄航線)</span>
-                    <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm">PENGHU</span>
-                </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                <h3 class="text-sm font-bold text-blue-800 mb-3 border-l-4 border-blue-600 pl-2">如何使用？</h3>
+                <ul class="text-xs text-slate-600 space-y-2">
+                    <li>● <strong>找藍色圖示：</strong> 代表澎湖輪。</li>
+                    <li>● <strong>找黃色圖示：</strong> 代表快艇 (滿天星、太吉等)。</li>
+                    <li>● <strong>點擊圖示：</strong> 查看船名 (Name) 與最後更新時間 (Last Received)。</li>
+                </ul>
             </div>
-            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                <h3 class="text-xs font-bold text-yellow-600 uppercase mb-3 tracking-widest">黃色圖示 🟨 高速快艇</h3>
-                <div class="grid grid-cols-1 gap-2">
-                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
-                        <span class="text-sm font-bold">太吉之星 / 滿天星</span>
-                        <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm uppercase">Tai Ji / All Seas</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
-                        <span class="text-sm font-bold">凱旋 / 百麗雲豹</span>
-                        <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm uppercase">Triumph / Rikulau</span>
-                    </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                <h3 class="text-sm font-bold text-slate-800 mb-3 border-l-4 border-slate-300 pl-2">常用船名對照</h3>
+                <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                    <div class="bg-slate-50 p-1.5 rounded border uppercase">PENGHU</div>
+                    <div class="bg-slate-50 p-1.5 rounded border uppercase">TAI JI STAR 3</div>
+                    <div class="bg-slate-50 p-1.5 rounded border uppercase">ALL SEAS JET</div>
+                    <div class="bg-slate-50 p-1.5 rounded border uppercase">TRIUMPH 8</div>
                 </div>
             </div>
         </div>
 
         <footer class="mt-10 text-center">
-            <p class="text-[10px] text-slate-400 font-medium tracking-wide leading-relaxed">
-                penghu2026.shop © 澎湖旅遊數位化專案<br>
-                數據僅供遊客參考，實際航班請以船公司當日現場公告為準。
-            </p>
+            <p class="text-[10px] text-slate-400">penghu2026.shop © 數位旅遊導覽服務</p>
         </footer>
     </div>
 
