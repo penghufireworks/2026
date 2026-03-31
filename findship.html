@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <title>澎湖航線船舶即時動態 - penghu.shop</title>
+    <title>澎湖船舶即時動態 - penghu2026.shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .map-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; /* 保持 16:9 比例 */
             height: 0;
             overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
         .map-container iframe {
             position: absolute;
@@ -26,58 +28,63 @@
 <body class="bg-slate-50 font-sans">
 
     <div class="max-w-5xl mx-auto px-4 py-8">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-slate-800 mb-2">澎湖航線船舶即時動態</h1>
-            <p class="text-slate-600">監測對象：澎湖輪、太吉之星3號、滿天星2號</p>
-            <div class="mt-4 flex justify-center gap-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    AIS 即時數據
-                </span>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    自動更新中
-                </span>
-            </div>
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">澎湖航線即時動態</h1>
+            <p class="text-slate-500 italic">透過 AIS 衛星即時追蹤船舶位置</p>
         </header>
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
-            <div class="bg-slate-800 text-white px-4 py-2 flex justify-between items-center">
-                <span class="text-sm font-medium">即時海圖追蹤</span>
-                <span class="text-xs text-slate-400">數據來源：VesselFinder / MarineTraffic</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <a href="https://www.vesselfinder.com/?mmsi=416000287" target="_blank" class="flex items-center justify-between bg-blue-50 border border-blue-200 p-5 rounded-xl hover:bg-blue-100 hover:shadow-md transition-all duration-300">
+                <div>
+                    <div class="font-bold text-blue-800 text-lg">🚢 澎湖輪</div>
+                    <div class="text-xs text-blue-600 mt-1 uppercase tracking-wider font-semibold">PENGHU - 高雄/馬公</div>
+                </div>
+                <span class="text-blue-500 text-xl font-bold">➜</span>
+            </a>
+            
+            <a href="https://www.vesselfinder.com/?mmsi=416000109" target="_blank" class="flex items-center justify-between bg-emerald-50 border border-emerald-200 p-5 rounded-xl hover:bg-emerald-100 hover:shadow-md transition-all duration-300">
+                <div>
+                    <div class="font-bold text-emerald-800 text-lg">🚤 太吉之星 3 號</div>
+                    <div class="text-xs text-emerald-600 mt-1 uppercase tracking-wider font-semibold">布袋 / 馬公</div>
+                </div>
+                <span class="text-emerald-500 text-xl font-bold">➜</span>
+            </a>
+
+            <a href="https://www.vesselfinder.com/?mmsi=416000072" target="_blank" class="flex items-center justify-between bg-amber-50 border border-amber-200 p-5 rounded-xl hover:bg-amber-100 hover:shadow-md transition-all duration-300">
+                <div>
+                    <div class="font-bold text-amber-800 text-lg">🚤 滿天星 2 號</div>
+                    <div class="text-xs text-amber-600 mt-1 uppercase tracking-wider font-semibold">布袋 / 馬公</div>
+                </div>
+                <span class="text-amber-500 text-xl font-bold">➜</span>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm">
+            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="text-sm font-bold text-slate-700">📌 澎湖周邊海域即時海圖</h2>
+                <span class="text-[10px] text-slate-400">數據更新頻率取決於衛星信號</span>
             </div>
             
-<div class="map-container">
-    <iframe 
-        id="marinetraffic" 
-        width="100%" 
-        height="100%" 
-        src="https://www.marinetraffic.com/en/ais/embed/zoom:9/centery:23.5/centerx:119.5/maptype:4/shownames:true/mmsi:416000287,416000109,416000072/fleet:/fleet_id:/vtypes:/show_menu:true/remember:false" 
-        frameborder="0"
-        allowfullscreen>
-    </iframe>
-</div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-blue-700">澎湖輪 (PENGHU)</h3>
-                <p class="text-xs text-slate-500 mt-1">MMSI: 416000287</p>
-                <p class="text-sm mt-2 text-slate-600">航線：高雄 － 馬公</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-blue-700">太吉之星 3 號</h3>
-                <p class="text-xs text-slate-500 mt-1">MMSI: 416000109</p>
-                <p class="text-sm mt-2 text-slate-600">航線：布袋 － 馬公</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-blue-700">滿天星 2 號</h3>
-                <p class="text-xs text-slate-500 mt-1">MMSI: 416000072</p>
-                <p class="text-sm mt-2 text-slate-600">航線：布袋 － 馬公</p>
+            <div class="map-container">
+                <iframe 
+                    id="marinetraffic" 
+                    src="https://www.marinetraffic.com/en/ais/embed/zoom:9/centery:23.5/centerx:119.5/maptype:4/shownames:true/mmsi:416000287,416000109,416000072/fleet:/fleet_id:/vtypes:/show_menu:true/remember:false" 
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
 
-        <footer class="mt-8 text-center text-xs text-slate-400">
-            <p>※ AIS 數據可能因接收站訊號或衛星延遲而有 15-60 分鐘落差。</p>
-            <p>※ 實際船班開航資訊請以各船公司官網公告為準。</p>
+        <footer class="mt-12 border-t border-slate-200 pt-6 text-center">
+            <div class="flex justify-center gap-2 mb-4">
+                <span class="bg-slate-200 text-slate-600 px-2 py-1 rounded text-[10px]">AIS Tracker</span>
+                <span class="bg-slate-200 text-slate-600 px-2 py-1 rounded text-[10px]">PENGHU.SHOP</span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                ※ 本頁面提供之數據僅供旅遊行程規劃參考，不具備導航及專業用途。<br>
+                ※ 船舶即時位置因衛星傳輸延遲，與實際位置可能存在 15-60 分鐘落差。<br>
+                ※ 具體開航資訊請依各船公司官網公告為準。
+            </p>
         </footer>
     </div>
 
