@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <title>澎湖航線船舶即時動態 - penghu2026.shop</title>
+    <title>澎湖航線即時動態追蹤 - penghu2026.shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .map-container {
             position: relative;
-            padding-bottom: 65%; /* 適合呈現台灣海峽橫向長度 */
+            padding-bottom: 65%; /* 針對台灣海峽寬度優化的比例 */
             height: 0;
             overflow: hidden;
             border-radius: 1rem;
@@ -27,78 +27,22 @@
 </head>
 <body class="bg-slate-50 font-sans text-slate-900">
 
-    <div class="max-w-5xl mx-auto px-4 py-8">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-extrabold text-blue-900 mb-2">澎湖航線船舶即時動態</h1>
-            <p class="text-slate-500 font-medium">即時監測：嘉義布袋、高雄 ⇋ 澎湖馬公</p>
+    <div class="max-w-5xl mx-auto px-4 py-10">
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl font-extrabold text-blue-900 mb-3">澎湖航線船舶即時動態</h1>
+            <p class="text-slate-500 font-medium">即時監測：嘉義布袋、高雄 ⇋ 澎湖馬公（西嶼航段）</p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000287" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-blue-600 p-5 rounded-xl shadow-sm hover:shadow-md transition-all">
-                <div>
-                    <div class="font-bold text-slate-800 text-lg">🚢 澎湖輪</div>
-                    <div class="text-xs text-blue-600 mt-1 uppercase font-semibold">PENGHU</div>
-                </div>
-                <span class="text-slate-300">➜</span>
-            </a>
-            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000109" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-yellow-500 p-5 rounded-xl shadow-sm hover:shadow-md transition-all">
-                <div>
-                    <div class="font-bold text-slate-800 text-lg">🚤 太吉之星 3 號</div>
-                    <div class="text-xs text-yellow-600 mt-1 uppercase font-semibold">TAI JI STAR NO 3</div>
-                </div>
-                <span class="text-slate-300">➜</span>
-            </a>
-            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000072" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-yellow-500 p-5 rounded-xl shadow-sm hover:shadow-md transition-all">
-                <div>
-                    <div class="font-bold text-slate-800 text-lg">🚤 滿天星 2 號</div>
-                    <div class="text-xs text-yellow-600 mt-1 uppercase font-semibold">ALL SEAS JET 2</div>
-                </div>
-                <span class="text-slate-300">➜</span>
-            </a>
-        </div>
-
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm mb-6">
-            <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center">
-                <span class="w-1.5 h-4 bg-blue-600 rounded-full mr-2"></span>
-                海圖辨識指南：如何找到您的航班？
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <p class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">● 認顏色 (船隻類型)</p>
-                    <div class="flex items-center space-x-6">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[12px] border-b-blue-500"></div>
-                            <span class="text-xs font-medium">藍色：大型客輪</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[12px] border-b-yellow-500"></div>
-                            <span class="text-xs font-medium">黃色：高速客船</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">● 認英文 (點擊圖示比對名稱)</p>
-                    <div class="flex flex-wrap gap-2 text-[10px] font-mono">
-                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">PENGHU</span>
-                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">TAI JI</span>
-                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">ALL SEAS</span>
-                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">RIKULAU</span>
-                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">TRIUMPH</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-8">
             <div class="px-4 py-3 flex justify-between items-center">
                 <h2 class="text-sm font-bold text-slate-700 flex items-center">
                     <span class="relative flex h-2 w-2 mr-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                     </span>
-                    西嶼 － 布袋航道即時監測
+                    LIVE 衛星即時海圖
                 </h2>
-                <span class="text-[10px] text-slate-400">數據源：MarineTraffic AIS</span>
+                <span class="text-[10px] text-slate-400 font-mono">Center: 23.58N / 120.0E (Zoom 10)</span>
             </div>
             <div class="map-container">
                 <iframe 
@@ -110,11 +54,97 @@
             </div>
         </div>
 
-        <footer class="mt-10 text-center">
-            <p class="text-[11px] text-slate-400 leading-relaxed">
-                ※ AIS 數據可能因環境信號影響有 15-60 分鐘延遲。<br>
-                ※ 實際開航與抵達時間請以各船公司官網公告為準。<br>
-                <span class="font-bold mt-2 block">penghu2026.shop © 澎湖旅遊數位專案</span>
+        <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                <span class="w-1.5 h-6 bg-blue-600 rounded-full mr-3"></span>
+                海圖辨識與搜尋指南
+            </h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <p class="text-sm font-bold text-blue-700 border-b pb-2">Step 1. 觀察圖示顏色</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-blue-500"></div>
+                            <div>
+                                <p class="text-sm font-semibold">藍色三角形</p>
+                                <p class="text-[11px] text-slate-500">一般客輪 (如：澎湖輪)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-yellow-500"></div>
+                            <div>
+                                <p class="text-sm font-semibold">黃色三角形</p>
+                                <p class="text-[11px] text-slate-500">高速快艇 (如：太吉、滿天星)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-slate-300 rounded-full"></div>
+                            <div>
+                                <p class="text-sm font-semibold">灰色圓形</p>
+                                <p class="text-[11px] text-slate-500">靜止中 (通常在港內停泊)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-sm font-bold text-blue-700 border-b pb-2">Step 2. 點擊圖示確認船名</p>
+                    <div class="space-y-2">
+                        <p class="text-[11px] text-slate-500 mb-2 font-medium">常見客運船舶 AIS 代碼對照：</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">澎湖輪</p>
+                                <p class="text-xs font-mono font-bold">PENGHU</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">太吉之星 3 號</p>
+                                <p class="text-xs font-mono font-bold uppercase text-yellow-600">Tai Ji Star 3</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">滿天星 2 號</p>
+                                <p class="text-xs font-mono font-bold">ALL SEAS JET 2</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">凱旋系列</p>
+                                <p class="text-xs font-mono font-bold uppercase">TRIUMPH</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">百麗雲豹</p>
+                                <p class="text-xs font-mono font-bold uppercase">RIKULAU</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <p class="text-[10px] text-slate-400">百麗藍鵲</p>
+                                <p class="text-xs font-mono font-bold uppercase">BLUE MAGPIE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-sm font-bold text-blue-700 border-b pb-2">Step 3. 判斷航行方向</p>
+                    <div class="bg-blue-50 p-4 rounded-xl space-y-3">
+                        <div class="flex items-center">
+                            <span class="text-lg mr-2">⬅️</span>
+                            <p class="text-xs font-medium text-blue-800">朝向 270° (左)：開往澎湖</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-lg mr-2">➡️</span>
+                            <p class="text-xs font-medium text-blue-800">朝向 90° (右)：回往台灣</p>
+                        </div>
+                        <p class="text-[10px] text-blue-600 italic mt-2">※ AIS 數據受衛星信號影響，可能存在 15-60 分鐘延遲。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-12 text-center">
+            <div class="inline-flex items-center px-4 py-1 rounded-full bg-slate-200 text-slate-600 text-[10px] font-bold tracking-widest uppercase mb-4">
+                AIS Data via MarineTraffic
+            </div>
+            <p class="text-xs text-slate-400">
+                penghu2026.shop © 澎湖旅遊數位專案<br>
+                本站數據僅供參考，實際船班時間請以各航運公司公告為準。
             </p>
         </footer>
     </div>
