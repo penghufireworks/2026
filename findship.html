@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <title>澎湖專屬航道監控 - penghu2026.shop</title>
+    <title>澎湖港口即時動態 - penghu2026.shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .map-container {
@@ -14,7 +14,7 @@
             overflow: hidden;
             border-radius: 1.5rem;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-            background: #f8fafc;
+            background: #f1f5f9;
         }
         .map-container iframe {
             position: absolute;
@@ -22,15 +22,15 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-900">
 
-    <div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto px-4 py-8">
         <header class="mb-6 text-center">
-            <h1 class="text-2xl font-extrabold text-blue-900 mb-2">澎湖港口即時動態</h1>
-            <p class="text-xs text-slate-500">監測範圍：馬公港、西嶼海域 (僅顯示客運船舶)</p>
+            <h1 class="text-2xl font-extrabold text-blue-900 mb-2">澎湖港口船舶即時監測</h1>
+            <p class="text-sm text-slate-500 font-medium">範圍：馬公港、西嶼海域 (僅顯示客運船舶)</p>
         </header>
 
-        <div class="bg-white rounded-3xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-8">
+        <div class="bg-white rounded-3xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-6">
             <div class="map-container">
                 <iframe 
                     id="marinetraffic" 
@@ -39,37 +39,51 @@
                     allowfullscreen>
                 </iframe>
             </div>
-            <div class="px-4 py-3 bg-amber-50 border-t border-amber-100 flex items-start gap-2">
-                <span class="text-lg">⚠️</span>
-                <p class="text-[11px] text-amber-800 leading-normal font-medium">
-                    <strong>重要說明：</strong> 船隻在海峽中段時受限於衛星收訊，位置會有較長延遲。<br>
-                    當船隻靠近 <strong>澎湖沿岸 15 浬</strong> 時，地圖將會恢復即時更新。
-                </p>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-                <h3 class="text-sm font-bold text-blue-800 mb-3 border-l-4 border-blue-600 pl-2">如何使用？</h3>
-                <ul class="text-xs text-slate-600 space-y-2">
-                    <li>● <strong>找藍色圖示：</strong> 代表澎湖輪。</li>
-                    <li>● <strong>找黃色圖示：</strong> 代表快艇 (滿天星、太吉等)。</li>
-                    <li>● <strong>點擊圖示：</strong> 查看船名 (Name) 與最後更新時間 (Last Received)。</li>
-                </ul>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-                <h3 class="text-sm font-bold text-slate-800 mb-3 border-l-4 border-slate-300 pl-2">常用船名對照</h3>
-                <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
-                    <div class="bg-slate-50 p-1.5 rounded border uppercase">PENGHU</div>
-                    <div class="bg-slate-50 p-1.5 rounded border uppercase">TAI JI STAR 3</div>
-                    <div class="bg-slate-50 p-1.5 rounded border uppercase">ALL SEAS JET</div>
-                    <div class="bg-slate-50 p-1.5 rounded border uppercase">TRIUMPH 8</div>
+            
+            <div class="px-5 py-4 bg-amber-50 border-t border-amber-100">
+                <div class="flex items-start gap-3">
+                    <span class="text-xl">💡</span>
+                    <div class="text-xs text-amber-900 leading-relaxed">
+                        <p class="font-bold mb-1 text-sm">數據更新提醒：</p>
+                        <p>點擊地圖上的船隻圖示後，請檢查 <strong>"Position received"</strong> 欄位：</p>
+                        <ul class="list-disc ml-4 mt-1 space-y-1">
+                            <li><span class="text-green-700 font-bold">minutes ago</span>：代表目前位置為即時資訊。</li>
+                            <li><span class="text-red-600 font-bold">hours ago</span>：代表船隻在海中收訊死角，位置有延遲（如截圖所示之現象）。</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <footer class="mt-10 text-center">
-            <p class="text-[10px] text-slate-400">penghu2026.shop © 數位旅遊導覽服務</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-sm font-bold text-blue-700 mb-3 border-l-4 border-blue-600 pl-2">圖示顏色說明</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[12px] border-b-blue-500"></div>
+                        <p class="text-xs font-medium">藍色：大型客輪 (澎湖輪)</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[12px] border-b-yellow-500"></div>
+                        <p class="text-xs font-medium">黃色：高速快艇 (太吉、滿天星、百麗)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-sm font-bold text-slate-700 mb-3 border-l-4 border-slate-300 pl-2">目標船名對照</h3>
+                <div class="grid grid-cols-2 gap-2 text-[10px] font-mono uppercase">
+                    <div class="bg-slate-50 p-1.5 rounded border">PENGHU</div>
+                    <div class="bg-slate-50 p-1.5 rounded border">TAI JI STAR 3</div>
+                    <div class="bg-slate-50 p-1.5 rounded border">ALL SEAS JET 2</div>
+                    <div class="bg-slate-50 p-1.5 rounded border">RIKULAU</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center text-[10px] text-slate-400">
+            <p>penghu2026.shop © 數位旅遊導覽服務</p>
+            <p class="mt-1 tracking-widest">AIS DATA PROVIDED BY MARINETRAFFIC</p>
         </footer>
     </div>
 
