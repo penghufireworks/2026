@@ -35,10 +35,6 @@
         .weather-card.night { background: #f1f5f9; }
         .weather-date { font-weight: bold; color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 6px; display: flex; justify-content: space-between; }
         .weather-info-row { display: flex; justify-content: space-between; margin-bottom: 3px; font-size: 0.8rem; }
-        .weather-warning { font-size: 0.7rem; margin-top: 5px; padding: 3px 6px; border-radius: 4px; font-weight: bold; text-align: center; }
-        .warning-red { background: #fee2e2; color: #ef4444; }
-        .warning-orange { background: #ffedd5; color: #f97316; }
-        .warning-green { background: #f0fdf4; color: #22c55e; }
         .tide-info { background: #eff6ff; border-radius: 8px; padding: 10px; border-left: 4px solid #3b82f6; }
         .tide-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 4px; }
         .tide-time { font-weight: bold; color: #1e40af; }
@@ -230,10 +226,6 @@
             
             let html = '';
             data.forEach(item => {
-                let warningClass = 'warning-green';
-                if (item.warning.includes('強風')) warningClass = 'warning-red';
-                else if (item.warning.includes('陣風')) warningClass = 'warning-orange';
-                
                 const isNight = item.period === "晚上";
                 const periodIcon = isNight ? "🌙" : "☀️";
                 
@@ -258,9 +250,6 @@
                         <div class="weather-info-row">
                             <span>風速:</span>
                             <span>🌬️ ${item.ws} m/s</span>
-                        </div>
-                        <div class="weather-warning ${warningClass}">
-                            ${item.warning}
                         </div>
                     </div>
                 `;
