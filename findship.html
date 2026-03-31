@@ -9,11 +9,11 @@
     <style>
         .map-container {
             position: relative;
-            padding-bottom: 56.25%; /* 保持 16:9 比例 */
+            padding-bottom: 65%; /* 調整比例以適應海峽長度 */
             height: 0;
             overflow: hidden;
             border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
         .map-container iframe {
             position: absolute;
@@ -25,66 +25,69 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans">
+<body class="bg-slate-50 font-sans text-slate-900">
 
-    <div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="max-w-5xl mx-auto px-4 py-10">
         <header class="mb-10 text-center">
-            <h1 class="text-3xl font-bold text-slate-800 mb-2">澎湖航線即時動態</h1>
-            <p class="text-slate-500 italic">透過 AIS 衛星即時追蹤船舶位置</p>
+            <h1 class="text-3xl font-extrabold text-blue-900 mb-3">澎湖航線船舶即時動態</h1>
+            <p class="text-slate-500">即時追蹤：澎湖輪、太吉之星 3 號、滿天星 2 號</p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000287" target="_blank" class="flex items-center justify-between bg-blue-50 border border-blue-200 p-5 rounded-xl hover:bg-blue-100 hover:shadow-md transition-all duration-300">
-    <div>
-        <div class="font-bold text-blue-800 text-lg">🚢 澎湖輪</div>
-        <div class="text-xs text-blue-600 mt-1 uppercase tracking-wider font-semibold">高雄 － 馬公</div>
-    </div>
-    <span class="text-blue-500 text-xl font-bold">➜</span>
-</a>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000287" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-blue-600 p-6 rounded-xl shadow-sm hover:shadow-md hover:bg-blue-50 transition-all duration-300">
+                <div>
+                    <div class="font-bold text-blue-900 text-xl">🚢 澎湖輪</div>
+                    <div class="text-sm text-blue-600 mt-1 tracking-wide">高雄 ⇋ 馬公</div>
+                </div>
+                <span class="text-blue-400 text-2xl font-light">➜</span>
+            </a>
+            
+            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000109" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-emerald-600 p-6 rounded-xl shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300">
+                <div>
+                    <div class="font-bold text-emerald-900 text-xl">🚤 太吉之星 3 號</div>
+                    <div class="text-sm text-emerald-600 mt-1 tracking-wide">布袋 ⇋ 馬公</div>
+                </div>
+                <span class="text-emerald-400 text-2xl font-light">➜</span>
+            </a>
 
-<a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000109" target="_blank" class="flex items-center justify-between bg-emerald-50 border border-emerald-200 p-5 rounded-xl hover:bg-emerald-100 hover:shadow-md transition-all duration-300">
-    <div>
-        <div class="font-bold text-emerald-800 text-lg">🚤 太吉之星 3 號</div>
-        <div class="text-xs text-emerald-600 mt-1 uppercase tracking-wider font-semibold">布袋 － 馬公</div>
-    </div>
-    <span class="text-emerald-500 text-xl font-bold">➜</span>
-</a>
-
-<a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000072" target="_blank" class="flex items-center justify-between bg-amber-50 border border-amber-200 p-5 rounded-xl hover:bg-amber-100 hover:shadow-md transition-all duration-300">
-    <div>
-        <div class="font-bold text-amber-800 text-lg">🚤 滿天星 2 號</div>
-        <div class="text-xs text-amber-600 mt-1 uppercase tracking-wider font-semibold">布袋 － 馬公</div>
-    </div>
-    <span class="text-amber-500 text-xl font-bold">➜</span>
-</a>
+            <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:416000072" target="_blank" class="flex items-center justify-between bg-white border-l-4 border-l-amber-600 p-6 rounded-xl shadow-sm hover:shadow-md hover:bg-amber-50 transition-all duration-300">
+                <div>
+                    <div class="font-bold text-amber-900 text-xl">🚤 滿天星 2 號</div>
+                    <div class="text-sm text-amber-600 mt-1 tracking-wide">布袋 ⇋ 馬公</div>
+                </div>
+                <span class="text-amber-400 text-2xl font-light">➜</span>
+            </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm">
-            <div class="p-3 border-b border-slate-100 flex justify-between items-center">
-                <h2 class="text-sm font-bold text-slate-700">📌 澎湖周邊海域即時海圖</h2>
-                <span class="text-[10px] text-slate-400">數據更新頻率取決於衛星信號</span>
+        <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm">
+            <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center mb-2">
+                <h2 class="text-lg font-bold text-slate-800">📌 西嶼 － 布袋 航道即時監測</h2>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs text-slate-400 font-medium tracking-tighter">LIVE 更新中</span>
+                </div>
             </div>
             
             <div class="map-container">
                 <iframe 
                     id="marinetraffic" 
-                    src="https://www.marinetraffic.com/en/ais/embed/zoom:9/centery:23.5/centerx:119.5/maptype:4/shownames:true/mmsi:416000287,416000109,416000072/fleet:/fleet_id:/vtypes:/show_menu:true/remember:false" 
+                    src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:23.58/centerx:120.0/maptype:4/shownames:true/mmsi:416000287,416000109,416000072/fleet:/fleet_id:/vtypes:/show_menu:true/remember:false" 
                     frameborder="0"
                     allowfullscreen>
                 </iframe>
             </div>
         </div>
 
-        <footer class="mt-12 border-t border-slate-200 pt-6 text-center">
-            <div class="flex justify-center gap-2 mb-4">
-                <span class="bg-slate-200 text-slate-600 px-2 py-1 rounded text-[10px]">AIS Tracker</span>
-                <span class="bg-slate-200 text-slate-600 px-2 py-1 rounded text-[10px]">PENGHU.SHOP</span>
+        <footer class="mt-12 border-t border-slate-200 pt-8 text-center text-slate-400">
+            <div class="flex justify-center gap-3 mb-4">
+                <span class="bg-slate-100 px-3 py-1 rounded-full text-[11px] font-medium border border-slate-200 uppercase">AIS Satellite Data</span>
+                <span class="bg-slate-100 px-3 py-1 rounded-full text-[11px] font-medium border border-slate-200 uppercase tracking-widest">Penghu.shop</span>
             </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-                ※ 本頁面提供之數據僅供旅遊行程規劃參考，不具備導航及專業用途。<br>
-                ※ 船舶即時位置因衛星傳輸延遲，與實際位置可能存在 15-60 分鐘落差。<br>
-                ※ 具體開航資訊請依各船公司官網公告為準。
-            </p>
+            <div class="max-w-2xl mx-auto space-y-2 text-xs leading-relaxed">
+                <p>※ 本站數據由 AIS 船舶自動識別系統提供，可能受氣候或衛星信號影響產生 15-60 分鐘延遲。</p>
+                <p>※ 地圖中心點已鎖定嘉義布袋至澎湖西嶼航段，適合監測往返船隻位置。</p>
+                <p>※ 實際船班開航、抵達時間請以各船公司官方公告為準。</p>
+            </div>
         </footer>
     </div>
 
