@@ -9,66 +9,70 @@
     <style>
         .map-container {
             position: relative;
-            padding-bottom: 65%;
+            padding-bottom: 60%;
             height: 0;
             overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            background: #f8fafc;
         }
         .map-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900">
+<body class="bg-slate-50 font-sans">
 
-    <div class="max-w-5xl mx-auto px-4 py-10">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-extrabold text-blue-900 mb-2">澎湖航線即時監測</h1>
-            <p class="text-slate-500 font-medium">預設僅顯示：澎湖輪、太吉之星、滿天星、百麗、凱旋</p>
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl font-extrabold text-blue-900 mb-2">澎湖航線即時動態</h1>
+            <p class="text-xs text-slate-500">已過濾雜船，僅顯示：澎湖輪、太吉、滿天星、凱旋、百麗</p>
         </header>
 
-        <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-8">
+        <div class="bg-white rounded-3xl p-2 border border-slate-200 shadow-sm overflow-hidden mb-8">
             <div class="map-container">
                 <iframe 
                     id="marinetraffic" 
-                    src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:23.58/centerx:120.0/maptype:4/shownames:false/mmsi:416000287,416000109,416000072,416000271,416000263/fleet:/fleet_id:/vtypes:/show_menu:false/remember:false" 
+                    src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:23.58/centerx:120.1/maptype:4/shownames:false/mmsi:416000287,416000109,416000072,416000271,416000263/vtypes:6,7/show_menu:false/remember:false" 
                     frameborder="0"
                     allowfullscreen>
                 </iframe>
             </div>
+            <div class="px-4 py-2 bg-slate-50 flex justify-between items-center text-[10px] text-slate-400 font-medium">
+                <span class="flex items-center gap-1">📍 畫面已自動過濾無關漁船與貨輪</span>
+                <span>點擊三角形圖示查看詳細船名 👆</span>
+            </div>
         </div>
 
-        <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-sm font-bold text-slate-800 mb-4 border-l-4 border-blue-600 pl-2">重點船舶 AIS 名稱</h3>
-                    <div class="grid grid-cols-2 gap-2 text-[11px] font-mono">
-                        <div class="bg-slate-50 p-2 rounded border">PENGHU (澎湖輪)</div>
-                        <div class="bg-slate-50 p-2 rounded border">TAI JI STAR 3 (太吉)</div>
-                        <div class="bg-slate-50 p-2 rounded border">ALL SEAS JET 2 (滿天星)</div>
-                        <div class="bg-slate-50 p-2 rounded border">RIKULAU (雲豹)</div>
-                        <div class="bg-slate-50 p-2 rounded border">TRIUMPH 8 (凱旋)</div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-sm font-bold text-slate-800 mb-4 border-l-4 border-yellow-500 pl-2">圖示說明</h3>
-                    <ul class="text-xs space-y-2 text-slate-600">
-                        <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 mr-2 rounded-sm"></span> 藍色：大型客輪</li>
-                        <li class="flex items-center"><span class="w-3 h-3 bg-yellow-500 mr-2 rounded-sm"></span> 黃色：高速快艇</li>
-                        <li class="mt-2 text-blue-700 font-medium italic">※ 點擊地圖上的圖示即可看到詳細船名與時速。</li>
-                    </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                <h3 class="text-xs font-bold text-blue-600 uppercase mb-3 tracking-widest">藍色圖示 🟦 客輪</h3>
+                <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                    <span class="text-sm font-bold">澎湖輪 (高雄航線)</span>
+                    <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm">PENGHU</span>
                 </div>
             </div>
-        </section>
+            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                <h3 class="text-xs font-bold text-yellow-600 uppercase mb-3 tracking-widest">黃色圖示 🟨 高速快艇</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <span class="text-sm font-bold">太吉之星 / 滿天星</span>
+                        <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm uppercase">Tai Ji / All Seas</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <span class="text-sm font-bold">凱旋 / 百麗雲豹</span>
+                        <span class="text-[10px] font-mono bg-white px-2 py-0.5 rounded border shadow-sm uppercase">Triumph / Rikulau</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer class="mt-10 text-center">
-            <p class="text-[11px] text-slate-400">penghu2026.shop © 專為 2026 澎湖花火節遊客設計</p>
+            <p class="text-[10px] text-slate-400 font-medium tracking-wide leading-relaxed">
+                penghu2026.shop © 澎湖旅遊數位化專案<br>
+                數據僅供遊客參考，實際航班請以船公司當日現場公告為準。
+            </p>
         </footer>
     </div>
 
