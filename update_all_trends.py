@@ -14,11 +14,13 @@ EXCLUDE_WORDS = [
     "火災", "起火", "火警", "閃電", "雷擊", "停電", "政府", "機關", "辦事處", "分局", "派出所", "公所", "地檢署", "稅務", "健保"
 ] 
 
-# 備用資料
+# 備用資料 (當 API 完全失效時顯示)
 BACKUP_DATA = [
-    {"query": "澎湖", "volume": "5,000+", "rising": "↑ 800%"},
-    {"query": "嘉義", "volume": "2,000+", "rising": "↑ 500%"},
-    {"query": "宜蘭", "volume": "2,000+", "rising": "↑ 400%"}
+    {"query": "澎湖花火節", "volume": "5,000+", "rising": "↑ 800%"},
+    {"query": "澎湖旅遊", "volume": "2,000+", "rising": "↑ 500%"},
+    {"query": "澎湖民宿", "volume": "2,000+", "rising": "↑ 400%"},
+    {"query": "澎湖美食", "volume": "1,000+", "rising": "↑ 300%"},
+    {"query": "澎湖交通", "volume": "1,000+", "rising": "↑ 200%"}
 ]
 
 print(f"正在執行全台每日熱搜趨勢抓取 (50筆，依飆升排序)...") 
@@ -26,20 +28,23 @@ print(f"正在執行全台每日熱搜趨勢抓取 (50筆，依飆升排序)..."
 final_items = []
 
 try:
-    # 使用 trending_searches 獲取每日熱門搜尋 (Daily Trending Searches)
-    # pn='taiwan' 是正確的參數，之前 404 可能是暫時性的
+    # 策略 1: 使用 trending_searches (pn='taiwan')
     print("正在嘗試抓取每日熱搜趨勢 (pn='taiwan')...")
-    df_trending = pytrends.trending_searches(pn='taiwan')
-    
+    df_trending = None
+    try:
+        df_trending = pytrends.trending_searches(pn='taiwan')
+    except Exception as e:
+        print(f"trending_searches 失敗: {e}")
+
     if df_trending is not None and not df_trending.empty:
         keywords = df_trending[0].tolist()
-        print(f"成功抓取 {len(keywords)} 筆熱門關鍵字。")
+        print(f"成功獲取 {len(keywords)} 筆熱門關鍵字。")
         
-        # 針對關鍵字獲取數據
-        for kw in keywords[:60]:
+        for kw in keywords[:70]: # 多取一點以便過濾後仍有 50 筆
             if any(neg in kw for neg in EXCLUDE_WORDS): continue
             
             try:
+                # 為了獲取百分比，需要針對每個關鍵字 build_payload
                 time.sleep(1.2)
                 pytrends.build_payload([kw], cat=0, timeframe='now 1-d', geo='TW')
                 related_data = pytrends.related_queries()
@@ -53,32 +58,39 @@ try:
                 
                 final_items.append({
                     "query": kw,
-                    "volume": "1,000+", # 模擬量
+                    "volume": "1,000+", # 預設顯示量
                     "rising": max_rising
                 })
                 
                 if len(final_items) >= 50: break
             except Exception as e:
-                print(f"抓取關鍵字 {kw} 時出錯: {e}")
+                print(f"分析關鍵字 {kw} 時出錯: {e}")
                 
-    if not final_items:
-        print("未獲取到有效數據，嘗試即時趨勢接口...")
-        rt_trends = pytrends.realtime_trending_searches(pn='TW')
-        if rt_trends is not None and not rt_trends.empty:
-            for _, row in rt_trends.iterrows():
-                query = row['title']
-                if any(neg in query for neg in EXCLUDE_WORDS): continue
-                final_items.append({
-                    "query": query,
-                    "volume": "即時",
-                    "rising": "Breakout"
-                })
-                if len(final_items) >= 50: break
+    # 策略 2: 如果策略 1 沒抓到足夠數據，嘗試 realtime_trending_searches
+    if len(final_items) < 10:
+        print("每日趨勢數據不足，嘗試即時趨勢接口...")
+        try:
+            rt_trends = pytrends.realtime_trending_searches(pn='TW')
+            if rt_trends is not None and not rt_trends.empty:
+                for _, row in rt_trends.iterrows():
+                    query = row['title']
+                    if any(neg in query for neg in EXCLUDE_WORDS): continue
+                    if query not in [x['query'] for x in final_items]:
+                        final_items.append({
+                            "query": query,
+                            "volume": "即時",
+                            "rising": "Breakout"
+                        })
+                    if len(final_items) >= 50: break
+        except Exception as e:
+            print(f"即時趨勢抓取失敗: {e}")
 
 except Exception as e:
     print(f"整體流程出錯: {e}")
 
+# 如果最終還是沒數據，使用備用資料
 if not final_items:
+    print("使用備用資料...")
     final_items = BACKUP_DATA
 
 # 3. 生成 HTML
