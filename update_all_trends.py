@@ -13,7 +13,7 @@ EXCLUDE_WORDS = [
     "火災", "起火", "火警", "閃電", "雷擊", "停電", "政府", "機關", "辦事處", "分局", "派出所", "公所", "地檢署", "稅務", "健保"
 ] 
 
-print(f"正在從 RSS 抓取 Google Trends 台灣熱門搜尋...")
+print(f"【RSS模式】正在從 RSS 抓取 Google Trends 台灣熱門搜尋...")
 
 def fetch_rss_trends():
     try:
