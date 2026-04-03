@@ -69,8 +69,10 @@ try:
             except Exception as e:
                 print(f"分析 {kw} 時出錯: {e}")
                 time.sleep(5)
-else:
-    print("無法取得每日熱門搜尋數據。")
+        else:
+            print("未找到符合過濾條件的趨勢數據。")
+    else:
+        print("無法取得每日熱門搜尋數據。")
 except Exception as e:
     print(f"抓取每日趨勢失敗: {e}")
 
