@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install dependencies
-        run: pip install requests pandas pytrends
+        run: pip install --upgrade requests pandas pytrends
       - name: Run script
         run: python update_all_trends.py
       - name: Commit and push if changed

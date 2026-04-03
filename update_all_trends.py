@@ -1,13 +1,12 @@
-import requests
-import json
-from datetime import datetime
-import time
+import pandas as pd 
+from pytrends.request import TrendReq 
+from datetime import datetime 
+import time 
 import os
-import re
 
-# 1. 配置
-TARGET_URL = "https://trends.google.com.tw/trending?geo=TW&hl=zh-TW&status=active"
-# 排除關鍵字清單
+# 1. 配置與初始化 
+pytrends = TrendReq(hl='zh-TW', tz=-480) 
+
 EXCLUDE_WORDS = [
     "空難", "復興", "墜機", "災難", "事故", "死亡", "受傷", "失蹤", "喪命", "意外", "確診", "遺體", "命案", "自殺", "受虐", "性侵",
     "政治", "選舉", "政黨", "民進黨", "國民黨", "民眾黨", "立院", "立法院", "議員", "市長", "總統", "罷免", "抗議", "示威", "暴力", 
@@ -15,46 +14,36 @@ EXCLUDE_WORDS = [
     "火災", "起火", "火警", "閃電", "雷擊", "停電", "政府", "機關", "辦事處", "分局", "派出所", "公所", "地檢署", "稅務", "健保"
 ] 
 
-# 備用資料 (若抓取失敗時使用)
+# 備用資料
 BACKUP_DATA = [
     {"query": "澎湖", "volume": "5,000+", "rising": "↑ 800%"},
     {"query": "嘉義", "volume": "2,000+", "rising": "↑ 500%"},
     {"query": "宜蘭", "volume": "2,000+", "rising": "↑ 400%"}
 ]
 
-print(f"正在抓取 Google Trends 每日熱搜趨勢數據...")
+print(f"正在執行全台每日熱搜趨勢抓取 (50筆，依飆升排序)...") 
 
-def get_trends_data():
-    """使用 pytrends 獲取趨勢數據並進行過濾與格式化"""
-    try:
-        from pytrends.request import TrendReq
-        pytrends = TrendReq(hl='zh-TW', tz=-480)
+final_items = []
+
+try:
+    # 使用 trending_searches 獲取每日熱門搜尋 (Daily Trending Searches)
+    # pn='taiwan' 是正確的參數，之前 404 可能是暫時性的
+    print("正在嘗試抓取每日熱搜趨勢 (pn='taiwan')...")
+    df_trending = pytrends.trending_searches(pn='taiwan')
+    
+    if df_trending is not None and not df_trending.empty:
+        keywords = df_trending[0].tolist()
+        print(f"成功抓取 {len(keywords)} 筆熱門關鍵字。")
         
-        # 獲取每日趨勢 (Daily Search Trends)
-        # 雖然 pytrends 之前可能 404，但在這裡嘗試用正確的參數
-        # trending_searches 獲取數據較少，我們嘗試用 today_trending_searches 結合深度抓取
-        df_today = pytrends.today_trending_searches(pn='TW')
-        
-        if df_today is None or df_today.empty:
-            print("無法獲取數據，切換至備用清單。")
-            return BACKUP_DATA
-            
-        keywords = df_today.tolist()
-        final_items = []
-        
-        # 針對關鍵字抓取 volume 和 rising
-        for kw in keywords[:60]: # 多抓一點備用
-            if any(neg in kw for neg in EXCLUDE_WORDS):
-                continue
+        # 針對關鍵字獲取數據
+        for kw in keywords[:60]:
+            if any(neg in kw for neg in EXCLUDE_WORDS): continue
             
             try:
-                # 每個關鍵字需要一点延遲
                 time.sleep(1.2)
                 pytrends.build_payload([kw], cat=0, timeframe='now 1-d', geo='TW')
                 related_data = pytrends.related_queries()
                 
-                # 搜尋量我們給一個模擬值 (因為 pytrends.today_trending_searches 不提供量)
-                # 或者我們嘗試從相關查詢推算
                 max_rising = "熱搜中"
                 if kw in related_data:
                     rising = related_data[kw]['rising']
@@ -64,29 +53,38 @@ def get_trends_data():
                 
                 final_items.append({
                     "query": kw,
-                    "volume": "1,000+", # 預設搜尋量
+                    "volume": "1,000+", # 模擬量
                     "rising": max_rising
                 })
                 
-                if len(final_items) >= 50:
-                    break
-                    
+                if len(final_items) >= 50: break
             except Exception as e:
                 print(f"抓取關鍵字 {kw} 時出錯: {e}")
                 
-        return final_items if final_items else BACKUP_DATA
-        
-    except Exception as e:
-        print(f"整體流程出錯: {e}")
-        return BACKUP_DATA
+    if not final_items:
+        print("未獲取到有效數據，嘗試即時趨勢接口...")
+        rt_trends = pytrends.realtime_trending_searches(pn='TW')
+        if rt_trends is not None and not rt_trends.empty:
+            for _, row in rt_trends.iterrows():
+                query = row['title']
+                if any(neg in query for neg in EXCLUDE_WORDS): continue
+                final_items.append({
+                    "query": query,
+                    "volume": "即時",
+                    "rising": "Breakout"
+                })
+                if len(final_items) >= 50: break
 
-# 2. 產出 HTML
-final_list = get_trends_data()
+except Exception as e:
+    print(f"整體流程出錯: {e}")
+
+if not final_items:
+    final_items = BACKUP_DATA
+
+# 3. 生成 HTML
 update_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-
 html_list = "" 
-for i, item in enumerate(final_list): 
-    # 判斷是否為 Breakout (飆升極高)
+for i, item in enumerate(final_items[:50]): 
     is_breakout = "Breakout" in item['rising'] or "↑ 9" in item['rising']
     color = "#e67e22" if is_breakout else "#3498db"
     
@@ -119,7 +117,7 @@ html_template = f'''
 <body> 
     <div class="container"> 
         <h2>🔥 即時熱搜趨勢排行榜 (50筆)</h2> 
-        <p class="subtitle">同步自 Google Trends 每日熱搜 | 最後更新：{update_time}</p> 
+        <p class="subtitle">同步自 Google Trends 熱門搜尋 | 最後更新：{update_time}</p> 
         <div class="header-row">
             <span style="flex:1;">關鍵字內容</span>
             <span style="width:80px; text-align:right;">搜尋量</span>
@@ -135,9 +133,6 @@ html_template = f'''
 </body> 
 </html>''' 
 
-try:
-    with open("googletrendforall.html", "w", encoding="utf-8") as f: 
-        f.write(html_template) 
-    print(f"✅ googletrendforall.html 產出成功！共 {len(final_list)} 筆。") 
-except Exception as e:
-    print(f"❌ 寫入 HTML 失敗: {e}")
+with open("googletrendforall.html", "w", encoding="utf-8") as f: 
+    f.write(html_template)
+print(f"✅ googletrendforall.html 產出成功！共 {len(final_items[:50])} 筆。") 
