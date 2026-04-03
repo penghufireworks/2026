@@ -2,63 +2,44 @@ import pandas as pd
 from pytrends.request import TrendReq 
 from datetime import datetime 
 import time 
-import os
 
 # 1. 配置與初始化 
-# hl='zh-TW' 繁體中文, tz=-480 台北時區
 pytrends = TrendReq(hl='zh-TW', tz=-480) 
 
-# 負面/政治/行政過濾清單 (保持不變)
-EXCLUDE_WORDS = [
-    "空難", "復興", "墜機", "災難", "事故", "死亡", "受傷", "失蹤", "喪命", "意外", "確診", "遺體", "命案", "自殺", "受虐", "性侵",
-    "政治", "選舉", "政黨", "民進黨", "國民黨", "民眾黨", "立院", "立法院", "議員", "市長", "總統", "罷免", "抗議", "示威", "暴力", 
-    "槍擊", "搶劫", "詐騙", "毒品", "刑案", "法院", "判刑", "被捕", "涉嫌", "弊案", "貪汙", "共機", "兩岸", "軍事", "演習",
-    "火災", "起火", "火警", "閃電", "雷擊", "停電", "政府", "機關", "辦事處", "分局", "派出所", "公所", "地檢署", "稅務", "健保"
-] 
-
-# 備用關鍵字
+EXCLUDE_WORDS = ["空難", "墜機", "災難", "事故", "死亡", "政治", "選舉", "罷免", "抗議", "暴力", "槍擊", "詐騙", "政府"] 
 BACKUP_DATA = ["澎湖旅遊", "澎湖花火節", "澎湖美食", "澎湖景點", "澎湖民宿"]
 
 print(f"正在抓取 Google Trends 台灣即時熱門趨勢 (Status: Active)... ") 
 
 final_keywords = []
 
+# --- 修正處：先給予預設值，避免後續報錯 ---
+update_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 try:
-    # 修改處：改用 realtime_trending_searches 獲取「活躍中」的趨勢
-    # pn='TW' 代表台灣地區
+    # 嘗試即時趨勢
     df_trends = pytrends.realtime_trending_searches(pn='TW')
-    
     if df_trends is not None and not df_trends.empty:
-        # 即時趨勢的關鍵字存放在 'title' 欄位
         all_keywords = df_trends['title'].tolist()
-        print(f"成功獲取 {len(all_keywords)} 筆即時熱搜關鍵字。")
-        
-        # 進行過濾
         for kw in all_keywords:
-            # 過濾負面字眼
-            if any(neg in kw for neg in EXCLUDE_WORDS):
-                continue
+            if any(neg in kw for neg in EXCLUDE_WORDS): continue
             final_keywords.append(kw)
-            
-            # 限制數量，避免頁面過長
-            if len(final_keywords) >= 40:
-                break
+            if len(final_keywords) >= 40: break
     else:
-        print("無法取得即時數據，嘗試備援策略...")
-        # 備援：嘗試每日熱搜
+        # 如果即時趨勢空了，試試看每日趨勢
         df_daily = pytrends.trending_searches(pn='taiwan')
         if not df_daily.empty:
-            final_keywords = [k for k in df_daily[0].tolist() if not any(neg in k for neg in EXCLUDE_WORDS)][:40]
+            all_keywords = df_daily[0].tolist()
+            final_keywords = [k for k in all_keywords if not any(neg in k for neg in EXCLUDE_WORDS)][:40]
 
 except Exception as e:
-    print(f"抓取流程失敗: {e}")
+    print(f"抓取流程失敗（這可能是 Google 接口變動造成的）: {e}")
 
-# 如果最終還是沒數據，使用備用
+# 如果最終還是沒數據，強制使用備用
 if not final_keywords:
     final_keywords = BACKUP_DATA
 
-# 2. 生成 HTML 內容 (保持不變)
-update_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+# 2. 生成 HTML 內容 (確保變數一定會被定義)
 html_list = "" 
 for i, kw in enumerate(final_keywords): 
     html_list += f''' 
@@ -67,9 +48,39 @@ for i, kw in enumerate(final_keywords):
         <span style="color:#2c3e50; font-weight:500;">{kw}</span> 
     </div>''' 
 
-# HTML 模板與儲存邏輯 (保持不變)
-# ... (此處省略與您原代碼相同的 html_template 部分)
+# --- 修正處：確保 html_template 在 try/except 之外定義 ---
+html_template = f''' 
+<!DOCTYPE html> 
+<html lang="zh-TW"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣熱門搜尋趨勢 - 沐月民宿</title>
+    <style>
+        body {{ font-family: "Microsoft JhengHei", sans-serif; max-width: 600px; margin: auto; padding: 20px; background: #f0f2f5; }}
+        .container {{ background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }}
+        h2 {{ margin: 0; color: #1a73e8; text-align: center; font-size: 1.6em; }}
+        .subtitle {{ font-size: 0.85em; color: #888; text-align: center; margin: 8px 0 15px; }}
+        .footer {{ text-align: center; margin-top: 25px; font-size: 0.75em; color: #bbb; }}
+    </style>
+</head> 
+<body> 
+    <div class="container"> 
+        <h2>🔥 台灣今日熱門搜尋</h2> 
+        <p class="subtitle">同步自 Google Trends | 最後更新：{update_time}</p> 
+        <div class="item-list">
+            {html_list} 
+        </div>
+    </div> 
+    <div class="footer">
+        <p>© 2026 沐月民宿 Moonlight Villa - 數據來源: Google Trends</p>
+    </div>
+</body> 
+</html>''' 
 
-with open("googletrendforall.html", "w", encoding="utf-8") as f: 
-    f.write(html_template)
-print(f"✅ googletrendforall.html 產出成功！共 {len(final_keywords)} 筆。")
+try:
+    with open("googletrendforall.html", "w", encoding="utf-8") as f: 
+        f.write(html_template)
+    print(f"✅ googletrendforall.html 產出成功！共 {len(final_keywords)} 筆。")
+except Exception as e:
+    print(f"檔案寫入失敗: {e}")
