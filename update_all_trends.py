@@ -29,16 +29,20 @@ try:
 except Exception as e:
     print(f"抓取即時趨勢話題失敗 (跳過): {e}")
 
-EXCLUDE_WORDS = ["空難", "復興", "墜機", "災難", "事故", "死亡", "受傷", "失蹤", "喪命", "意外", "確診", "遺體", "命案", "自殺", "受虐", "性侵"] 
+EXCLUDE_WORDS = [
+    "空難", "復興", "墜機", "災難", "事故", "死亡", "受傷", "失蹤", "喪命", "意外", "確診", "遺體", "命案", "自殺", "受虐", "性侵",
+    "政治", "選舉", "政黨", "民進黨", "國民黨", "民眾黨", "立院", "立法院", "議員", "市長", "總統", "罷免", "抗議", "示威", "暴力", 
+    "槍擊", "搶劫", "詐騙", "毒品", "刑案", "法院", "判刑", "被捕", "涉嫌", "弊案", "貪汙", "共機", "兩岸", "軍事", "演習"
+] 
 
-print(f"正在執行全台熱搜趨勢抓取 (50筆，依飆升排序)...") 
+print(f"正在執行全台熱搜趨勢抓取 (50筆，依飆升排序，過去4小時)...") 
 
 all_rising_items = {} # 使用 dict 避免重複，key 是 query
 
 for kw in KEYWORDS:
     try:
         print(f"正在抓取關鍵字: {kw} ...")
-        pytrends.build_payload([kw], cat=0, timeframe='now 1-d', geo='TW') 
+        pytrends.build_payload([kw], cat=0, timeframe='now 4-H', geo='TW') 
         related_data = pytrends.related_queries() 
         
         if kw in related_data: 
@@ -98,7 +102,7 @@ html_template = f'''
 <body> 
     <div class="container"> 
         <h2>🔥 全台熱搜趨勢排行榜 (50筆)</h2> 
-        <p class="subtitle">依搜尋飆升幅度排序 (24H內) | 最後更新：{update_time}</p> 
+        <p class="subtitle">依搜尋飆升幅度排序 (4H內) | 最後更新：{update_time}</p> 
         <div class="item-list">
             {html_list if html_list else "<p style='text-align:center;'>目前無符合的趨勢數據，請稍後再試。</p>"} 
         </div>
