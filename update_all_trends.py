@@ -10,7 +10,8 @@ pytrends = TrendReq(hl='zh-TW', tz=-480)
 EXCLUDE_WORDS = [
     "空難", "復興", "墜機", "災難", "事故", "死亡", "受傷", "失蹤", "喪命", "意外", "確診", "遺體", "命案", "自殺", "受虐", "性侵",
     "政治", "選舉", "政黨", "民進黨", "國民黨", "民眾黨", "立院", "立法院", "議員", "市長", "總統", "罷免", "抗議", "示威", "暴力", 
-    "槍擊", "搶劫", "詐騙", "毒品", "刑案", "法院", "判刑", "被捕", "涉嫌", "弊案", "貪汙", "共機", "兩岸", "軍事", "演習"
+    "槍擊", "搶劫", "詐騙", "毒品", "刑案", "法院", "判刑", "被捕", "涉嫌", "弊案", "貪汙", "共機", "兩岸", "軍事", "演習",
+    "火災", "起火", "火警", "閃電", "雷擊", "停電", "政府", "機關", "辦事處", "分局", "派出所", "公所", "地檢署", "稅務", "健保"
 ] 
 
 print(f"正在執行全台每日熱搜趨勢抓取 (50筆，依飆升排序)...") 
@@ -85,7 +86,7 @@ for i, item in enumerate(final_list):
     # 格式化顯示
     val_display = "Breakout" if item['value'] == 99999 else (f"飆升 {item['value']}%" if item['value'] > 100 else "熱搜中")
     html_list += f''' 
-    <div style="display:flex; justify-content:space-between; padding:12px; margin-bottom:6px; border-bottom:1px solid #eee; font-size:1em;"> 
+    <div style="display:flex; justify-content:space-between; padding:6px 12px; margin-bottom:2px; border-bottom:1px solid #eee; font-size:0.95em; line-height:1.2;"> 
         <span><b style="color:#e67e22">#{i+1}</b> {item['query']}</span> 
         <span style="color:#e67e22; font-weight:bold;">{val_display}</span> 
     </div>''' 
