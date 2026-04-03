@@ -1,0 +1,30 @@
+name: Update All Trends
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # 每 10 分鐘更新一次
+  workflow_dispatch:          # 允許手動執行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests pandas pytrends
+      - name: Run script
+        run: python update_all_trends.py
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "TrendBot"
+          git config --global user.email "bot@github.com"
+          git add googletrendforall.html
+          git commit -m "Auto update all trends data" || exit 0
+          git pull --rebase origin main
+          git push
