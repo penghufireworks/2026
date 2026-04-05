@@ -335,6 +335,12 @@
             generateRadarUrls();
         }
 
+        // 最後加上一張最新的全台雷達圖
+        radarImages.push({
+            url: 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png',
+            time: '最新觀測'
+        });
+
         if (radarImages.length > 0) {
             preloadRadarImages();
             startRadarAnimation();
@@ -374,26 +380,36 @@
     }
 
     function startRadarAnimation() {
-        if (radarTimer) clearInterval(radarTimer);
+        if (radarTimer) clearTimeout(radarTimer);
         
         const imgEl = document.getElementById('radar-img');
         const timeEl = document.getElementById('radar-time');
         
-        // 處理圖片載入失敗 (跳過該張)
-        imgEl.onerror = () => {
-            console.warn('雷達圖載入失敗，跳過:', radarImages[radarIndex]?.url);
-            radarIndex = (radarIndex + 1) % radarImages.length;
-        };
-
-        radarTimer = setInterval(() => {
+        function playNext() {
             if (radarImages.length === 0) return;
             
             const current = radarImages[radarIndex];
             imgEl.src = current.url;
             timeEl.innerText = current.time;
             
+            // 判斷是否為最後一張 (最新觀測圖)
+            const isLast = radarIndex === radarImages.length - 1;
+            const delay = isLast ? 3000 : 800; // 最後一張停 3 秒，其餘 0.8 秒
+            
             radarIndex = (radarIndex + 1) % radarImages.length;
-        }, 800); // 稍微放慢一點，0.8 秒切換
+            radarTimer = setTimeout(playNext, delay);
+        }
+
+        // 處理圖片載入失敗 (跳過該張)
+        imgEl.onerror = () => {
+            console.warn('雷達圖載入失敗，跳過:', radarImages[radarIndex]?.url);
+            // 如果是最後一張失敗了也要能繼續
+            clearTimeout(radarTimer);
+            radarIndex = (radarIndex + 1) % radarImages.length;
+            playNext();
+        };
+
+        playNext();
     }
 
     // === 7 天天氣預報功能 ===
