@@ -311,41 +311,66 @@
 
     async function fetchRadarEcho() {
         const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
-        // 改用 O-A0058-003 (雷達回波圖-過去3小時每10分鐘一筆)
         const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0058-003?Authorization=${apiKey}&format=JSON`;
         
         try {
             const response = await fetch(url);
             const data = await response.json();
             
-            if (!data.records || !data.records.contents || !data.records.contents.content) {
-                throw new Error('API 資料格式不符');
-            }
-
-            // 提取所有圖片網址與時間
-            const contents = data.records.contents.content;
-            radarImages = contents.map(c => ({
-                url: c.link,
-                time: new Date(c.DateTime).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', hour12: false })
-            }));
-
-            if (radarImages.length > 0) {
-                // 預載入第一張圖片
-                const imgEl = document.getElementById('radar-img');
-                imgEl.src = radarImages[0].url;
-                document.getElementById('radar-time').innerText = radarImages[0].time;
-                
-                startRadarAnimation();
-                document.getElementById('radar-status').innerText = '自動播放中';
-            } else {
-                document.getElementById('radar-status').innerText = '暫無資料';
+            if (data.records && data.records.contents && data.records.contents.content) {
+                const contents = data.records.contents.content;
+                radarImages = contents.map(c => ({
+                    url: c.link,
+                    time: new Date(c.DateTime).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', hour12: false })
+                }));
+                // 只取最新的 12 張 (約 2 小時)
+                radarImages = radarImages.slice(-12);
             }
         } catch (e) {
-            console.error('雷達迴波載入失敗:', e);
-            document.getElementById('radar-status').innerText = '載入失敗';
-            // 備援方案：顯示靜態最新圖 (如果動畫 API 失敗)
+            console.error('API 抓取失敗，切換至時間推算模式:', e);
+        }
+
+        // 備援機制：如果 API 沒資料，根據當前時間生成最近 6-10 張圖片網址
+        if (radarImages.length === 0) {
+            generateRadarUrls();
+        }
+
+        if (radarImages.length > 0) {
+            preloadRadarImages();
+            startRadarAnimation();
+            document.getElementById('radar-status').innerText = '動態播放中';
+        } else {
+            document.getElementById('radar-status').innerText = '暫無資料';
             document.getElementById('radar-img').src = 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png';
         }
+    }
+
+    function generateRadarUrls() {
+        const now = new Date();
+        // 氣象局圖片通常有 10-20 分鐘延遲，從 20 分鐘前開始推算
+        let startTime = new Date(now.getTime() - 20 * 60000);
+        
+        for (let i = 0; i < 10; i++) {
+            const t = new Date(startTime.getTime() - i * 10 * 60000);
+            const yyyy = t.getFullYear();
+            const mm = String(t.getMonth() + 1).padStart(2, '0');
+            const dd = String(t.getDate()).padStart(2, '0');
+            const hh = String(t.getHours()).padStart(2, '0');
+            const min = String(Math.floor(t.getMinutes() / 10) * 10).padStart(2, '0');
+            
+            const timestamp = `${yyyy}${mm}${dd}${hh}${min}`;
+            radarImages.unshift({
+                url: `https://www.cwa.gov.tw/Data/radar/CV1_3600_${timestamp}.png`,
+                time: `${hh}:${min}`
+            });
+        }
+    }
+
+    function preloadRadarImages() {
+        radarImages.forEach(item => {
+            const img = new Image();
+            img.src = item.url;
+        });
     }
 
     function startRadarAnimation() {
@@ -354,15 +379,21 @@
         const imgEl = document.getElementById('radar-img');
         const timeEl = document.getElementById('radar-time');
         
+        // 處理圖片載入失敗 (跳過該張)
+        imgEl.onerror = () => {
+            console.warn('雷達圖載入失敗，跳過:', radarImages[radarIndex]?.url);
+            radarIndex = (radarIndex + 1) % radarImages.length;
+        };
+
         radarTimer = setInterval(() => {
             if (radarImages.length === 0) return;
             
-            radarIndex = (radarIndex + 1) % radarImages.length;
             const current = radarImages[radarIndex];
-            
             imgEl.src = current.url;
             timeEl.innerText = current.time;
-        }, 600);
+            
+            radarIndex = (radarIndex + 1) % radarImages.length;
+        }, 800); // 稍微放慢一點，0.8 秒切換
     }
 
     // === 7 天天氣預報功能 ===
