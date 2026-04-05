@@ -311,12 +311,17 @@
 
     async function fetchRadarEcho() {
         const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
+        // 改用 O-A0058-003 (雷達回波圖-過去3小時每10分鐘一筆)
         const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0058-003?Authorization=${apiKey}&format=JSON`;
         
         try {
             const response = await fetch(url);
             const data = await response.json();
             
+            if (!data.records || !data.records.contents || !data.records.contents.content) {
+                throw new Error('API 資料格式不符');
+            }
+
             // 提取所有圖片網址與時間
             const contents = data.records.contents.content;
             radarImages = contents.map(c => ({
@@ -325,12 +330,21 @@
             }));
 
             if (radarImages.length > 0) {
+                // 預載入第一張圖片
+                const imgEl = document.getElementById('radar-img');
+                imgEl.src = radarImages[0].url;
+                document.getElementById('radar-time').innerText = radarImages[0].time;
+                
                 startRadarAnimation();
                 document.getElementById('radar-status').innerText = '自動播放中';
+            } else {
+                document.getElementById('radar-status').innerText = '暫無資料';
             }
         } catch (e) {
             console.error('雷達迴波載入失敗:', e);
             document.getElementById('radar-status').innerText = '載入失敗';
+            // 備援方案：顯示靜態最新圖 (如果動畫 API 失敗)
+            document.getElementById('radar-img').src = 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png';
         }
     }
 
@@ -343,12 +357,12 @@
         radarTimer = setInterval(() => {
             if (radarImages.length === 0) return;
             
+            radarIndex = (radarIndex + 1) % radarImages.length;
             const current = radarImages[radarIndex];
+            
             imgEl.src = current.url;
             timeEl.innerText = current.time;
-            
-            radarIndex = (radarIndex + 1) % radarImages.length;
-        }, 600); // 0.6 秒切換一次
+        }, 600);
     }
 
     // === 7 天天氣預報功能 ===
