@@ -68,6 +68,13 @@
         .play-btn { position: relative; z-index: 2; width: 60px; height: 60px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .play-btn::before { content: ''; border-style: solid; border-width: 10px 0 10px 20px; border-color: transparent transparent transparent white; margin-left: 5px; }
         .play-text { position: relative; z-index: 2; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-size: 0.9rem; background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; }
+        
+        /* Radar Echo Styles */
+        .radar-container { margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 10px; }
+        .radar-screen { width: 100%; aspect-ratio: 1; background: #000; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid #e2e8f0; }
+        .radar-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .radar-time { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.7); color: #00ff00; font-family: monospace; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; z-index: 5; }
+        .radar-label { font-size: 0.75rem; color: #64748b; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
@@ -87,6 +94,18 @@
             </div>
         </div>
         <div class="forecast-mini" id="forecast-content"></div>
+        
+        <!-- Radar Echo Section -->
+        <div class="radar-container">
+            <div class="radar-label">
+                <span>🛰️ 雷達迴波 (過去 3 小時)</span>
+                <span id="radar-status" style="font-size: 0.65rem; color: #999;">更新中...</span>
+            </div>
+            <div class="radar-screen">
+                <img id="radar-img" src="" class="radar-img" alt="雷達迴波圖">
+                <div id="radar-time" class="radar-time">--:--</div>
+            </div>
+        </div>
     </div>
 
     <!-- Tide Widget -->
@@ -285,6 +304,53 @@
         }
     }
 
+    // === 雷達迴波動畫 (O-A0058-003) ===
+    let radarImages = [];
+    let radarIndex = 0;
+    let radarTimer = null;
+
+    async function fetchRadarEcho() {
+        const apiKey = 'CWA-E7C2B3A9-CB04-43A1-9D6F-75FE9590A029';
+        const url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0058-003?Authorization=${apiKey}&format=JSON`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            // 提取所有圖片網址與時間
+            const contents = data.records.contents.content;
+            radarImages = contents.map(c => ({
+                url: c.link,
+                time: new Date(c.DateTime).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', hour12: false })
+            }));
+
+            if (radarImages.length > 0) {
+                startRadarAnimation();
+                document.getElementById('radar-status').innerText = '自動播放中';
+            }
+        } catch (e) {
+            console.error('雷達迴波載入失敗:', e);
+            document.getElementById('radar-status').innerText = '載入失敗';
+        }
+    }
+
+    function startRadarAnimation() {
+        if (radarTimer) clearInterval(radarTimer);
+        
+        const imgEl = document.getElementById('radar-img');
+        const timeEl = document.getElementById('radar-time');
+        
+        radarTimer = setInterval(() => {
+            if (radarImages.length === 0) return;
+            
+            const current = radarImages[radarIndex];
+            imgEl.src = current.url;
+            timeEl.innerText = current.time;
+            
+            radarIndex = (radarIndex + 1) % radarImages.length;
+        }, 600); // 0.6 秒切換一次
+    }
+
     // === 7 天天氣預報功能 ===
     async function fetch7DayWeather() {
         try {
@@ -431,6 +497,7 @@
     // 初始化
     document.addEventListener('DOMContentLoaded', () => {
         fetchWeather();
+        fetchRadarEcho();
         fetch7DayWeather();
         updateTide();
     });
