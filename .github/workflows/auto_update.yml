@@ -26,7 +26,9 @@ jobs:
         run: pip install "pytrends==4.9.2" "urllib3<2" pandas requests openai 
  
       - name: Run trends script
-        run: python update_penghu_trends.py
+        run: |
+          python update_penghu_trends.py
+          python update_penghu_7day_trends.py
 
       #- name: Run whisper script (generate AI blog post)
       #  run: python penghu_whisper.py
@@ -37,7 +39,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Auto-update trends and blog [skip ci]"
-          file_pattern: "googletrend.html ai_whispers/posts/*"
+          file_pattern: "googletrend.html penghu_7day_trends.html ai_whispers/posts/*"
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
