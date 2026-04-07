@@ -2,8 +2,13 @@ import requests
 import time
 import os
 from datetime import datetime
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
-# 嘗試從環境變數或 .env 檔案讀取 Token
+# 優先從環境變數讀取，若無則從程式碼預設值讀取 (不建議硬編碼)
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "YOUR_GITHUB_TOKEN_HERE")
 
 REPO_OWNER = "penghufireworks"
