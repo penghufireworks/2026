@@ -2,7 +2,7 @@ name: Update Weather Data
 
 on:
   schedule:
-    - cron: '0 0,12 * * *' # 每天台灣時間 08:00 與 20:00 更新
+    - cron: '*/20 * * * *' # 每 20 分鐘更新一次
   workflow_dispatch:      # 允許手動執行
 
 jobs:
