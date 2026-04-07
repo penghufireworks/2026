@@ -41,14 +41,14 @@ def trigger_github_action():
         print(f"發生網路錯誤: {e}")
 
 if __name__ == "__main__":
-    print(" 開始執行本地觸發器，每 5 分鐘自動觸發一次...")
+    print(" 開始執行本地觸發器，每 20 分鐘自動觸發一次...")
     print(" 提示：請確保不要關閉這個黑色視窗，程式才能持續運行。")
     
     # 啟動時先觸發一次
     trigger_github_action()
     
-    # 進入無窮迴圈，每 5 分鐘 (300 秒) 執行一次
+    # 進入無窮迴圈，每 20 分鐘 (1200 秒) 執行一次
     while True:
-        time.sleep(300)
+        time.sleep(1200)
         trigger_github_action()
 
