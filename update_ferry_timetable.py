@@ -23,84 +23,134 @@ def fetch_timetable():
         
         # 尋找包含月份船期表的區塊
         # 根據官網結構，標題通常在特定的 div 或 span 中
-        # 我們改用搜尋包含 "月份船期表" 且沒有子標籤的元素，避免父容器重複觸發
-        all_elements = soup.find_all(string=re.compile("月份船期表"))
+        # 我們搜尋包含 "月份船期表" 或 "月船期表" 的元素
+        # 同時排除包含 "icon" 或 "下載" 的文字，這些通常是 PDF 連結
+        all_elements = soup.find_all(string=re.compile(r"(\d+)\s*月(份)?船期表"))
+        
+        month_data = {} # 使用字典儲存，避免重複並方便排序
         
         for element in all_elements:
             parent = element.parent
-            text = parent.get_text()
+            text = element.strip()
             
-            # 排除 PDF 下載連結 (通常在 <a> 標籤內或包含 .pdf)
-            if parent.name == 'a' or (parent.parent and parent.parent.name == 'a'):
-                href = parent.get('href', '') or (parent.parent.get('href', '') if parent.parent else '')
-                if '.pdf' in href.lower():
-                    continue
+            # 1. 排除包含 "icon" 或 "下載" 的文字 (這些通常是 PDF 下載按鈕)
+            if 'icon' in text.lower() or '下載' in text or 'pdf' in text.lower():
+                continue
+                
+            # 2. 排除 PDF 下載連結 (通常在 <a> 標籤內或包含 .pdf)
+            is_pdf_link = False
+            curr = parent
+            for _ in range(3): # 向上檢查三層
+                if curr.name == 'a':
+                    href = curr.get('href', '')
+                    if '.pdf' in href.lower():
+                        is_pdf_link = True
+                        break
+                if not curr.parent: break
+                curr = curr.parent
             
-            if 'pdf' in text.lower() or '下載' in text:
+            if is_pdf_link:
                 continue
             
-            # 提取月份
-            month_match = re.search(r'(\d+) 月份船期表', text)
+            # 3. 提取月份 (支援 "4 月份船期表" 或 "115年4月船期表")
+            month_match = re.search(r'(\d+)\s*月(份)?船期表', text)
             if not month_match:
                 continue
                 
-            month_val = str(int(month_match.group(1))) # 統一轉成整數再轉字串 (如 "04" -> "4")
+            month_val = int(month_match.group(1))
+            month_str = str(month_val)
             
-            if month_val in target_months and month_val not in processed_months:
-                # 找到新月份，找接下來的 table
-                table = parent.find_next('table')
-                if not table:
-                    # 有些結構 table 可能在 parent 的 parent 下
-                    table = parent.parent.find_next('table')
+            # 只處理目標月份 (4, 5, 6 月)
+            if month_str not in ["4", "5", "6"]:
+                continue
                 
-                if not table:
-                    continue
+            # 如果這個月份已經抓過且成功，就跳過 (避免重複)
+            if month_str in month_data:
+                continue
                 
-                processed_months.add(month_val)
-                found_any = True
-                title = f"{month_val}月 船期表"
+            # 4. 尋找對應的表格
+            # 通常 table 在標題之後
+            table = parent.find_next('table')
+            if not table:
+                # 有些結構 table 可能在 parent 的 parent 下
+                table = parent.parent.find_next('table')
+            
+            if not table:
+                continue
                 
-                # 構建 HTML
-                month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
-                month_html += f'<h3 style="color: #0056b3; margin: 20px 0 10px; font-size: 1.1rem; border-bottom: 2px solid #0056b3; padding-bottom: 5px; display: inline-block;">{title}</h3>'
-                month_html += '<div style="overflow-x: auto;">'
-                month_html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 300px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">'
+            # 檢查 table 內容是否真的屬於該月份 (避免 header 與 table 錯位)
+            # 檢查 table 的第一行是否包含該月份文字
+            table_text = table.get_text()
+            # 如果 table 內明顯標註了其他月份，則跳過
+            other_months = [m for m in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] if m != month_str]
+            # 簡單檢查：如果 table 前幾行包含其他月份的 "X 月份船期表"，則可能錯位
+            # 這裡我們信任 find_next，但可以做基本的驗證
+            
+            found_any = True
+            title = f"{month_str}月 船期表"
+            
+            # 構建 HTML
+            month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
+            month_html += f'<h3 style="color: #0056b3; margin: 20px 0 10px; font-size: 1.1rem; border-bottom: 2px solid #0056b3; padding-bottom: 5px; display: inline-block;">{title}</h3>'
+            month_html += '<div style="overflow-x: auto;">'
+            month_html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 300px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">'
+            
+            rows = table.find_all('tr')
+            if rows:
+                # 處理表頭：有時第一行是跨欄的月份標題
+                start_row = 0
+                first_row_cols = rows[0].find_all(['th', 'td'])
+                if len(first_row_cols) == 1:
+                    # 第一行是標題，跳過它，使用第二行作為表頭
+                    start_row = 1
+                    headers = [th.get_text(strip=True) for th in rows[1].find_all(['th', 'td'])]
+                    # 如果第二行看起來也不像表頭 (太短)，則再往下一行
+                    if len(headers) < 3 and len(rows) > 2:
+                        start_row = 2
+                        headers = [th.get_text(strip=True) for th in rows[2].find_all(['th', 'td'])]
+                else:
+                    headers = [th.get_text(strip=True) for th in first_row_cols]
                 
-                rows = table.find_all('tr')
-                if rows:
-                    # 表頭
-                    headers = [th.get_text(strip=True) for th in rows[0].find_all(['th', 'td'])]
-                    month_html += '<tr style="background-color: #0056b3; color: white;">'
-                    for h in headers:
-                        month_html += f'<th style="border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;">{h}</th>'
-                    month_html += '</tr>'
-                    
-                    # 數據行
-                    for idx, row in enumerate(rows[1:]):
-                        cols = row.find_all(['td', 'th'])
-                        if len(cols) >= 4:
-                            bg_color = "#f8f9fa" if idx % 2 == 0 else "#ffffff"
-                            month_html += f'<tr style="background-color: {bg_color};">'
-                            for i, col in enumerate(cols):
-                                text = col.get_text(strip=True)
-                                style = "border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;"
-                                
-                                # 星期顏色
-                                if i == 1: # 星期
-                                    if "日" in text or "六" in text:
-                                        style += " color: #d9534f; font-weight: bold;"
-                                
-                                # 時間處理
-                                if text == "-":
-                                    text = '<span style="color: #ccc;">-</span>'
-                                elif "23:30" in text:
-                                    text = f'<span style="color: #0056b3; font-weight: bold;">{text} (夜航)</span>'
-                                
-                                month_html += f'<td style="{style}">{text}</td>'
-                            month_html += '</tr>'
+                # 生成表頭 HTML
+                month_html += '<tr style="background-color: #0056b3; color: white;">'
+                for h in headers:
+                    # 移除英文部分以簡化移動端顯示 (選做)
+                    # h = re.sub(r'[a-zA-Z\.\s/]+', '', h) 
+                    month_html += f'<th style="border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;">{h}</th>'
+                month_html += '</tr>'
                 
-                month_html += '</table></div></div>'
-                timetable_html += month_html
+                # 數據行
+                for idx, row in enumerate(rows[start_row+1:]):
+                    cols = row.find_all(['td', 'th'])
+                    if len(cols) >= 3: # 日期, 星期, 高雄, 澎湖 (至少要3欄)
+                        bg_color = "#f8f9fa" if idx % 2 == 0 else "#ffffff"
+                        month_html += f'<tr style="background-color: {bg_color};">'
+                        for i, col in enumerate(cols):
+                            cell_text = col.get_text(strip=True)
+                            style = "border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;"
+                            
+                            # 星期顏色 (通常在第2欄，索引 1)
+                            if i == 1: 
+                                if "日" in cell_text or "六" in cell_text:
+                                    style += " color: #d9534f; font-weight: bold;"
+                            
+                            # 時間處理
+                            if cell_text == "-" or not cell_text:
+                                cell_text = '<span style="color: #ccc;">-</span>'
+                            elif "23:30" in cell_text:
+                                cell_text = f'<span style="color: #0056b3; font-weight: bold;">{cell_text} (夜航)</span>'
+                            
+                            month_html += f'<td style="{style}">{cell_text}</td>'
+                        month_html += '</tr>'
+            
+            month_html += '</table></div></div>'
+            month_data[month_val] = month_html
+            
+        # 按月份排序 (4, 5, 6)
+        sorted_months = sorted(month_data.keys())
+        for m in sorted_months:
+            timetable_html += month_data[m]
+
         
         # 移除重複 (因為 div 層級可能重複抓到)
         # 這裡簡單處理：如果同個月份已經抓過就不再加入
@@ -139,12 +189,21 @@ def update_html(timetable_content):
         content = f.read()
         
     # 更新時刻表內容
-    start_tag = '<div id="ferry-timetable">'
-    end_tag = '</div>'
-    pattern = re.escape(start_tag) + r'.*?' + re.escape(end_tag)
+    start_marker = '<!-- ferry-timetable-start -->'
+    end_marker = '<!-- ferry-timetable-end -->'
+    pattern = re.escape(start_marker) + r'.*?' + re.escape(end_marker)
     
-    new_timetable_div = f'{start_tag}\n{timetable_content}\n{end_tag}'
-    updated_content = re.sub(pattern, new_timetable_div, content, flags=re.DOTALL)
+    new_content_block = f'{start_marker}\n{timetable_content}\n{end_marker}'
+    
+    if start_marker in content and end_marker in content:
+        updated_content = re.sub(pattern, new_content_block, content, flags=re.DOTALL)
+    else:
+        # 如果找不到 marker，則退回到舊的 ID 替換方式，但要更精確
+        start_tag = '<div id="ferry-timetable">'
+        # 這裡我們不找 </div>，而是找下一個明顯的標籤或段落
+        pattern = re.escape(start_tag) + r'.*?(?=<p style="font-size: 0\.8rem)'
+        new_timetable_div = f'{start_tag}\n{start_marker}\n{timetable_content}\n{end_marker}\n</div>\n'
+        updated_content = re.sub(pattern, new_timetable_div, content, flags=re.DOTALL)
     
     # 更新時間 (台灣時間 UTC+8)
     utc_now = datetime.datetime.utcnow()
