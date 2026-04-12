@@ -43,14 +43,34 @@
         }
 
         .header h1 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
+        }
+
+        /* 響應式網格：電腦版兩欄，手機版一欄 */
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .responsive-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 1.25rem;
+            }
         }
 
         .card {
@@ -210,7 +230,7 @@
         /* 讓表格標題固定時背景不透明且格線正常 */
         #ferry-timetable th {
             position: sticky;
-            top: 105px;
+            top: 110px; /* 增加一點間距 */
             background-color: #0056b3;
             z-index: 98;
         }
@@ -219,10 +239,23 @@
         .month-section h3 {
             position: sticky;
             top: 65px;
-            background: white;
+            background: #f0f2f5; /* 跟隨 body 背景色，減少突兀感 */
             z-index: 99;
-            padding: 10px 0;
+            padding: 15px 0;
             margin: 0 !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        @media (min-width: 769px) {
+            .ship-card-block {
+                grid-template-columns: 1fr 1fr; /* 電腦版船艙顯示兩欄 */
+            }
+            .landscape-grid {
+                grid-template-columns: 1fr 1fr 1fr; /* 電腦版風景圖顯示三欄 */
+            }
+            /* 電腦版 header 通常不需要固定在這麼高的位置，或是調整高度 */
+            .month-section h3 { top: 60px; }
+            #ferry-timetable th { top: 105px; }
         }
 
         .info-label {
@@ -338,24 +371,49 @@
     </div>
 
     <div class="container">
-        <!-- 快速導覽 -->
-        <div class="card" style="background: #fff9e6; border: 1px solid #ffeeba;">
-            <h2 style="color: #856404; border-bottom-color: #ffeeba;">2026 澎湖輪熱搜速報</h2>
-            <ul class="info-list">
-                <li style="margin-bottom: 15px;">
-                    <span class="info-label" style="color: #856404;">🚗 澎湖輪汽車運送 (遽增)</span>
-                    <span>具備 Ro-Ro 駛上駛下功能，提供大型汽車、小型汽車及機車運送服務。建議於 45 天前預訂車位。</span>
-                </li>
-                <li style="margin-bottom: 15px;">
-                    <span class="info-label" style="color: #856404;">💰 澎湖輪票價與訂票</span>
-                    <span>票價依艙等 (VIP/特等/頭等/臥舖/經濟) 不同。2026 澎湖花火節期間建議儘早完成訂票，以免客滿。</span>
-                </li>
-                <li>
-                    <span class="info-label" style="color: #856404;">⏰ 航行時間</span>
-                    <span>高雄至澎湖航行時間約 4-5 小時。夜航時段 (23:30) 提供旅客舒適的休息空間，清晨抵達澎湖。</span>
-                </li>
-            </ul>
+        <div class="responsive-grid">
+            <!-- 快速導覽 -->
+            <div class="card" style="background: #fff9e6; border: 1px solid #ffeeba; margin-bottom: 0;">
+                <h2 style="color: #856404; border-bottom-color: #ffeeba;">2026 澎湖輪熱搜速報</h2>
+                <ul class="info-list">
+                    <li style="margin-bottom: 15px;">
+                        <span class="info-label" style="color: #856404;">🚗 澎湖輪汽車運送 (遽增)</span>
+                        <span>具備 Ro-Ro 駛上駛下功能，提供大型汽車、小型汽車及機車運送服務。建議於 45 天前預訂車位。</span>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <span class="info-label" style="color: #856404;">💰 澎湖輪票價與訂票</span>
+                        <span>票價依艙等 (VIP/特等/頭等/臥舖/經濟) 不同。2026 澎湖花火節期間建議儘早完成訂票，以免客滿。</span>
+                    </li>
+                    <li>
+                        <span class="info-label" style="color: #856404;">⏰ 航行時間</span>
+                        <span>高雄至澎湖航行時間約 4-5 小時。夜航時段 (23:30) 提供旅客舒適的休息空間，清晨抵達澎湖。</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 聯絡資訊 -->
+            <div class="card" style="margin-bottom: 0;">
+                <h2>聯絡資訊</h2>
+                <ul class="info-list">
+                    <li>
+                        <span class="info-label">高雄服務處</span>
+                        <span>電話：(07) 561-5313 轉 9</span>
+                        <span>地址：高雄市鼓山區臨海新路 21 號</span>
+                    </li>
+                    <li>
+                        <span class="info-label">馬公服務處</span>
+                        <span>電話：(06) 926-4087</span>
+                        <span>地址：澎湖縣馬公市臨海路 36-1 號</span>
+                    </li>
+                    <li>
+                        <span class="info-label">服務時間</span>
+                        <span>有開航日：07:00 - 16:30</span>
+                        <span>無開航日：08:00 - 16:30</span>
+                    </li>
+                </ul>
+            </div>
         </div>
+
         <!-- 澎湖輪簡介 -->
         <div class="card">
             <h2>澎湖輪簡介</h2>
@@ -378,28 +436,6 @@
             <div class="landscape-item">
                 <img src="https://tnc-kao.com.tw/images/view/img_boat_view_3@2x.png" alt="澎湖輪風景 3">
             </div>
-        </div>
-
-        <!-- 聯絡資訊 -->
-        <div class="card">
-            <h2>聯絡資訊</h2>
-            <ul class="info-list">
-                <li>
-                    <span class="info-label">高雄服務處</span>
-                    <span>電話：(07) 561-5313 轉 9</span>
-                    <span>地址：高雄市鼓山區臨海新路 21 號</span>
-                </li>
-                <li>
-                    <span class="info-label">馬公服務處</span>
-                    <span>電話：(06) 926-4087</span>
-                    <span>地址：澎湖縣馬公市臨海路 36-1 號</span>
-                </li>
-                <li>
-                    <span class="info-label">服務時間</span>
-                    <span>有開航日：07:00 - 16:30</span>
-                    <span>無開航日：08:00 - 16:30</span>
-                </li>
-            </ul>
         </div>
 
         <!-- 航班時刻表 -->
