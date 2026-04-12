@@ -25,12 +25,10 @@ def fetch_timetable():
         main_header = soup.find(string=re.compile(r"高雄\s*↔︎?\s*澎湖船期表"))
         
         if main_header:
-            print(f"找到主標題: {main_header.strip()}")
             # 找到標題後，搜尋它之後的所有內容
             search_area = main_header.parent
             all_elements = search_area.find_all_next(string=re.compile(r"(\d+)\s*月(份)?船期表"))
         else:
-            print("找不到主標題，執行全域搜尋")
             all_elements = soup.find_all(string=re.compile(r"(\d+)\s*月(份)?船期表"))
         
         month_data = {} # 使用字典儲存，避免重複並方便排序
@@ -38,7 +36,6 @@ def fetch_timetable():
         for element in all_elements:
             parent = element.parent
             text = element.strip()
-            print(f"檢查元素: {text}")
             
             # 1. 排除包含 "icon" 或 "下載" 的文字 (這些通常是 PDF 下載按鈕)
             if 'icon' in text.lower() or '下載' in text or 'pdf' in text.lower():
@@ -93,10 +90,8 @@ def fetch_timetable():
                         if table: break
             
             if not table:
-                print(f"找不到 {month_str} 月份的表格")
                 continue
                 
-            print(f"成功對應 {month_str} 月份表格，列數: {len(table.find_all('tr'))}")
             found_any = True
             title = f"{month_str}月 船期表"
             
