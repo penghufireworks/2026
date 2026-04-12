@@ -22,17 +22,15 @@ def fetch_timetable():
         found_any = False
         
         # 1. 尋找「高雄 ↔︎ 澎湖船期表」標題區塊
-        # 根據圖片與網頁內容，這個標題通常在一個特定的區塊內
         main_header = soup.find(string=re.compile(r"高雄\s*↔︎?\s*澎湖船期表"))
         
         if main_header:
+            print(f"找到主標題: {main_header.strip()}")
             # 找到標題後，搜尋它之後的所有內容
-            # 通常表格都在這個標題所在的容器或其後續兄弟元素中
-            search_area = main_header.find_parent()
-            # 我們搜尋標題之後的所有月份標題
+            search_area = main_header.parent
             all_elements = search_area.find_all_next(string=re.compile(r"(\d+)\s*月(份)?船期表"))
         else:
-            # 如果找不到主標題，則回退到全域搜尋 (但仍會執行 PDF 過濾)
+            print("找不到主標題，執行全域搜尋")
             all_elements = soup.find_all(string=re.compile(r"(\d+)\s*月(份)?船期表"))
         
         month_data = {} # 使用字典儲存，避免重複並方便排序
@@ -40,6 +38,7 @@ def fetch_timetable():
         for element in all_elements:
             parent = element.parent
             text = element.strip()
+            print(f"檢查元素: {text}")
             
             # 1. 排除包含 "icon" 或 "下載" 的文字 (這些通常是 PDF 下載按鈕)
             if 'icon' in text.lower() or '下載' in text or 'pdf' in text.lower():
@@ -77,23 +76,27 @@ def fetch_timetable():
                 continue
                 
             # 4. 尋找對應的表格
-            # 通常 table 在標題之後
-            table = parent.find_next('table')
-            if not table:
-                # 有些結構 table 可能在 parent 的 parent 下
-                table = parent.parent.find_next('table')
+            # 檢查標題是否就在 table 裡面 (th/td)
+            table = element.find_parent('table')
             
             if not table:
+                # 如果不在 table 裡，才找下一個 table
+                table = parent.find_next('table')
+                
+            if not table:
+                # 嘗試從更高等級的父節點找下一個 table
+                curr = parent
+                for _ in range(3):
+                    if curr.parent:
+                        curr = curr.parent
+                        table = curr.find_next('table')
+                        if table: break
+            
+            if not table:
+                print(f"找不到 {month_str} 月份的表格")
                 continue
                 
-            # 檢查 table 內容是否真的屬於該月份 (避免 header 與 table 錯位)
-            # 檢查 table 的第一行是否包含該月份文字
-            table_text = table.get_text()
-            # 如果 table 內明顯標註了其他月份，則跳過
-            other_months = [m for m in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] if m != month_str]
-            # 簡單檢查：如果 table 前幾行包含其他月份的 "X 月份船期表"，則可能錯位
-            # 這裡我們信任 find_next，但可以做基本的驗證
-            
+            print(f"成功對應 {month_str} 月份表格，列數: {len(table.find_all('tr'))}")
             found_any = True
             title = f"{month_str}月 船期表"
             
