@@ -1,0 +1,36 @@
+name: Daily Ferry Timetable Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天凌晨 00:00 (UTC) 更新一次，約台灣時間早上 08:00
+  workflow_dispatch:      # 允許手動執行
+
+jobs:
+  update-timetable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+        
+      - name: Run update script
+        run: |
+          cd 2026ok
+          python update_ferry_timetable.py
+          
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "FerryBot"
+          git config --global user.email "ferrybot@github.com"
+          git add 2026ok/penghu_ferry_facilities.html
+          git commit -m "Auto update ferry timetable" || exit 0
+          git pull --rebase origin main
+          git push
