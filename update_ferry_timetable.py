@@ -21,11 +21,19 @@ def fetch_timetable():
         processed_months = set()
         found_any = False
         
-        # 尋找包含月份船期表的區塊
-        # 根據官網結構，標題通常在特定的 div 或 span 中
-        # 我們搜尋包含 "月份船期表" 或 "月船期表" 的元素
-        # 同時排除包含 "icon" 或 "下載" 的文字，這些通常是 PDF 連結
-        all_elements = soup.find_all(string=re.compile(r"(\d+)\s*月(份)?船期表"))
+        # 1. 尋找「高雄 ↔︎ 澎湖船期表」標題區塊
+        # 根據圖片與網頁內容，這個標題通常在一個特定的區塊內
+        main_header = soup.find(string=re.compile(r"高雄\s*↔︎?\s*澎湖船期表"))
+        
+        if main_header:
+            # 找到標題後，搜尋它之後的所有內容
+            # 通常表格都在這個標題所在的容器或其後續兄弟元素中
+            search_area = main_header.find_parent()
+            # 我們搜尋標題之後的所有月份標題
+            all_elements = search_area.find_all_next(string=re.compile(r"(\d+)\s*月(份)?船期表"))
+        else:
+            # 如果找不到主標題，則回退到全域搜尋 (但仍會執行 PDF 過濾)
+            all_elements = soup.find_all(string=re.compile(r"(\d+)\s*月(份)?船期表"))
         
         month_data = {} # 使用字典儲存，避免重複並方便排序
         
