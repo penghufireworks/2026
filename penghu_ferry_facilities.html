@@ -148,6 +148,43 @@
             margin-top: 4px;
         }
 
+        /* 輪船風景與實景圖片網格 */
+        .title-module {
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+        .title-module img { width: 24px; margin-right: 10px; }
+        .title-module h2 { font-size: 1.2rem; color: var(--primary); margin: 0; }
+        
+        .landscape-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .landscape-item img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: block;
+        }
+
+        .product-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .product-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: block;
+        }
+
         .section-title {
             font-size: 1.1rem;
             font-weight: 600;
@@ -288,6 +325,23 @@
             <p style="margin-top: 10px;">澎湖輪不僅是一艘交通船，更是一座移動的海上景點。它具備「駛上駛下」(Ro-Ro) 功能，能同時載運旅客、大小汽車、大型貨車及民生物資，是連接高雄與澎湖最重要的藍色公路。</p>
         </div>
 
+        <!-- 輪船風景 -->
+        <div class="title-module">
+            <img src="https://tnc-kao.com.tw/images/items/ic_pagetitle.svg" alt="">
+            <h2>輪船風景</h2>
+        </div>
+        <div class="landscape-grid">
+            <div class="landscape-item">
+                <img src="https://tnc-kao.com.tw/images/view/img_boat_view_1@2x.png" alt="澎湖輪風景 1">
+            </div>
+            <div class="landscape-item">
+                <img src="https://tnc-kao.com.tw/images/view/img_boat_view_2@2x.png" alt="澎湖輪風景 2">
+            </div>
+            <div class="landscape-item">
+                <img src="https://tnc-kao.com.tw/images/view/img_boat_view_3@2x.png" alt="澎湖輪風景 3">
+            </div>
+        </div>
+
         <!-- 聯絡資訊 -->
         <div class="card">
             <h2>聯絡資訊</h2>
@@ -334,6 +388,19 @@
                     <span>客房設備與備品</span>
                     <p>海景窗、客廳、儲藏櫃、小冰箱、獨立衛浴間、室內洗手台、一邊桌二單椅、冷/暖氣、液晶電視、床頭閱讀燈、氣氛燈、充電插座110V</p>
                 </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/vip_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/vip_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/vip_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/vip_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 特等艙 -->
@@ -347,6 +414,19 @@
                     <p>一間可容納2人（2張單人床）</p>
                     <span>客房設備與備品</span>
                     <p>海景窗、儲藏櫃、小冰箱、獨立衛浴間、室內洗手台、一邊桌二單椅、冷氣、液晶電視、床頭閱讀燈、氣氛燈、充電插座110V</p>
+                </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/spaecial_cabin_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/spaecial_cabin_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/spaecial_cabin_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/spaecial_cabin_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -378,6 +458,19 @@
                     <span>客房設備與備品</span>
                     <p>海景窗、儲藏櫃、獨立衛浴間、二邊桌四單椅、冷氣、液晶電視、遮光拉簾、床頭閱讀燈、充電插座110V</p>
                 </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/first_cabin_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/first_cabin_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/first_cabin_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/first_cabin_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 經濟臥鋪艙 -->
@@ -394,6 +487,19 @@
                     <span>客房設備與備品</span>
                     <p>個人儲藏櫃、遮光拉簾、冷氣、床頭閱讀燈、充電插座110V</p>
                 </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/bedroom_cabin_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/bedroom_cabin_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/bedroom_cabin_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/bedroom_cabin_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 商務座艙 -->
@@ -404,6 +510,19 @@
                     <span>座位數</span>
                     <p>共 60 個座位</p>
                 </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/business_seat_cabin_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/business_seat_cabin_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/business_seat_cabin_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/business_seat_cabin_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 經濟座艙 -->
@@ -413,6 +532,19 @@
                     <h3>經濟座艙</h3>
                     <span>座位數</span>
                     <p>共 240 個座位</p>
+                </div>
+                <!-- 實景圖 -->
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/economy_seat_cabin_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/economy_seat_cabin_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/economy_seat_cabin_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/economy_seat_cabin_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -431,6 +563,18 @@
                     <p>• 餐廳開放時間：上午 09:30~12:30、下午 16:00~19:00、夜間 23:30~01:30。</p>
                     <p>• 便當販售時間：上午 09:30~11:30、下午 16:00~18:00。</p>
                 </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/restaurant_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/restaurant_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/restaurant_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/restaurant_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 咖啡廳 -->
@@ -441,6 +585,18 @@
                     <span>提供服務</span>
                     <p>提供優質休憩空間。</p>
                     <p>• 開放時間：上午 09:30~12:30、下午 16:00~19:00、夜間 23:30~01:30。</p>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/cafes_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/cafes_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/cafes_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/cafes_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -453,6 +609,18 @@
                     <p>提供優質休憩空間，另有販售咖啡及精緻蛋糕，供旅客選購。</p>
                     <p>• 販售時間：上午 09:30~11:30、下午 16:00~18:00。</p>
                 </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/salon_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/salon_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/salon_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/salon_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 兒童遊戲室 -->
@@ -463,6 +631,18 @@
                     <span>提供服務</span>
                     <p>擁有多種玩具，讓小朋友在船上渡過愉快的時光。</p>
                     <p>• 開放時間：日間及下午航班開放至抵港前 30 分鐘止、夜間航班開放至午夜 00:00 時止。</p>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/playroom_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/playroom_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/playroom_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/playroom_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -483,6 +663,18 @@
                     <h3>大廳</h3>
                     <span>提供服務</span>
                     <p>提供寬敞舒適的空間休息或社交。</p>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/lobby_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/lobby_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/lobby_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/lobby_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -513,6 +705,58 @@
                     <h3>景觀甲板</h3>
                     <span>提供服務</span>
                     <p>提供休憩區域，讓旅客沐浴在海風與日光之間。</p>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/deck_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/deck_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/deck_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/deck_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 停車艙 -->
+            <div class="ship-card">
+                <div class="content">
+                    <h3>停車艙、貨艙甲板</h3>
+                    <span>提供服務</span>
+                    <p>全台唯一可搭載大型貨車與自用汽機車之客輪。</p>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/parking_img_01.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/parking_img_01.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/parking_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/parking_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 其他 -->
+            <div class="ship-card">
+                <div class="content">
+                    <h3>其他公共設施</h3>
+                </div>
+                <div class="product-block">
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/other_img_02.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/other_img_02.jpg" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-item">
+                        <a href="https://tnc-kao.com.tw/images/cabinIntroduction/other_img_03.jpg" target="_blank">
+                            <img src="https://tnc-kao.com.tw/images/cabinIntroduction/other_img_03.jpg" loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
 
