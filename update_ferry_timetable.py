@@ -18,30 +18,38 @@ def fetch_timetable():
         
         timetable_html = ""
         target_months = ["04", "05", "06", "4", "5", "6"]
+        processed_months = set()
         found_any = False
         
         # 尋找包含月份船期表的區塊
-        # 根據 fetch 結果，標題可能在 div 內
-        all_divs = soup.find_all('div')
+        # 根據官網結構，標題通常在特定的 div 或 span 中
+        # 我們改用搜尋包含 "月份船期表" 且沒有子標籤的元素，避免父容器重複觸發
+        all_elements = soup.find_all(string=re.compile("月份船期表"))
         
-        for div in all_divs:
-            text = div.get_text()
-            if "月份船期表" in text and any(m in text for m in target_months):
-                # 找到標題了，找接下來的 table
-                table = div.find_next('table')
+        for element in all_elements:
+            parent = element.parent
+            text = parent.get_text()
+            
+            # 提取月份
+            month_match = re.search(r'(\d+) 月份船期表', text)
+            if not month_match:
+                continue
+                
+            month_val = str(int(month_match.group(1))) # 統一轉成整數再轉字串 (如 "04" -> "4")
+            
+            if month_val in target_months and month_val not in processed_months:
+                # 找到新月份，找接下來的 table
+                table = parent.find_next('table')
+                if not table:
+                    # 有些結構 table 可能在 parent 的 parent 下
+                    table = parent.parent.find_next('table')
+                
                 if not table:
                     continue
                 
-                # 提取月份標題
-                month_match = re.search(r'(\d+) 月份船期表', text)
-                if not month_match:
-                    continue
-                month_val = month_match.group(1)
-                if month_val not in ["4", "5", "6", "04", "05", "06"]:
-                    continue
-                
+                processed_months.add(month_val)
                 found_any = True
-                title = f"{int(month_val)}月 船期表"
+                title = f"{month_val}月 船期表"
                 
                 # 構建 HTML
                 month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
