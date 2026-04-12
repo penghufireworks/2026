@@ -30,6 +30,15 @@ def fetch_timetable():
             parent = element.parent
             text = parent.get_text()
             
+            # 排除 PDF 下載連結 (通常在 <a> 標籤內或包含 .pdf)
+            if parent.name == 'a' or (parent.parent and parent.parent.name == 'a'):
+                href = parent.get('href', '') or (parent.parent.get('href', '') if parent.parent else '')
+                if '.pdf' in href.lower():
+                    continue
+            
+            if 'pdf' in text.lower() or '下載' in text:
+                continue
+            
             # 提取月份
             month_match = re.search(r'(\d+) 月份船期表', text)
             if not month_match:
