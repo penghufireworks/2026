@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澎湖輪設施介紹 - 2026 澎湖旅遊攻略</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #f8f9fa;
+            --accent: #ffc107;
+            --text: #333;
+            --light-text: #666;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), #003d80);
+            color: var(--white);
+            padding: 20px 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .intro-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro-card h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .intro-card h2::before {
+            content: "🚢";
+            margin-right: 8px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .facility-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .facility-card:active {
+            transform: scale(0.98);
+        }
+
+        .facility-img {
+            width: 100%;
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .facility-img::after {
+            content: "圖片載入中...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .facility-info {
+            padding: 15px;
+        }
+
+        .facility-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .facility-info p {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e7f1ff;
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 15px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .btn-booking {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        /* 設施特定圖示背景 - 這裡可以替換成實際圖片網址 */
+        .img-vip { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/VIP_01.jpg'); }
+        .img-special { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Special_01.jpg'); }
+        .img-first { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/FirstClass_01.jpg'); }
+        .img-sleeper { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Sleeper_01.jpg'); }
+        .img-business { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/BusinessClass_01.jpg'); }
+        .img-economy { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/EconomyClass_01.jpg'); }
+        .img-lobby { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Lobby_01.jpg'); }
+        .img-restaurant { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Restaurant_01.jpg'); }
+        .img-deck { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Deck_01.jpg'); }
+        .img-playroom { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Playroom_01.jpg'); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🚢 澎湖輪設施全攻略</h1>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>全新一代海上客輪</h2>
+            <p>澎湖輪於 2023 年正式首航，由日本造船廠打造。不僅是連接高雄與馬公的重要交通工具，更提供了媲美郵輪般的舒適乘坐體驗。全船可載運 600 人，並具備滾裝功能，可搭載大小汽車與重機。</p>
+        </div>
+
+        <div class="section-title">客艙介紹 (Cabins)</div>
+        
+        <div class="facility-grid">
+            <!-- VIP 艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-vip"></div>
+                <div class="facility-info">
+                    <span class="tag">頂級享受</span>
+                    <h3>VIP 艙</h3>
+                    <p>獨立雙人房空間，配備私人衛浴、舒適大床與沙發休息區，享受最安靜私密的航程。</p>
+                </div>
+            </div>
+
+            <!-- 特等艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-special"></div>
+                <div class="facility-info">
+                    <span class="tag">精緻雙人</span>
+                    <h3>特等艙</h3>
+                    <p>舒適的雙人艙房，適合夫妻或情侶，提供絕佳的休息環境。</p>
+                </div>
+            </div>
+
+            <!-- 頭等艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-first"></div>
+                <div class="facility-info">
+                    <span class="tag">家庭首選</span>
+                    <h3>頭等艙</h3>
+                    <p>採 4 人一間設計，適合小家庭或好友出遊，享有獨立的交誼空間。</p>
+                </div>
+            </div>
+
+            <!-- 臥鋪艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-sleeper"></div>
+                <div class="facility-info">
+                    <span class="tag">超值休息</span>
+                    <h3>臥鋪艙</h3>
+                    <p>上下舖設計，提供個人隱私拉簾與閱讀燈，是長途航線（夜航）最受歡迎的選擇。</p>
+                </div>
+            </div>
+
+            <!-- 商務座艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-business"></div>
+                <div class="facility-info">
+                    <span class="tag">舒適座椅</span>
+                    <h3>商務座艙</h3>
+                    <p>配備可調式大寬椅與個人充電插座，適合需要辦公或想舒適入座的旅客。</p>
+                </div>
+            </div>
+
+            <!-- 經濟座艙 -->
+            <div class="facility-card">
+                <div class="facility-img img-economy"></div>
+                <div class="facility-info">
+                    <span class="tag">高 CP 值</span>
+                    <h3>經濟座艙</h3>
+                    <p>標準舒適座椅，船艙空間明亮，是短程航線最經濟實惠的選擇。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">公共設施 (Public Space)</div>
+
+        <div class="facility-grid">
+            <!-- 大廳 -->
+            <div class="facility-card">
+                <div class="facility-img img-lobby"></div>
+                <div class="facility-info">
+                    <h3>迎賓大廳 & 服務台</h3>
+                    <p>寬敞明亮的 2F/3F 大廳，提供諮詢服務、毛毯借用與航程資訊查詢。</p>
+                </div>
+            </div>
+
+            <!-- 餐廳 -->
+            <div class="facility-card">
+                <div class="facility-img img-restaurant"></div>
+                <div class="facility-info">
+                    <h3>餐廳 & 咖啡廳</h3>
+                    <p>供應現做簡餐、熱飲與各式零食，讓您在航行中也能享受美味。</p>
+                </div>
+            </div>
+
+            <!-- 遊戲室 -->
+            <div class="facility-card">
+                <div class="facility-img img-playroom"></div>
+                <div class="facility-info">
+                    <h3>兒童遊戲室</h3>
+                    <p>專為小朋友設計的安全遊戲空間，讓家長帶小孩出門也輕鬆自在。</p>
+                </div>
+            </div>
+
+            <!-- 甲板 -->
+            <div class="facility-card">
+                <div class="facility-img img-deck"></div>
+                <div class="facility-info">
+                    <h3>景觀甲板</h3>
+                    <p>站在甲板上遠眺台灣海峽的壯闊海景，吹著海風迎接美麗的日出或夕陽。</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://tnc-kao.com.tw/" class="btn-booking" target="_blank">前往澎湖輪官網訂票</a>
+
+        <div class="footer">
+            <p>© 2026 澎湖旅遊攻略 | 沐月民宿整理</p>
+            <p>※ 設施圖片僅供參考，以船上實際情況為準</p>
+        </div>
+    </div>
+
+</body>
+</html>
