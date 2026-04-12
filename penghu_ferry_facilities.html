@@ -74,6 +74,80 @@
             margin-right: 8px;
         }
 
+        /* 佈置圖樣式 */
+        .layout-container {
+            text-align: center;
+            margin: 20px 0;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .layout-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .layout-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 船艙配置卡片樣式 */
+        .ship-card-block {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .ship-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ship-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ship-card .content {
+            padding: 20px;
+        }
+
+        .ship-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .ship-card span {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .ship-card p {
+            font-size: 0.95rem;
+            color: var(--light-text);
+            margin-top: 4px;
+        }
+
         .section-title {
             font-size: 1.1rem;
             font-weight: 600;
@@ -236,70 +310,117 @@
             </ul>
         </div>
 
-        <!-- 船艙實景 / 服務設施 -->
-        <div class="section-title">船艙實景與服務設施</div>
-        
-        <div class="facility-grid">
+        <!-- 澎湖輪佈置圖 -->
+        <div class="section-title">澎湖輪佈置圖</div>
+        <div class="layout-container">
+            <a href="https://tnc-kao.com.tw/images/items/img_penghu_deck_layout.svg" target="_blank">
+                <img src="https://tnc-kao.com.tw/images/items/img_penghu_deck_layout.svg" alt="澎湖輪佈置圖">
+            </a>
+            <p class="layout-link">(點擊看大圖)</p>
+        </div>
+
+        <!-- 船艙配置 -->
+        <div class="section-title">船艙配置</div>
+        <div class="ship-card-block">
             <!-- VIP 艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-vip"></div>
-                <div class="facility-info">
-                    <span class="tag">頂級雙人房</span>
-                    <h3>VIP 艙 (貴賓艙)</h3>
-                    <p>全船僅 2 間。提供獨立衛浴、大床與私人沙發區，享受最尊榮的私密空間。</p>
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_00.png" alt="VIP 艙">
+                <div class="content">
+                    <h3>VIP 艙</h3>
+                    <span>房間數</span>
+                    <p>共2間客房（11.5坪）</p>
+                    <span>房客數</span>
+                    <p>一間可容納2人（2張單人床）</p>
+                    <span>客房設備與備品</span>
+                    <p>海景窗、客廳、儲藏櫃、小冰箱、獨立衛浴間、室內洗手台、一邊桌二單椅、冷/暖氣、液晶電視、床頭閱讀燈、氣氛燈、充電插座110V</p>
                 </div>
             </div>
 
             <!-- 特等艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-special"></div>
-                <div class="facility-info">
-                    <span class="tag">精緻雙人房</span>
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_01.png" alt="特等艙">
+                <div class="content">
                     <h3>特等艙</h3>
-                    <p>全船 8 間。設有 2 間無障礙艙間。舒適溫馨，適合雙人同行。</p>
+                    <span>房間數</span>
+                    <p>共6間客房（4坪）</p>
+                    <span>房客數</span>
+                    <p>一間可容納2人（2張單人床）</p>
+                    <span>客房設備與備品</span>
+                    <p>海景窗、儲藏櫃、小冰箱、獨立衛浴間、室內洗手台、一邊桌二單椅、冷氣、液晶電視、床頭閱讀燈、氣氛燈、充電插座110V</p>
+                </div>
+            </div>
+
+            <!-- 特等無障礙艙間 -->
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_01.png" alt="特等無障礙艙間">
+                <div class="content">
+                    <h3>特等無障礙艙間</h3>
+                    <span>房間數</span>
+                    <p>共2間客房（6.5坪）</p>
+                    <span>房客數</span>
+                    <p>一間可容納2人（2張單人床）</p>
+                    <span>客房設備與備品</span>
+                    <p>海景窗、儲藏櫃、小冰箱、獨立衛浴間、室內洗手台、一邊桌二單椅、冷氣、液晶電視、床頭閱讀燈、氣氛燈、充電插座110V、加強扶手、緊急求救鈴</p>
                 </div>
             </div>
 
             <!-- 頭等艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-first"></div>
-                <div class="facility-info">
-                    <span class="tag">溫馨四人房</span>
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_02.png" alt="頭等艙">
+                <div class="content">
                     <h3>頭等艙</h3>
-                    <p>全船 10 間。採 4 人一間設計，適合家庭或好友團體同住。</p>
+                    <span>房間數</span>
+                    <p>共10間客房（4.8坪）</p>
+                    <span>房客數</span>
+                    <p>一間可容納4人（2組上下舖 / 4單人床）</p>
+                    <span>床號</span>
+                    <p>單號上鋪(1,3)，雙號下鋪(2,4)</p>
+                    <span>客房設備與備品</span>
+                    <p>海景窗、儲藏櫃、獨立衛浴間、二邊桌四單椅、冷氣、液晶電視、遮光拉簾、床頭閱讀燈、充電插座110V</p>
                 </div>
             </div>
 
-            <!-- 臥鋪艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-sleeper"></div>
-                <div class="facility-info">
-                    <span class="tag">舒適臥舖</span>
-                    <h3>臥鋪艙</h3>
-                    <p>全船 60 間。每間 4 人，設有個人隱私拉簾與閱讀燈，長途夜航首選。</p>
+            <!-- 經濟臥鋪艙 -->
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_03.png" alt="經濟臥鋪艙">
+                <div class="content">
+                    <h3>經濟臥鋪艙</h3>
+                    <span>房間數</span>
+                    <p>共60間客房（2.2坪）</p>
+                    <span>房客數</span>
+                    <p>一間可容納4人（2組上下舖 / 4單人床）</p>
+                    <span>床號</span>
+                    <p>單號上鋪(1,3)，雙號下鋪(2,4)</p>
+                    <span>客房設備與備品</span>
+                    <p>個人儲藏櫃、遮光拉簾、冷氣、床頭閱讀燈、充電插座110V</p>
                 </div>
             </div>
 
             <!-- 商務座艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-business"></div>
-                <div class="facility-info">
-                    <span class="tag">寬敞座椅</span>
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_04.png" alt="商務座艙">
+                <div class="content">
                     <h3>商務座艙</h3>
-                    <p>共 60 席。配備可調式寬敞座椅與個人電源插座，適合辦公與休息。</p>
+                    <span>座位數</span>
+                    <p>共 60 個座位</p>
                 </div>
             </div>
 
             <!-- 經濟座艙 -->
-            <div class="facility-card">
-                <div class="facility-img img-economy"></div>
-                <div class="facility-info">
-                    <span class="tag">實惠首選</span>
+            <div class="ship-card">
+                <img src="https://tnc-kao.com.tw/images/block/img_room_05.png" alt="經濟座艙">
+                <div class="content">
                     <h3>經濟座艙</h3>
-                    <p>共 240 席。寬敞的排椅空間，明亮的船艙環境，CP 值最高的選擇。</p>
+                    <span>座位數</span>
+                    <p>共 240 個座位</p>
                 </div>
             </div>
+        </div>
 
+        <!-- 船艙實景 / 服務設施 -->
+        <div class="section-title">其他服務設施</div>
+        
+        <div class="facility-grid">
             <!-- 公共設施 -->
             <div class="facility-card">
                 <div class="facility-img img-lobby"></div>
