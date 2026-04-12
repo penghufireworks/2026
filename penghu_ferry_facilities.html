@@ -51,7 +51,7 @@
             padding: 15px;
         }
 
-        .intro-card {
+        .card {
             background: var(--white);
             border-radius: 12px;
             padding: 20px;
@@ -59,15 +59,17 @@
             box-shadow: var(--shadow);
         }
 
-        .intro-card h2 {
+        .card h2 {
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
         }
 
-        .intro-card h2::before {
+        .card h2::before {
             content: "🚢";
             margin-right: 8px;
         }
@@ -79,6 +81,23 @@
             padding-left: 10px;
             border-left: 4px solid var(--primary);
             color: var(--primary);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2px;
         }
 
         .facility-grid {
@@ -101,7 +120,7 @@
 
         .facility-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             background-color: #ddd;
             background-size: cover;
             background-position: center;
@@ -109,13 +128,14 @@
         }
 
         .facility-img::after {
-            content: "圖片載入中...";
+            content: "載入中...";
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: #999;
             font-size: 0.8rem;
+            z-index: 1;
         }
 
         .facility-info {
@@ -165,7 +185,7 @@
             box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
         }
 
-        /* 設施特定圖示背景 - 這裡可以替換成實際圖片網址 */
+        /* 設施圖片連結 */
         .img-vip { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/VIP_01.jpg'); }
         .img-special { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Special_01.jpg'); }
         .img-first { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/FirstClass_01.jpg'); }
@@ -176,6 +196,7 @@
         .img-restaurant { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Restaurant_01.jpg'); }
         .img-deck { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Deck_01.jpg'); }
         .img-playroom { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Playroom_01.jpg'); }
+        .img-cafe { background-image: url('https://tnc-kao.com.tw/Uploads/Facilities/Cafe_01.jpg'); }
 
     </style>
 </head>
@@ -186,21 +207,46 @@
     </div>
 
     <div class="container">
-        <div class="intro-card">
-            <h2>全新一代海上客輪</h2>
-            <p>澎湖輪於 2023 年正式首航，由日本造船廠打造。不僅是連接高雄與馬公的重要交通工具，更提供了媲美郵輪般的舒適乘坐體驗。全船可載運 600 人，並具備滾裝功能，可搭載大小汽車與重機。</p>
+        <!-- 澎湖輪簡介 -->
+        <div class="card">
+            <h2>澎湖輪簡介</h2>
+            <p>澎湖輪是由交通部航港局委託台灣航業公司經營的新一代豪華客貨船，於 2023 年 9 月正式首航。這艘船由日本內海造船廠打造，船舶外觀及內裝由台灣設計研究院攜手柏成設計共同規劃，打破傳統交通船冰冷的形象，注入大量木質元素與大海藍色意象。</p>
+            <p style="margin-top: 10px;">澎湖輪不僅是一艘交通船，更是一座移動的海上景點。它具備「駛上駛下」(Ro-Ro) 功能，能同時載運旅客、大小汽車、大型貨車及民生物資，是連接高雄與澎湖最重要的藍色公路。</p>
         </div>
 
-        <div class="section-title">客艙介紹 (Cabins)</div>
+        <!-- 聯絡資訊 -->
+        <div class="card">
+            <h2>聯絡資訊</h2>
+            <ul class="info-list">
+                <li>
+                    <span class="info-label">高雄服務處</span>
+                    <span>電話：(07) 561-5313 轉 9</span>
+                    <span>地址：高雄市鼓山區臨海新路 21 號</span>
+                </li>
+                <li>
+                    <span class="info-label">馬公服務處</span>
+                    <span>電話：(06) 926-4087</span>
+                    <span>地址：澎湖縣馬公市臨海路 36-1 號</span>
+                </li>
+                <li>
+                    <span class="info-label">服務時間</span>
+                    <span>有開航日：07:00 - 16:30</span>
+                    <span>無開航日：08:00 - 16:30</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 船艙實景 / 服務設施 -->
+        <div class="section-title">船艙實景與服務設施</div>
         
         <div class="facility-grid">
             <!-- VIP 艙 -->
             <div class="facility-card">
                 <div class="facility-img img-vip"></div>
                 <div class="facility-info">
-                    <span class="tag">頂級享受</span>
-                    <h3>VIP 艙</h3>
-                    <p>獨立雙人房空間，配備私人衛浴、舒適大床與沙發休息區，享受最安靜私密的航程。</p>
+                    <span class="tag">頂級雙人房</span>
+                    <h3>VIP 艙 (貴賓艙)</h3>
+                    <p>全船僅 2 間。提供獨立衛浴、大床與私人沙發區，享受最尊榮的私密空間。</p>
                 </div>
             </div>
 
@@ -208,9 +254,9 @@
             <div class="facility-card">
                 <div class="facility-img img-special"></div>
                 <div class="facility-info">
-                    <span class="tag">精緻雙人</span>
+                    <span class="tag">精緻雙人房</span>
                     <h3>特等艙</h3>
-                    <p>舒適的雙人艙房，適合夫妻或情侶，提供絕佳的休息環境。</p>
+                    <p>全船 8 間。設有 2 間無障礙艙間。舒適溫馨，適合雙人同行。</p>
                 </div>
             </div>
 
@@ -218,9 +264,9 @@
             <div class="facility-card">
                 <div class="facility-img img-first"></div>
                 <div class="facility-info">
-                    <span class="tag">家庭首選</span>
+                    <span class="tag">溫馨四人房</span>
                     <h3>頭等艙</h3>
-                    <p>採 4 人一間設計，適合小家庭或好友出遊，享有獨立的交誼空間。</p>
+                    <p>全船 10 間。採 4 人一間設計，適合家庭或好友團體同住。</p>
                 </div>
             </div>
 
@@ -228,9 +274,9 @@
             <div class="facility-card">
                 <div class="facility-img img-sleeper"></div>
                 <div class="facility-info">
-                    <span class="tag">超值休息</span>
+                    <span class="tag">舒適臥舖</span>
                     <h3>臥鋪艙</h3>
-                    <p>上下舖設計，提供個人隱私拉簾與閱讀燈，是長途航線（夜航）最受歡迎的選擇。</p>
+                    <p>全船 60 間。每間 4 人，設有個人隱私拉簾與閱讀燈，長途夜航首選。</p>
                 </div>
             </div>
 
@@ -238,9 +284,9 @@
             <div class="facility-card">
                 <div class="facility-img img-business"></div>
                 <div class="facility-info">
-                    <span class="tag">舒適座椅</span>
+                    <span class="tag">寬敞座椅</span>
                     <h3>商務座艙</h3>
-                    <p>配備可調式大寬椅與個人充電插座，適合需要辦公或想舒適入座的旅客。</p>
+                    <p>共 60 席。配備可調式寬敞座椅與個人電源插座，適合辦公與休息。</p>
                 </div>
             </div>
 
@@ -248,49 +294,46 @@
             <div class="facility-card">
                 <div class="facility-img img-economy"></div>
                 <div class="facility-info">
-                    <span class="tag">高 CP 值</span>
+                    <span class="tag">實惠首選</span>
                     <h3>經濟座艙</h3>
-                    <p>標準舒適座椅，船艙空間明亮，是短程航線最經濟實惠的選擇。</p>
+                    <p>共 240 席。寬敞的排椅空間，明亮的船艙環境，CP 值最高的選擇。</p>
                 </div>
             </div>
-        </div>
 
-        <div class="section-title">公共設施 (Public Space)</div>
-
-        <div class="facility-grid">
-            <!-- 大廳 -->
+            <!-- 公共設施 -->
             <div class="facility-card">
                 <div class="facility-img img-lobby"></div>
                 <div class="facility-info">
+                    <span class="tag">公共服務</span>
                     <h3>迎賓大廳 & 服務台</h3>
-                    <p>寬敞明亮的 2F/3F 大廳，提供諮詢服務、毛毯借用與航程資訊查詢。</p>
+                    <p>2F/3F 設有接待大廳，提供旅遊諮詢、毛毯租借與各項乘船服務。</p>
                 </div>
             </div>
 
-            <!-- 餐廳 -->
             <div class="facility-card">
                 <div class="facility-img img-restaurant"></div>
                 <div class="facility-info">
-                    <h3>餐廳 & 咖啡廳</h3>
-                    <p>供應現做簡餐、熱飲與各式零食，讓您在航行中也能享受美味。</p>
+                    <span class="tag">餐飲空間</span>
+                    <h3>景觀餐廳 & 咖啡廳</h3>
+                    <p>提供各式熱食、簡餐、冷熱飲與零食，讓旅途充滿美味驚喜。</p>
                 </div>
             </div>
 
-            <!-- 遊戲室 -->
             <div class="facility-card">
                 <div class="facility-img img-playroom"></div>
                 <div class="facility-info">
-                    <h3>兒童遊戲室</h3>
-                    <p>專為小朋友設計的安全遊戲空間，讓家長帶小孩出門也輕鬆自在。</p>
+                    <span class="tag">親子友善</span>
+                    <h3>親子室 & 遊樂間</h3>
+                    <p>專為孩童設計的安全遊玩空間，讓親子旅遊更加輕鬆自在。</p>
                 </div>
             </div>
 
-            <!-- 甲板 -->
             <div class="facility-card">
                 <div class="facility-img img-deck"></div>
                 <div class="facility-info">
-                    <h3>景觀甲板</h3>
-                    <p>站在甲板上遠眺台灣海峽的壯闊海景，吹著海風迎接美麗的日出或夕陽。</p>
+                    <span class="tag">絕美海景</span>
+                    <h3>室外休憩甲板</h3>
+                    <p>接近海平線與天際的開闊空間，是拍攝夕陽與感受海風的最佳地點。</p>
                 </div>
             </div>
         </div>
@@ -299,7 +342,7 @@
 
         <div class="footer">
             <p>© 2026 澎湖旅遊攻略 | 沐月民宿整理</p>
-            <p>※ 設施圖片僅供參考，以船上實際情況為準</p>
+            <p>資料來源：台灣航業公司 澎湖輪官網</p>
         </div>
     </div>
 
