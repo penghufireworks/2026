@@ -123,26 +123,46 @@
         .ship-card-block {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .ship-card {
             background: var(--white);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
+            border: 1px solid #ddd;
         }
 
         .ship-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
 
+        /* 艙等主圖與內容的分隔線 */
+        .ship-card img:first-child {
+            border-bottom: 2px solid #eee;
+        }
+
         .ship-card .content {
-            padding: 20px;
+            padding: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            flex-grow: 1;
+        }
+
+        /* 艙等內容與實景圖的分隔線 */
+        .ship-card .product-block {
+            padding: 15px;
+            background: #fafafa;
+            margin-bottom: 0;
+            grid-template-columns: 1fr 1fr;
+            display: grid;
+            gap: 10px;
+            border-top: 1px solid #eee;
         }
 
         .ship-card h3 {
@@ -179,28 +199,30 @@
         .landscape-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 25px; /* 增加間距 */
+            margin-bottom: 30px;
         }
         .landscape-item img {
             width: 100%;
             border-radius: 12px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #eee; /* 增加邊框 */
             display: block;
         }
 
         .product-block {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 30px;
         }
         .product-item img {
             width: 100%;
-            height: 120px;
+            height: 140px; /* 稍微增加高度 */
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #eee; /* 增加邊框 */
             display: block;
         }
 
