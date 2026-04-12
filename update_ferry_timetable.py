@@ -97,36 +97,35 @@ def fetch_timetable():
             
             # 構建 HTML
             month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
-            month_html += f'<h3 style="color: #0056b3; margin: 20px 0 10px; font-size: 1.1rem; border-bottom: 2px solid #0056b3; padding-bottom: 5px; display: inline-block;">{title}</h3>'
+            # 月份標題改為固定在上方 (考慮到頁面 header 約 65px)
+            month_html += f'<h3 style="color: #0056b3; margin: 20px 0 10px; font-size: 1.1rem; border-bottom: 2px solid #0056b3; padding-bottom: 5px; display: block; position: sticky; top: 65px; background: white; z-index: 99;">{title}</h3>'
             month_html += '<div style="overflow-x: auto;">'
             month_html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 300px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">'
             
             rows = table.find_all('tr')
             if rows:
-                # 處理表頭：有時第一行是跨欄的月份標題
+                # ... (前面邏輯不變) ...
                 start_row = 0
                 first_row_cols = rows[0].find_all(['th', 'td'])
                 if len(first_row_cols) == 1:
-                    # 第一行是標題，跳過它，使用第二行作為表頭
                     start_row = 1
                     headers = [th.get_text(strip=True) for th in rows[1].find_all(['th', 'td'])]
-                    # 如果第二行看起來也不像表頭 (太短)，則再往下一行
                     if len(headers) < 3 and len(rows) > 2:
                         start_row = 2
                         headers = [th.get_text(strip=True) for th in rows[2].find_all(['th', 'td'])]
                 else:
                     headers = [th.get_text(strip=True) for th in first_row_cols]
                 
-                # 生成表頭 HTML
-                month_html += '<tr style="background-color: #0056b3; color: white;">'
+                # 生成表頭 HTML，增加 sticky 效果 (位置在月份標題下方，約 65+40=105px)
+                month_html += '<thead><tr style="background-color: #0056b3; color: white; position: sticky; top: 105px; z-index: 98;">'
                 for h in headers:
-                    # 移除英文部分以簡化移動端顯示 (選做)
-                    # h = re.sub(r'[a-zA-Z\.\s/]+', '', h) 
                     month_html += f'<th style="border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;">{h}</th>'
-                month_html += '</tr>'
+                month_html += '</tr></thead>'
                 
                 # 數據行
+                month_html += '<tbody>'
                 for idx, row in enumerate(rows[start_row+1:]):
+                    # ... (後續數據行邏輯) ...
                     cols = row.find_all(['td', 'th'])
                     if len(cols) >= 3: # 日期, 星期, 高雄, 澎湖 (至少要3欄)
                         bg_color = "#f8f9fa" if idx % 2 == 0 else "#ffffff"
@@ -148,6 +147,7 @@ def fetch_timetable():
                             
                             month_html += f'<td style="{style}">{cell_text}</td>'
                         month_html += '</tr>'
+                month_html += '</tbody>'
             
             month_html += '</table></div></div>'
             month_data[month_val] = month_html
