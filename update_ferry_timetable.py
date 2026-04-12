@@ -1,18 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
-import datetime
-import os
 import re
+import os
+import datetime
 
-def fetch_timetable():
+def scrape_timetable():
     url = "https://tnc-kao.com.tw/schedule/timetable"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
     
     try:
         response = requests.get(url, headers=headers, timeout=15)
-        response.raise_for_status()
         response.encoding = 'utf-8'
         soup = BeautifulSoup(response.text, 'html.parser')
         
@@ -56,7 +55,7 @@ def fetch_timetable():
             if is_pdf_link:
                 continue
             
-            # 3. 提取月份 (支援 "4 月份船期表" 或 "115年4月船期表")
+            # 3. 提取月份
             month_match = re.search(r'(\d+)\s*月(份)?船期表', text)
             if not month_match:
                 continue
@@ -73,15 +72,10 @@ def fetch_timetable():
                 continue
                 
             # 4. 尋找對應的表格
-            # 檢查標題是否就在 table 裡面 (th/td)
             table = element.find_parent('table')
-            
             if not table:
-                # 如果不在 table 裡，才找下一個 table
                 table = parent.find_next('table')
-                
             if not table:
-                # 嘗試從更高等級的父節點找下一個 table
                 curr = parent
                 for _ in range(3):
                     if curr.parent:
@@ -97,14 +91,12 @@ def fetch_timetable():
             
             # 構建 HTML
             month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
-            # 月份標題改為固定在上方 (考慮到頁面 header 約 65px)
-            month_html += f'<h3 style="color: #0056b3; margin: 20px 0 10px; font-size: 1.1rem; border-bottom: 2px solid #0056b3; padding-bottom: 5px; display: block; position: sticky; top: 65px; background: white; z-index: 99;">{title}</h3>'
-            month_html += '<div style="overflow-x: auto;">'
+            month_html += f'<h3 class="sticky-month">{title}</h3>'
+            month_html += '<div class="table-container">'
             month_html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 300px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">'
             
             rows = table.find_all('tr')
             if rows:
-                # ... (前面邏輯不變) ...
                 start_row = 0
                 first_row_cols = rows[0].find_all(['th', 'td'])
                 if len(first_row_cols) == 1:
@@ -116,35 +108,30 @@ def fetch_timetable():
                 else:
                     headers = [th.get_text(strip=True) for th in first_row_cols]
                 
-                # 生成表頭 HTML，增加 sticky 效果 (位置在月份標題下方，約 65+40=105px)
-                month_html += '<thead><tr style="background-color: #0056b3; color: white; position: sticky; top: 105px; z-index: 98;">'
+                # 生成表頭 HTML
+                month_html += '<thead><tr style="background-color: #0056b3; color: white;">'
                 for h in headers:
-                    month_html += f'<th style="border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;">{h}</th>'
+                    h_simple = re.sub(r'[a-zA-Z\.\s/]+', '', h)
+                    month_html += f'<th style="border: 1px solid #dee2e6; padding: 12px 5px; text-align: center; white-space: nowrap;">{h_simple}</th>'
                 month_html += '</tr></thead>'
                 
                 # 數據行
                 month_html += '<tbody>'
                 for idx, row in enumerate(rows[start_row+1:]):
-                    # ... (後續數據行邏輯) ...
                     cols = row.find_all(['td', 'th'])
-                    if len(cols) >= 3: # 日期, 星期, 高雄, 澎湖 (至少要3欄)
+                    if len(cols) >= 3:
                         bg_color = "#f8f9fa" if idx % 2 == 0 else "#ffffff"
                         month_html += f'<tr style="background-color: {bg_color};">'
                         for i, col in enumerate(cols):
                             cell_text = col.get_text(strip=True)
                             style = "border: 1px solid #dee2e6; padding: 10px 5px; text-align: center;"
-                            
-                            # 星期顏色 (通常在第2欄，索引 1)
                             if i == 1: 
                                 if "日" in cell_text or "六" in cell_text:
                                     style += " color: #d9534f; font-weight: bold;"
-                            
-                            # 時間處理
                             if cell_text == "-" or not cell_text:
                                 cell_text = '<span style="color: #ccc;">-</span>'
                             elif "23:30" in cell_text:
                                 cell_text = f'<span style="color: #0056b3; font-weight: bold;">{cell_text} (夜航)</span>'
-                            
                             month_html += f'<td style="{style}">{cell_text}</td>'
                         month_html += '</tr>'
                 month_html += '</tbody>'
@@ -152,21 +139,12 @@ def fetch_timetable():
             month_html += '</table></div></div>'
             month_data[month_val] = month_html
             
-        # 按月份排序 (4, 5, 6)
         sorted_months = sorted(month_data.keys())
         for m in sorted_months:
             timetable_html += month_data[m]
-
-        
-        # 移除重複 (因為 div 層級可能重複抓到)
-        # 這裡簡單處理：如果同個月份已經抓過就不再加入
-        # 但上面的 logic 已經根據 month_val 過濾了
         
         if not found_any:
             return None, "找不到 4-6 月的航班資訊"
-            
-        # 整理順序，確保 4, 5, 6 月排序正確
-        # 略過，通常官網是照順序排的
             
         return timetable_html, None
         
@@ -174,7 +152,6 @@ def fetch_timetable():
         return None, str(e)
 
 def update_html(timetable_content):
-    # 決定路徑
     possible_paths = [
         "penghu_ferry_facilities.html",
         "2026ok/penghu_ferry_facilities.html",
@@ -194,7 +171,6 @@ def update_html(timetable_content):
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
         
-    # 更新時刻表內容
     start_marker = '<!-- ferry-timetable-start -->'
     end_marker = '<!-- ferry-timetable-end -->'
     pattern = re.escape(start_marker) + r'.*?' + re.escape(end_marker)
@@ -204,14 +180,11 @@ def update_html(timetable_content):
     if start_marker in content and end_marker in content:
         updated_content = re.sub(pattern, new_content_block, content, flags=re.DOTALL)
     else:
-        # 如果找不到 marker，則退回到舊的 ID 替換方式，但要更精確
         start_tag = '<div id="ferry-timetable">'
-        # 這裡我們不找 </div>，而是找下一個明顯的標籤或段落
         pattern = re.escape(start_tag) + r'.*?(?=<p style="font-size: 0\.8rem)'
         new_timetable_div = f'{start_tag}\n{start_marker}\n{timetable_content}\n{end_marker}\n</div>\n'
         updated_content = re.sub(pattern, new_timetable_div, content, flags=re.DOTALL)
     
-    # 更新時間 (台灣時間 UTC+8)
     utc_now = datetime.datetime.utcnow()
     tw_now = utc_now + datetime.timedelta(hours=8)
     now_str = tw_now.strftime("%Y-%m-%d %H:%M:%S")
@@ -223,16 +196,14 @@ def update_html(timetable_content):
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(updated_content)
     
-    print(f"成功更新航班表，時間: {now_str}")
     return True
 
 if __name__ == "__main__":
-    print("開始抓取航班表...")
-    timetable, error = fetch_timetable()
-    if timetable:
-        if update_html(timetable):
-            print("更新完成")
-        else:
-            print("更新 HTML 失敗")
-    else:
+    content, error = scrape_timetable()
+    if error:
         print(f"抓取失敗: {error}")
+    else:
+        if update_html(content):
+            print("時刻表更新成功！")
+        else:
+            print("HTML 更新失敗。")
