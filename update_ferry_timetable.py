@@ -91,6 +91,7 @@ def scrape_timetable():
             
             # 構建 HTML
             month_html = f'<div class="month-section" style="margin-bottom: 30px;">'
+            # 移除 sticky-month 類別相關的固定邏輯，僅保留樣式類別
             month_html += f'<h3 class="sticky-month">{title}</h3>'
             month_html += '<div class="table-container">'
             month_html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 300px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">'
